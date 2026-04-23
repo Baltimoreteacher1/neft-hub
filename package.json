@@ -3,6 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "process:lesson-source": "node scripts/process-lesson-source.mjs",
     "publish:notebook": "node scripts/publish-notebook.mjs"
   }
 }
