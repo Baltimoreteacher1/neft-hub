@@ -30,10 +30,13 @@ const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), ".."
 const docsDir = path.join(repoRoot, "docs");
 const latestPath = path.join(docsDir, "latest", "index.html");
 const archiveRoot = path.join(docsDir, "archive");
-const incomingDir = path.join(repoRoot, "incoming");
+const inputSearchDirs = [
+  path.join(repoRoot, "html-incoming"),
+  path.join(repoRoot, "incoming")
+];
 const inputPath = inputArg
   ? path.resolve(repoRoot, inputArg)
-  : await findNewestIncomingHtml(incomingDir);
+  : await findNewestIncomingHtml(inputSearchDirs);
 
 await ensureDirectory(path.dirname(latestPath));
 await ensureDirectory(archiveRoot);
@@ -124,32 +127,34 @@ async function readIfExists(targetPath) {
   }
 }
 
-async function findNewestIncomingHtml(directoryPath) {
-  const entries = await fs.readdir(directoryPath, { withFileTypes: true }).catch((error) => {
-    if (error && typeof error === "object" && "code" in error && error.code === "ENOENT") {
-      fail(`Incoming directory does not exist: ${directoryPath}`);
+async function findNewestIncomingHtml(directoryPaths) {
+  for (const directoryPath of directoryPaths) {
+    const entries = await fs.readdir(directoryPath, { withFileTypes: true }).catch((error) => {
+      if (error && typeof error === "object" && "code" in error && error.code === "ENOENT") {
+        return [];
+      }
+
+      throw error;
+    });
+
+    const htmlFiles = await Promise.all(entries
+      .filter((entry) => entry.isFile() && entry.name.toLowerCase().endsWith(".html"))
+      .map(async (entry) => {
+        const fullPath = path.join(directoryPath, entry.name);
+        const stat = await fs.stat(fullPath);
+        return {
+          fullPath,
+          modifiedMs: stat.mtimeMs
+        };
+      }));
+
+    if (htmlFiles.length > 0) {
+      htmlFiles.sort((left, right) => right.modifiedMs - left.modifiedMs || left.fullPath.localeCompare(right.fullPath));
+      return htmlFiles[0].fullPath;
     }
-
-    throw error;
-  });
-
-  const htmlFiles = await Promise.all(entries
-    .filter((entry) => entry.isFile() && entry.name.toLowerCase().endsWith(".html"))
-    .map(async (entry) => {
-      const fullPath = path.join(directoryPath, entry.name);
-      const stat = await fs.stat(fullPath);
-      return {
-        fullPath,
-        modifiedMs: stat.mtimeMs
-      };
-    }));
-
-  if (htmlFiles.length === 0) {
-    fail(`No HTML files were found in ${directoryPath}`);
   }
 
-  htmlFiles.sort((left, right) => right.modifiedMs - left.modifiedMs || left.fullPath.localeCompare(right.fullPath));
-  return htmlFiles[0].fullPath;
+  fail(`No HTML files were found in ${directoryPaths.join(" or ")}`);
 }
 
 function isRealNotebook(html) {
