@@ -11,10 +11,16 @@ This repository powers a GitHub Pages site for daily HTML student notebooks and 
 
 ## Add a new notebook
 1. Drop the new single-file HTML notebook into `/incoming/`.
-2. Run the publish command with the file path and the publish date.
+2. Run the publish command with just the publish date, or include a file path if you want a specific file.
 3. Open a PR with the generated changes.
 
-Exact command:
+Shortest daily command:
+
+```bash
+npm run publish:notebook -- 2026-04-23
+```
+
+Exact command with an explicit file path:
 
 ```bash
 npm run publish:notebook -- incoming/your-notebook.html 2026-04-23
@@ -24,7 +30,13 @@ npm run publish:notebook -- incoming/your-notebook.html 2026-04-23
 1. Upload the lesson slides to Codex.
 2. Ask Codex to build a premium single-file HTML lesson experience from the slides.
 3. Have Codex save the finished HTML file into `/incoming/`.
-4. Publish it with the same command:
+4. Publish it with the same command. The shortest version uses the newest HTML file in `/incoming/` automatically:
+
+```bash
+npm run publish:notebook -- 2026-04-23
+```
+
+Or use an explicit path:
 
 ```bash
 npm run publish:notebook -- incoming/your-lesson.html 2026-04-23
