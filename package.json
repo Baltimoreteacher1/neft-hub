@@ -1,0 +1,15 @@
+{
+  "name": "neft-teacher-cloudflare-hub",
+  "version": "1.0.0",
+  "private": true,
+  "description": "One Cloudflare Pages project that collects multiple static classroom apps under /apps/ routes.",
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build-cloudflare-hub.mjs",
+    "check": "node scripts/build-cloudflare-hub.mjs --check",
+    "preview": "npx wrangler pages dev dist"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
