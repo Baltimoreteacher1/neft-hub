@@ -1,17 +1,23 @@
 const searchBox = document.querySelector('#searchBox');
 const categoryFilter = document.querySelector('#categoryFilter');
 const cards = Array.from(document.querySelectorAll('.app-card'));
+const groups = Array.from(document.querySelectorAll('.app-group'));
 
 function filterCards() {
   const query = (searchBox?.value || '').trim().toLowerCase();
-  const category = categoryFilter?.value || 'all';
+  const selectedGroup = categoryFilter?.value || 'all';
 
   cards.forEach((card) => {
     const searchable = card.dataset.title || card.textContent.toLowerCase();
-    const cardCategory = card.dataset.category || '';
+    const cardGroup = card.dataset.group || '';
     const matchesQuery = !query || searchable.includes(query);
-    const matchesCategory = category === 'all' || cardCategory === category;
-    card.hidden = !(matchesQuery && matchesCategory);
+    const matchesGroup = selectedGroup === 'all' || cardGroup === selectedGroup;
+    card.hidden = !(matchesQuery && matchesGroup);
+  });
+
+  groups.forEach((group) => {
+    const groupCards = Array.from(group.querySelectorAll('.app-card'));
+    group.hidden = groupCards.every((card) => card.hidden);
   });
 }
 

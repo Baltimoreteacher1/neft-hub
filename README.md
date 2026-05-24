@@ -26,6 +26,8 @@ The build script reads `app-registry.json`, clones each listed public GitHub rep
 /apps/<slug>/
 ```
 
+The home page and `/apps/` index are grouped by each app's `group` and sorted by `groupOrder`. Math apps should use unit folders, such as `Unit 4 · Decimal Operations`, while non-math apps should use clear folder categories, such as `Hebrew / Family Practice`.
+
 Example final URLs after Cloudflare deployment:
 
 ```text
@@ -43,8 +45,10 @@ https://<your-cloudflare-project>.pages.dev/apps/interactive-area-mission/
 2. Open `app-registry.json`.
 3. Add a new object to the `apps` array.
 4. Give it a clean lowercase hyphenated slug.
-5. Commit to `main`.
-6. Cloudflare will rebuild the hub and add the app under `/apps/<slug>/`.
+5. Set `group` to the unit or folder where the app belongs.
+6. Set `groupOrder` so folders sort in the desired order.
+7. Commit to `main`.
+8. Cloudflare will rebuild the hub and add the app under `/apps/<slug>/`.
 
 Template:
 
@@ -54,6 +58,8 @@ Template:
   "slug": "new-app-title",
   "repo": "Baltimoreteacher1/source-repo-name",
   "category": "Math · Grade 6",
+  "group": "Unit 5 · Geometry and Measurement",
+  "groupOrder": 50,
   "audience": "Students",
   "description": "One sentence description of what the app does.",
   "tags": ["tag one", "tag two"]

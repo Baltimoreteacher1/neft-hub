@@ -10,6 +10,8 @@
       "slug": "hebrew-reading-practice",
       "repo": "Baltimoreteacher1/Noamhebrewreview",
       "category": "Hebrew / Family Practice",
+      "group": "Hebrew / Family Practice",
+      "groupOrder": 90,
       "audience": "Family / Student",
       "description": "High-engagement Hebrew reading and vocabulary practice for Noam, organized as a reusable learning app.",
       "tags": ["Hebrew", "reading", "vocabulary", "family"]
@@ -19,6 +21,8 @@
       "slug": "volume-rectangular-prisms",
       "repo": "Baltimoreteacher1/VolumeofRectangularPrism",
       "category": "Math · Grade 6",
+      "group": "Unit 5 · Geometry and Measurement",
+      "groupOrder": 50,
       "audience": "Students",
       "description": "Interactive volume practice for rectangular prisms with student-friendly visuals and practice routines.",
       "tags": ["6.G", "volume", "rectangular prisms"]
@@ -28,6 +32,8 @@
       "slug": "interactive-area-mission",
       "repo": "Baltimoreteacher1/InteractiveAreaMission",
       "category": "Math · Area",
+      "group": "Unit 5 · Geometry and Measurement",
+      "groupOrder": 50,
       "audience": "Students",
       "description": "A visual area mission for polygons, formulas, and applied geometry practice.",
       "tags": ["area", "geometry", "mission"]
@@ -37,6 +43,8 @@
       "slug": "grade-6-area-5-1-5-2",
       "repo": "Baltimoreteacher1/Grade6Area5.1-2",
       "category": "Math · Area",
+      "group": "Unit 5 · Geometry and Measurement",
+      "groupOrder": 50,
       "audience": "Students",
       "description": "Area lesson support and practice for Grade 6 Unit 5.1–5.2.",
       "tags": ["area", "Grade 6", "5.1", "5.2"]
@@ -46,6 +54,8 @@
       "slug": "grade-6-area-language-support",
       "repo": "Baltimoreteacher1/Grade6Area5.1-2Language",
       "category": "Math · ESOL Support",
+      "group": "Unit 5 · Geometry and Measurement",
+      "groupOrder": 50,
       "audience": "Students",
       "description": "Language-supported version of Grade 6 area practice for multilingual learners.",
       "tags": ["ESOL", "area", "language supports"]
@@ -55,6 +65,8 @@
       "slug": "parallelogram-rhombus-game",
       "repo": "Baltimoreteacher1/ParallelogramandRhombusGame",
       "category": "Math · Area",
+      "group": "Unit 5 · Geometry and Measurement",
+      "groupOrder": 50,
       "audience": "Students",
       "description": "Interactive practice for parallelogram and rhombus area reasoning.",
       "tags": ["parallelogram", "rhombus", "area"]
@@ -64,6 +76,8 @@
       "slug": "6-ee-c-9-review-activities",
       "repo": "Baltimoreteacher1/6.EE.C.9ReviewActivities",
       "category": "Math · Expressions & Equations",
+      "group": "Expressions & Equations",
+      "groupOrder": 70,
       "audience": "Students",
       "description": "Review activities for independent/dependent variables and equation relationships.",
       "tags": ["6.EE.C.9", "variables", "relationships"]
@@ -73,6 +87,8 @@
       "slug": "6-ee-c-9-game",
       "repo": "Baltimoreteacher1/6.EE.C.9Game",
       "category": "Math · Expressions & Equations",
+      "group": "Expressions & Equations",
+      "groupOrder": 70,
       "audience": "Students",
       "description": "Game-based practice for 6.EE.C.9 function and relationship thinking.",
       "tags": ["6.EE.C.9", "game", "functions"]
@@ -82,6 +98,8 @@
       "slug": "variable-explorer-esol",
       "repo": "Baltimoreteacher1/VariableExplorerESOL",
       "category": "Math · ESOL Support",
+      "group": "Expressions & Equations",
+      "groupOrder": 70,
       "audience": "Students",
       "description": "ESOL-accessible variable exploration and relationship practice.",
       "tags": ["ESOL", "variables", "6.EE.C.9"]
@@ -91,6 +109,8 @@
       "slug": "variable-explorer",
       "repo": "Baltimoreteacher1/VariableExplorer1",
       "category": "Math · Expressions & Equations",
+      "group": "Expressions & Equations",
+      "groupOrder": 70,
       "audience": "Students",
       "description": "Interactive variable exploration for understanding input/output relationships.",
       "tags": ["variables", "tables", "relationships"]
@@ -100,6 +120,8 @@
       "slug": "data-detective-game",
       "repo": "Baltimoreteacher1/6.SP.B.5_Data_Detective_Game.html",
       "category": "Math · Statistics",
+      "group": "Statistics & Data",
+      "groupOrder": 80,
       "audience": "Students",
       "description": "Statistics practice through a data detective game format.",
       "tags": ["statistics", "6.SP.B.5", "data"]
@@ -109,6 +131,8 @@
       "slug": "6-sp-b-5-interactive-review",
       "repo": "Baltimoreteacher1/6.SP.B.5_Interactive_Review.html",
       "category": "Math · Statistics",
+      "group": "Statistics & Data",
+      "groupOrder": 80,
       "audience": "Students",
       "description": "Interactive review for summarizing and describing distributions.",
       "tags": ["6.SP.B.5", "statistics", "review"]
@@ -118,6 +142,8 @@
       "slug": "decimal-operations-review",
       "repo": "Baltimoreteacher1/Decimaloperationsreview",
       "category": "Math · Number System",
+      "group": "Unit 4 · Decimal Operations",
+      "groupOrder": 40,
       "audience": "Students",
       "description": "Interactive decimal operations review and practice.",
       "tags": ["decimals", "operations", "review"]
@@ -127,6 +153,8 @@
       "slug": "long-division-mcap-review",
       "repo": "Baltimoreteacher1/Longdivisionmcapreview",
       "category": "Math · Number System",
+      "group": "Unit 4 · Decimal Operations",
+      "groupOrder": 40,
       "audience": "Students",
       "description": "Long division review built for MCAP-style preparation.",
       "tags": ["division", "MCAP", "review"]
@@ -136,6 +164,8 @@
       "slug": "math-unit-4-study-studio",
       "repo": "Baltimoreteacher1/Math6Unit4InteractiveStudyStudio",
       "category": "Math · Review Studio",
+      "group": "Unit 4 · Decimal Operations",
+      "groupOrder": 40,
       "audience": "Students",
       "description": "Interactive study studio for Grade 6 Unit 4 review.",
       "tags": ["Unit 4", "study", "review"]

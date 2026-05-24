@@ -59,6 +59,37 @@ function escapeHtml(value) {
     .replaceAll('"', "&quot;");
 }
 
+function appGroup(app) {
+  return app.group || app.category || "Other";
+}
+
+function appGroupOrder(app) {
+  const order = Number(app.groupOrder);
+  return Number.isFinite(order) ? order : 999;
+}
+
+function sortApps(apps) {
+  return [...apps].sort((a, b) =>
+    appGroupOrder(a) - appGroupOrder(b) ||
+    appGroup(a).localeCompare(appGroup(b)) ||
+    a.title.localeCompare(b.title)
+  );
+}
+
+function groupApps(registry) {
+  const groups = new Map();
+
+  for (const app of sortApps(registry.apps)) {
+    const name = appGroup(app);
+    if (!groups.has(name)) {
+      groups.set(name, { name, order: appGroupOrder(app), apps: [] });
+    }
+    groups.get(name).apps.push(app);
+  }
+
+  return [...groups.values()].sort((a, b) => a.order - b.order || a.name.localeCompare(b.name));
+}
+
 function detectStaticSource(repoDir) {
   const htmlCandidates = ["index.html", "Index.html", "app.html"];
   for (const candidate of htmlCandidates) {
@@ -104,12 +135,22 @@ function cloneOrUpdate(repoFullName) {
 }
 
 function generateHome(registry, copiedApps) {
-  const categories = [...new Set(registry.apps.map((app) => app.category))].sort();
-  const appCards = registry.apps.map((app) => {
+  const groups = groupApps(registry);
+
+  function renderAppCard(app) {
     const status = copiedApps.has(app.slug) ? "Ready" : "Check source";
     const tags = (app.tags || []).map((tag) => `<span>${escapeHtml(tag)}</span>`).join("");
+    const searchable = [
+      app.title,
+      app.description,
+      app.category,
+      appGroup(app),
+      app.audience,
+      ...(app.tags || [])
+    ].filter(Boolean).join(" ").toLowerCase();
+
     return `
-      <article class="app-card" data-title="${escapeHtml(`${app.title} ${app.description} ${(app.tags || []).join(" ")}`.toLowerCase())}" data-category="${escapeHtml(app.category)}">
+      <article class="app-card" data-title="${escapeHtml(searchable)}" data-category="${escapeHtml(app.category)}" data-group="${escapeHtml(appGroup(app))}">
         <div class="app-card__topline">
           <span class="pill">${escapeHtml(app.category)}</span>
           <span class="status">${status}</span>
@@ -119,9 +160,23 @@ function generateHome(registry, copiedApps) {
         <div class="tag-row">${tags}</div>
         <a class="button button-card" href="${appUrl(app.slug)}">Launch App</a>
       </article>`;
-  }).join("\n");
+  }
 
-  const categoryOptions = categories.map((category) => `<option value="${escapeHtml(category)}">${escapeHtml(category)}</option>`).join("\n");
+  const appGroups = groups.map((group) => `
+    <section class="app-group" data-group="${escapeHtml(group.name)}">
+      <div class="app-group__heading">
+        <div>
+          <p class="group-kicker">Folder</p>
+          <h3>${escapeHtml(group.name)}</h3>
+        </div>
+        <span class="group-count">${group.apps.length} ${group.apps.length === 1 ? "app" : "apps"}</span>
+      </div>
+      <div class="app-grid">
+        ${group.apps.map(renderAppCard).join("\n")}
+      </div>
+    </section>`).join("\n");
+
+  const groupOptions = groups.map((group) => `<option value="${escapeHtml(group.name)}">${escapeHtml(group.name)}</option>`).join("\n");
 
   return `<!doctype html>
 <html lang="en">
@@ -163,16 +218,16 @@ function generateHome(registry, copiedApps) {
       <div class="toolbar-controls">
         <label for="searchBox">Search</label>
         <input id="searchBox" type="search" placeholder="Search apps..." />
-        <label for="categoryFilter">Category</label>
+        <label for="categoryFilter">Unit / Folder</label>
         <select id="categoryFilter">
-          <option value="all">All categories</option>
-          ${categoryOptions}
+          <option value="all">All folders</option>
+          ${groupOptions}
         </select>
       </div>
     </section>
 
-    <section id="apps" class="app-grid" aria-label="Apps">
-      ${appCards}
+    <section id="apps" class="app-library" aria-label="Apps">
+      ${appGroups}
     </section>
 
     <section class="info-card">
@@ -193,8 +248,11 @@ function generateHome(registry, copiedApps) {
 }
 
 function generateAppsIndex(registry, copiedApps) {
-  const links = registry.apps.map((app) => `<li><a href="${appUrl(app.slug)}">${escapeHtml(app.title)}</a> <span>${copiedApps.has(app.slug) ? "Ready" : "Check source"}</span></li>`).join("\n");
-  return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Apps · Neft Teacher</title><link rel="stylesheet" href="/assets/neft-cloudflare-hub.css"></head><body><main class="simple-page"><a class="button button-ghost-dark" href="/">Back to Library</a><h1>Apps Folder Index</h1><p>Every item below is served from this single Cloudflare Pages project.</p><ul class="folder-list">${links}</ul></main></body></html>`;
+  const sections = groupApps(registry).map((group) => {
+    const links = group.apps.map((app) => `<li><a href="${appUrl(app.slug)}">${escapeHtml(app.title)}</a> <span>${copiedApps.has(app.slug) ? "Ready" : "Check source"}</span></li>`).join("\n");
+    return `<section class="folder-group"><h2>${escapeHtml(group.name)}</h2><ul class="folder-list">${links}</ul></section>`;
+  }).join("\n");
+  return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Apps · Neft Teacher</title><link rel="stylesheet" href="/assets/neft-cloudflare-hub.css"></head><body><main class="simple-page"><a class="button button-ghost-dark" href="/">Back to Library</a><h1>Apps Folder Index</h1><p>Every item below is served from this single Cloudflare Pages project.</p><div class="folder-index">${sections}</div></main></body></html>`;
 }
 
 function generateMissingApp(app) {
@@ -212,7 +270,8 @@ function main() {
     console.log(`Registry contains ${registry.apps.length} apps.`);
     const slugs = new Set();
     for (const app of registry.apps) {
-      if (!app.title || !app.slug || !app.repo) throw new Error(`Invalid app entry: ${JSON.stringify(app)}`);
+      if (!app.title || !app.slug || !app.repo || !app.category || !app.group) throw new Error(`Invalid app entry: ${JSON.stringify(app)}`);
+      if (!Number.isFinite(Number(app.groupOrder))) throw new Error(`Invalid groupOrder for ${app.slug}`);
       if (slugs.has(app.slug)) throw new Error(`Duplicate slug: ${app.slug}`);
       slugs.add(app.slug);
     }
