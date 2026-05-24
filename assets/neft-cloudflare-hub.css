@@ -124,7 +124,7 @@ h1 {
 .info-card p { margin: 0; color: var(--muted); }
 .toolbar-controls {
   display: grid;
-  grid-template-columns: 1fr 210px;
+  grid-template-columns: 1fr 250px;
   gap: 8px 12px;
 }
 .toolbar-controls label {
@@ -142,6 +142,52 @@ input, select {
   font-weight: 700;
   background: white;
   color: var(--ink);
+}
+.app-library {
+  display: grid;
+  gap: 28px;
+  margin-top: 22px;
+}
+.app-group {
+  display: grid;
+  gap: 14px;
+}
+.app-group[hidden] {
+  display: none;
+}
+.app-group__heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 16px;
+  padding: 0 4px 10px;
+  border-bottom: 2px solid rgba(16, 42, 67, 0.12);
+}
+.app-group__heading h3 {
+  margin: 0;
+  color: var(--navy);
+  font-size: 1.7rem;
+  line-height: 1.05;
+}
+.group-kicker {
+  margin: 0 0 6px;
+  color: var(--teal-dark);
+  font-size: 0.78rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+.group-count {
+  flex: 0 0 auto;
+  width: fit-content;
+  padding: 7px 10px;
+  border-radius: 999px;
+  background: var(--sage);
+  color: var(--navy);
+  font-size: 0.88rem;
+  font-weight: 900;
+}
+.app-group .app-grid {
+  margin-top: 0;
 }
 .app-grid {
   display: grid;
@@ -221,6 +267,20 @@ input, select {
 .settings-grid strong,
 .settings-grid span { display: block; }
 .settings-grid strong { color: var(--navy); margin-bottom: 6px; }
+.folder-index {
+  display: grid;
+  gap: 22px;
+  margin-top: 22px;
+}
+.folder-group {
+  display: grid;
+  gap: 10px;
+}
+.folder-group h2 {
+  margin: 0;
+  color: var(--navy);
+  font-size: 1.45rem;
+}
 .folder-list {
   display: grid;
   gap: 10px;
@@ -249,6 +309,10 @@ input, select {
   .toolbar-controls,
   .app-grid,
   .settings-grid { grid-template-columns: 1fr; }
+  .app-group__heading {
+    align-items: start;
+    flex-direction: column;
+  }
   .hero, .page-shell, .simple-page, .site-footer { width: min(100% - 22px, 1180px); }
   .hero { padding: 22px; border-radius: 24px; }
 }
