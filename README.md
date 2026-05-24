@@ -2,7 +2,7 @@
 
 This repository is now configured as a **single Cloudflare Pages project** that can host many classroom apps under clean `/apps/<app-slug>/` routes.
 
-Instead of creating one Cloudflare Pages project for every HTML activity, this hub pulls selected public GitHub app repositories during the build and publishes them together from the `dist` folder.
+Instead of creating one Cloudflare Pages project for every HTML activity, this hub pulls selected public GitHub app repositories and local bundled activity folders during the build, then publishes them together from the `dist` folder.
 
 ## Cloudflare Pages settings
 
@@ -20,7 +20,7 @@ Use these settings when connecting this repo to Cloudflare Pages:
 
 ## What gets built
 
-The build script reads `app-registry.json`, clones each listed public GitHub repo, and publishes each app to:
+The build script reads `app-registry.json`, clones each listed public GitHub repo or copies each listed local folder, and publishes each app to:
 
 ```text
 /apps/<slug>/
@@ -42,6 +42,7 @@ https://<your-cloudflare-project>.pages.dev/apps/interactive-area-mission/
 1. Make sure the source app repo is public and has either:
    - a root `index.html`, or
    - a working `package.json` with a `build` script that produces `dist/index.html` or `build/index.html`.
+   For a local bundled folder, place it under `assignments/<folder>/` with its own `index.html` and use a `repo` value like `./assignments/<folder>`.
 2. Open `app-registry.json`.
 3. Add a new object to the `apps` array.
 4. Give it a clean lowercase hyphenated slug.

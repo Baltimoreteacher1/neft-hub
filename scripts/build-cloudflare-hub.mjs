@@ -134,6 +134,20 @@ function cloneOrUpdate(repoFullName) {
   return repoDir;
 }
 
+function isLocalSource(repoRef) {
+  return repoRef.startsWith(".") || path.isAbsolute(repoRef);
+}
+
+function resolveSourceRepo(repoRef) {
+  if (!isLocalSource(repoRef)) return cloneOrUpdate(repoRef);
+
+  const sourcePath = path.resolve(ROOT, repoRef);
+  if (!fs.existsSync(sourcePath)) {
+    throw new Error(`Local source path not found: ${repoRef}`);
+  }
+  return sourcePath;
+}
+
 function generateHome(registry, copiedApps) {
   const groups = groupApps(registry);
 
@@ -272,6 +286,7 @@ function main() {
     for (const app of registry.apps) {
       if (!app.title || !app.slug || !app.repo || !app.category || !app.group) throw new Error(`Invalid app entry: ${JSON.stringify(app)}`);
       if (!Number.isFinite(Number(app.groupOrder))) throw new Error(`Invalid groupOrder for ${app.slug}`);
+      if (isLocalSource(app.repo) && !fs.existsSync(path.resolve(ROOT, app.repo))) throw new Error(`Local source path does not exist for ${app.slug}: ${app.repo}`);
       if (slugs.has(app.slug)) throw new Error(`Duplicate slug: ${app.slug}`);
       slugs.add(app.slug);
     }
@@ -287,7 +302,7 @@ function main() {
     const target = path.join(DIST, "apps", app.slug);
     cleanDir(target);
     try {
-      const repoDir = cloneOrUpdate(app.repo);
+      const repoDir = resolveSourceRepo(app.repo);
       const buildSource = buildNpmApp(repoDir) || detectStaticSource(repoDir);
       if (!buildSource) throw new Error("No static index.html or npm build output found.");
       copyDir(buildSource, target);

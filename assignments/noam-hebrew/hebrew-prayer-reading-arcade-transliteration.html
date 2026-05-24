@@ -1,0 +1,4736 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hebrew Prayer Reading Arcade — Reading-Only Practice</title>
+    <style>
+      :root {
+        --bg: #f3f7fb;
+        --card: #ffffff;
+        --ink: #14213d;
+        --muted: #64748b;
+        --navy: #0f2547;
+        --blue: #2563eb;
+        --teal: #0f9f8f;
+        --gold: #f5b93f;
+        --orange: #f97316;
+        --green: #16a34a;
+        --rose: #e11d48;
+        --purple: #6d5dfc;
+        --cream: #fff8e8;
+        --sky: #eaf3ff;
+        --mint: #e9fbf6;
+        --line: #dbe5f0;
+        --shadow: 0 18px 50px rgba(15, 37, 71, 0.14);
+        --soft: 0 10px 26px rgba(15, 37, 71, 0.1);
+        --radius: 24px;
+        --hebrew: Arial, "Noto Sans Hebrew", "SBL Hebrew", sans-serif;
+        --ui:
+          Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+          "Segoe UI", Arial, sans-serif;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background:
+          radial-gradient(
+            circle at 8% 0%,
+            rgba(37, 99, 235, 0.12),
+            transparent 30%
+          ),
+          radial-gradient(
+            circle at 82% 4%,
+            rgba(15, 159, 143, 0.15),
+            transparent 32%
+          ),
+          linear-gradient(180deg, #fbfdff 0%, var(--bg) 62%, #edf5f2 100%);
+        color: var(--ink);
+        font-family: var(--ui);
+      }
+      button,
+      input,
+      select {
+        font: inherit;
+      }
+      button {
+        cursor: pointer;
+      }
+      .app {
+        max-width: 1420px;
+        margin: 0 auto;
+        padding: 18px 16px 44px;
+      }
+      .hero {
+        border-radius: 34px;
+        background:
+          linear-gradient(
+            135deg,
+            rgba(15, 37, 71, 0.98),
+            rgba(34, 78, 142, 0.94)
+          ),
+          radial-gradient(
+            circle at top right,
+            rgba(245, 185, 63, 0.35),
+            transparent 34%
+          );
+        color: #fff;
+        padding: 26px;
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr;
+        gap: 18px;
+        box-shadow: var(--shadow);
+        overflow: hidden;
+        position: relative;
+      }
+      .hero:after {
+        content: "";
+        position: absolute;
+        right: -80px;
+        bottom: -120px;
+        width: 360px;
+        height: 360px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.08);
+      }
+      .hero h1 {
+        margin: 0 0 8px;
+        font-size: clamp(2.1rem, 4.5vw, 4.6rem);
+        line-height: 0.92;
+        letter-spacing: -0.06em;
+      }
+      .hero p {
+        margin: 0;
+        color: rgba(255, 255, 255, 0.82);
+        font-size: 1.08rem;
+        line-height: 1.55;
+        max-width: 900px;
+      }
+      .badges {
+        display: flex;
+        gap: 9px;
+        flex-wrap: wrap;
+        margin-top: 16px;
+      }
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        padding: 9px 12px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.12);
+        border: 1px solid rgba(255, 255, 255, 0.22);
+        font-weight: 900;
+        white-space: nowrap;
+      }
+      .status {
+        position: relative;
+        z-index: 1;
+        background: rgba(255, 255, 255, 0.12);
+        border: 1px solid rgba(255, 255, 255, 0.22);
+        border-radius: 28px;
+        padding: 16px;
+        backdrop-filter: blur(10px);
+      }
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+      }
+      .stat {
+        border-radius: 18px;
+        padding: 12px;
+        background: rgba(255, 255, 255, 0.12);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        text-align: center;
+      }
+      .stat strong {
+        display: block;
+        font-size: 1.55rem;
+      }
+      .stat span {
+        display: block;
+        font-size: 0.75rem;
+        color: rgba(255, 255, 255, 0.78);
+        font-weight: 900;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+      }
+      .tabs {
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        display: flex;
+        gap: 8px;
+        overflow: auto;
+        margin: 16px 0;
+        padding: 8px;
+        border-radius: 24px;
+        background: rgba(245, 248, 252, 0.92);
+        border: 1px solid rgba(219, 229, 240, 0.8);
+        backdrop-filter: blur(12px);
+        box-shadow: 0 8px 24px rgba(15, 37, 71, 0.08);
+      }
+      .tab {
+        border: 0;
+        background: transparent;
+        color: #334155;
+        border-radius: 17px;
+        padding: 11px 13px;
+        font-weight: 950;
+        white-space: nowrap;
+      }
+      .tab.active {
+        background: #fff;
+        color: var(--navy);
+        box-shadow: 0 8px 18px rgba(15, 37, 71, 0.1);
+      }
+      .view {
+        display: none;
+        animation: fade 0.18s ease;
+      }
+      .view.active {
+        display: block;
+      }
+      @keyframes fade {
+        from {
+          opacity: 0.5;
+          transform: translateY(4px);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+      .head {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        gap: 14px;
+        margin: 20px 0 14px;
+      }
+      .head h2 {
+        font-size: clamp(1.55rem, 2.8vw, 2.45rem);
+        margin: 0;
+        letter-spacing: -0.04em;
+      }
+      .head p {
+        margin: 5px 0 0;
+        color: var(--muted);
+        line-height: 1.45;
+        max-width: 820px;
+      }
+      .toolbar {
+        display: flex;
+        gap: 9px;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+      .select,
+      .input {
+        border: 1px solid var(--line);
+        background: #fff;
+        color: var(--ink);
+        border-radius: 14px;
+        padding: 11px 12px;
+        font-weight: 900;
+        min-height: 44px;
+      }
+      .btn {
+        border: 0;
+        border-radius: 15px;
+        min-height: 44px;
+        padding: 11px 14px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        background: var(--navy);
+        color: #fff;
+        font-weight: 950;
+        box-shadow: 0 8px 17px rgba(15, 37, 71, 0.16);
+        transition: 0.12s ease;
+      }
+      .btn:hover {
+        transform: translateY(-1px);
+        filter: brightness(1.03);
+      }
+      .btn.small {
+        min-height: 36px;
+        padding: 8px 10px;
+        border-radius: 12px;
+        font-size: 0.9rem;
+      }
+      .btn.blue {
+        background: var(--blue);
+      }
+      .btn.teal {
+        background: var(--teal);
+      }
+      .btn.gold {
+        background: linear-gradient(135deg, #f5b93f, #ffd47b);
+        color: #2d1b04;
+      }
+      .btn.green {
+        background: var(--green);
+      }
+      .btn.rose {
+        background: var(--rose);
+      }
+      .btn.purple {
+        background: var(--purple);
+      }
+      .btn.secondary {
+        background: #fff;
+        color: var(--navy);
+        border: 1px solid var(--line);
+        box-shadow: none;
+      }
+      .btn.ghost {
+        background: transparent;
+        color: var(--navy);
+        border: 1px solid var(--line);
+        box-shadow: none;
+      }
+      .grid {
+        display: grid;
+        gap: 15px;
+      }
+      .grid.two {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .grid.three {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+      .grid.four {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+      .card {
+        background: rgba(255, 255, 255, 0.92);
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        padding: 18px;
+        box-shadow: var(--soft);
+      }
+      .card h3 {
+        margin: 0 0 7px;
+        font-size: 1.22rem;
+        letter-spacing: -0.02em;
+      }
+      .card p {
+        color: var(--muted);
+        line-height: 1.45;
+        margin: 0.25rem 0 0.7rem;
+      }
+      .soft-blue {
+        background: linear-gradient(180deg, #fff, #f2f7ff);
+      }
+      .soft-mint {
+        background: linear-gradient(180deg, #fff, #eefdf8);
+      }
+      .soft-gold {
+        background: linear-gradient(180deg, #fff, #fff7df);
+      }
+      .soft-rose {
+        background: linear-gradient(180deg, #fff, #fff1f4);
+      }
+      .hebrew {
+        font-family: var(--hebrew);
+        direction: rtl;
+        unicode-bidi: isolate;
+        font-weight: 950;
+      }
+      .big-word {
+        font-family: var(--hebrew);
+        direction: rtl;
+        unicode-bidi: isolate;
+        font-size: clamp(3.6rem, 8vw, 7.4rem);
+        line-height: 1.05;
+        letter-spacing: 0.005em;
+        font-weight: 950;
+        text-align: center;
+        margin: 8px 0;
+      }
+      .phrase-word {
+        font-size: clamp(2.8rem, 6vw, 5.6rem);
+      }
+      .micro {
+        font-size: 0.86rem;
+        color: var(--muted);
+        line-height: 1.35;
+      }
+      .reader {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 14px;
+        text-align: center;
+      }
+      .reader-meta {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+        align-items: center;
+        flex-wrap: wrap;
+        text-align: left;
+      }
+      .meter {
+        height: 13px;
+        background: #e9eef6;
+        border-radius: 999px;
+        overflow: hidden;
+        border: 1px solid var(--line);
+      }
+      .meter span {
+        display: block;
+        height: 100%;
+        background: linear-gradient(90deg, var(--teal), var(--gold));
+        width: 0%;
+        transition: 0.25s ease;
+      }
+      .sound-row {
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+        flex-wrap: wrap;
+        margin: 8px 0;
+      }
+      .sound-chip {
+        font-family: var(--hebrew);
+        direction: rtl;
+        border: 2px solid #cad7e8;
+        border-bottom-width: 5px;
+        background: #fff;
+        border-radius: 15px;
+        padding: 8px 12px;
+        font-size: 1.45rem;
+        font-weight: 950;
+      }
+      .verify-box {
+        background: #f8fbff;
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        padding: 12px;
+        text-align: left;
+      }
+      .result {
+        border-radius: 14px;
+        border: 1px solid var(--line);
+        background: #fff;
+        padding: 10px 12px;
+        margin-top: 10px;
+        font-weight: 850;
+        text-align: left;
+      }
+      .result.good {
+        background: #edfff7;
+        border-color: #b6f0d6;
+        color: #075c3c;
+      }
+      .result.warn {
+        background: #fff8df;
+        border-color: #ffe2a3;
+        color: #6c4800;
+      }
+      .result.bad {
+        background: #fff1f2;
+        border-color: #fecdd3;
+        color: #881337;
+      }
+      .choice-row {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 12px;
+      }
+      .read-tile {
+        min-height: 120px;
+        text-align: center;
+        border: 1px solid var(--line);
+        background: #fff;
+        border-radius: 22px;
+        padding: 14px;
+        box-shadow: 0 8px 17px rgba(15, 37, 71, 0.08);
+      }
+      .read-tile .hebrew {
+        font-size: 2.1rem;
+        display: block;
+        margin-bottom: 8px;
+      }
+      .door-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+        gap: 14px;
+      }
+      .door {
+        background: linear-gradient(180deg, #fff, #f5f8ff);
+        border: 1px solid var(--line);
+        border-bottom: 6px solid #c7d5ea;
+        border-radius: 24px;
+        padding: 18px;
+        text-align: center;
+        min-height: 165px;
+      }
+      .door.locked {
+        filter: grayscale(0.75);
+        opacity: 0.55;
+      }
+      .door.opened {
+        background: linear-gradient(180deg, #fff, #eefdf8);
+        border-bottom-color: var(--teal);
+      }
+      .rain-stage {
+        position: relative;
+        min-height: 430px;
+        overflow: hidden;
+        border-radius: 28px;
+        border: 1px solid var(--line);
+        background: linear-gradient(180deg, #eaf3ff, #fff);
+      }
+      .fall-word {
+        position: absolute;
+        left: 50%;
+        top: 28px;
+        transform: translateX(-50%);
+        background: #fff;
+        border: 1px solid var(--line);
+        border-bottom: 6px solid var(--blue);
+        border-radius: 26px;
+        padding: 18px 26px;
+        box-shadow: var(--shadow);
+        min-width: min(760px, 92%);
+      }
+      .fall-word .big-word {
+        font-size: clamp(3rem, 7vw, 6rem);
+      }
+      .boss {
+        font-size: 6rem;
+        filter: drop-shadow(0 16px 20px rgba(15, 37, 71, 0.2));
+        animation: float 2.2s ease-in-out infinite;
+      }
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-8px);
+        }
+      }
+      .health {
+        height: 18px;
+        background: #ffd7de;
+        border-radius: 999px;
+        overflow: hidden;
+        border: 1px solid #ffb3c0;
+      }
+      .health span {
+        display: block;
+        height: 100%;
+        background: linear-gradient(90deg, var(--rose), var(--gold));
+        width: 100%;
+        transition: 0.22s ease;
+      }
+      .table-wrap {
+        overflow: auto;
+        border: 1px solid var(--line);
+        border-radius: 18px;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        background: #fff;
+      }
+      th,
+      td {
+        padding: 11px;
+        border-bottom: 1px solid var(--line);
+        text-align: left;
+        vertical-align: middle;
+      }
+      th {
+        background: #f6f8fc;
+        color: #475569;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        font-size: 0.78rem;
+      }
+      td .hebrew {
+        font-size: 1.35rem;
+      }
+      .toast {
+        position: fixed;
+        right: 20px;
+        bottom: 20px;
+        z-index: 80;
+        background: var(--navy);
+        color: #fff;
+        border-radius: 18px;
+        padding: 13px 15px;
+        box-shadow: var(--shadow);
+        max-width: 360px;
+        font-weight: 900;
+        transform: translateY(130%);
+        opacity: 0;
+        transition: 0.2s ease;
+      }
+      .toast.show {
+        transform: translateY(0);
+        opacity: 1;
+      }
+      .modal-backdrop {
+        position: fixed;
+        inset: 0;
+        background: rgba(15, 23, 42, 0.58);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 60;
+        padding: 18px;
+      }
+      .modal-backdrop.open {
+        display: flex;
+      }
+      .modal {
+        background: #fff;
+        border-radius: 28px;
+        padding: 20px;
+        width: min(720px, 100%);
+        max-height: 88vh;
+        overflow: auto;
+        box-shadow: 0 25px 80px rgba(0, 0, 0, 0.3);
+      }
+      .modal-head {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+        align-items: center;
+      }
+      .modal h3 {
+        margin: 0;
+      }
+      .hidden-meaning {
+        display: none;
+        margin-top: 8px;
+        font-weight: 900;
+        color: var(--muted);
+      }
+
+      .translit {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        background: #fff8e8;
+        border: 1px solid #f3d58a;
+        color: #5b3b05;
+        border-radius: 999px;
+        padding: 8px 13px;
+        font-weight: 950;
+        font-size: 1.05rem;
+        margin: 6px auto 10px;
+        max-width: 100%;
+        text-align: center;
+      }
+      .translit.block {
+        display: flex;
+        border-radius: 18px;
+        padding: 10px 14px;
+        font-size: 1.15rem;
+        line-height: 1.35;
+      }
+      .translit.small {
+        font-size: 0.9rem;
+        padding: 5px 9px;
+        margin: 4px 0;
+      }
+
+      .recording-banner {
+        border: 2px solid #fecaca;
+        background: #fff1f2;
+        color: #881337;
+        border-radius: 16px;
+        padding: 10px 12px;
+        font-weight: 950;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-top: 10px;
+      }
+      .record-dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: #e11d48;
+        display: inline-block;
+        animation: pulse 1s infinite;
+        margin-right: 6px;
+      }
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 0.35;
+          transform: scale(0.9);
+        }
+        50% {
+          opacity: 1;
+          transform: scale(1.15);
+        }
+      }
+
+      .practice-studio {
+        display: grid;
+        grid-template-columns: 1.15fr 0.85fr;
+        gap: 16px;
+        align-items: start;
+      }
+      .practice-steps {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 10px;
+        margin-top: 12px;
+      }
+      .practice-step {
+        border: 1px solid var(--line);
+        background: #fff;
+        border-radius: 18px;
+        padding: 12px;
+        text-align: center;
+        min-height: 105px;
+      }
+      .practice-step strong {
+        display: block;
+        font-size: 1.05rem;
+        margin-bottom: 5px;
+      }
+      .record-history {
+        display: grid;
+        gap: 10px;
+        margin-top: 10px;
+      }
+      .record-chip {
+        border: 1px solid var(--line);
+        background: #fff;
+        border-radius: 16px;
+        padding: 10px;
+      }
+      .record-chip audio {
+        width: 100%;
+        margin-top: 6px;
+      }
+      @media (max-width: 950px) {
+        .practice-studio,
+        .practice-steps {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .playback-card {
+        border: 1px solid var(--line);
+        background: #fff;
+        border-radius: 16px;
+        padding: 12px;
+        margin-top: 10px;
+      }
+
+      @media (max-width: 950px) {
+        .hero,
+        .grid.two,
+        .grid.three,
+        .grid.four {
+          grid-template-columns: 1fr;
+        }
+        .head {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+      }
+      @media (max-width: 620px) {
+        .app {
+          padding: 12px 9px 34px;
+        }
+        .hero {
+          border-radius: 25px;
+          padding: 18px;
+        }
+        .tabs {
+          border-radius: 18px;
+        }
+        .big-word {
+          font-size: 3.45rem;
+        }
+        .phrase-word {
+          font-size: 2.7rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="app">
+      <header class="hero">
+        <div>
+          <h1>Hebrew Prayer Reading Arcade</h1>
+          <p>
+            Reading-only practice: the screen shows Hebrew, you read it out
+            loud, and the app moves on when it is marked correct. Meanings are
+            optional supports, not the game.
+          </p>
+          <div class="badges">
+            <span class="pill">📖 Reading only</span>
+            <span class="pill">🕯️ Daily + Shabbat prayers</span>
+            <span class="pill">🏔️ Short words to long phrases</span>
+            <span class="pill">➡️ Correct = next word</span>
+            <span class="pill">🎙️ Mic / Record / Coach check</span>
+            <span class="pill">🔁 Practice + playback studio</span>
+            <span class="pill">🔤 Transliteration built in</span>
+          </div>
+        </div>
+        <aside class="status">
+          <div class="stats">
+            <div class="stat">
+              <strong id="xpStat">0</strong><span>XP</span>
+            </div>
+            <div class="stat">
+              <strong id="streakStat">0</strong><span>Streak</span>
+            </div>
+            <div class="stat">
+              <strong id="readStat">0</strong><span>Read</span>
+            </div>
+          </div>
+          <div style="margin-top: 12px">
+            <div
+              style="
+                display: flex;
+                justify-content: space-between;
+                font-weight: 950;
+                margin-bottom: 6px;
+              "
+            >
+              <span>Session</span><span id="deckLabel">Mixed</span>
+            </div>
+            <div class="meter"><span id="sessionMeter"></span></div>
+          </div>
+          <div class="toolbar" style="margin-top: 12px">
+            <button class="btn gold" onclick="startMode('daily')">
+              Start Reading
+            </button>
+            <button class="btn secondary" onclick="openSettings()">
+              Settings
+            </button>
+          </div>
+        </aside>
+      </header>
+
+      <nav class="tabs" aria-label="Game modes">
+        <button class="tab active" data-view="reader">📖 Reader</button>
+        <button class="tab" data-view="practice">🎙️ Practice + Playback</button>
+        <button class="tab" data-view="sprint">⚡ Sprint</button>
+        <button class="tab" data-view="doors">🚪 Doors</button>
+        <button class="tab" data-view="rain">🌧️ Word Rain</button>
+        <button class="tab" data-view="boss">🐉 Boss</button>
+        <button class="tab" data-view="ladder">🪜 Phrase Ladder</button>
+        <button class="tab" data-view="record">🎙️ Record Review</button>
+        <button class="tab" data-view="progress">📊 Progress</button>
+      </nav>
+
+      <main>
+        <section id="reader" class="view active"></section>
+        <section id="practice" class="view"></section>
+        <section id="sprint" class="view"></section>
+        <section id="doors" class="view"></section>
+        <section id="rain" class="view"></section>
+        <section id="boss" class="view"></section>
+        <section id="ladder" class="view"></section>
+        <section id="record" class="view"></section>
+        <section id="progress" class="view"></section>
+      </main>
+    </div>
+
+    <div class="toast" id="toast"></div>
+    <div class="modal-backdrop" id="modalBackdrop">
+      <div class="modal">
+        <div class="modal-head">
+          <h3 id="modalTitle">Settings</h3>
+          <button class="btn secondary small" onclick="closeModal()">
+            Close
+          </button>
+        </div>
+        <div id="modalBody"></div>
+      </div>
+    </div>
+
+    <script>
+      const STORAGE_KEY = "hebrewPrayerReadingArcade_transliteration_v4";
+      const SpeechRecognitionAPI =
+        window.SpeechRecognition || window.webkitSpeechRecognition;
+      const WORDS = [
+        {
+          id: "el",
+          level: 1,
+          word: "אֵל",
+          plain: "אל",
+          meaning: "God / power",
+          emoji: "✨",
+          translit: "el",
+          chunks: ["אֵ", "ל"],
+          family: "tiny prayer word",
+        },
+        {
+          id: "kol",
+          level: 1,
+          word: "כֹּל",
+          plain: "כל",
+          meaning: "all / every",
+          emoji: "🌎",
+          translit: "kol",
+          chunks: ["כֹּ", "ל"],
+          family: "tiny prayer word",
+        },
+        {
+          id: "al",
+          level: 1,
+          word: "עַל",
+          plain: "על",
+          meaning: "on / upon / about",
+          emoji: "⬆️",
+          translit: "al",
+          chunks: ["עַ", "ל"],
+          family: "tiny connector",
+        },
+        {
+          id: "et",
+          level: 1,
+          word: "אֶת",
+          plain: "את",
+          meaning: "direct-object word",
+          emoji: "➡️",
+          translit: "et",
+          chunks: ["אֶ", "ת"],
+          family: "tiny connector",
+        },
+        {
+          id: "ki",
+          level: 1,
+          word: "כִּי",
+          plain: "כי",
+          meaning: "because / that",
+          emoji: "🔗",
+          translit: "ki",
+          chunks: ["כִּי"],
+          family: "tiny connector",
+        },
+        {
+          id: "lo",
+          level: 1,
+          word: "לֹא",
+          plain: "לא",
+          meaning: "no / not",
+          emoji: "🚫",
+          translit: "lo",
+          chunks: ["לֹ", "א"],
+          family: "tiny prayer word",
+        },
+        {
+          id: "mi",
+          level: 1,
+          word: "מִי",
+          plain: "מי",
+          meaning: "who",
+          emoji: "❓",
+          translit: "mi",
+          chunks: ["מִי"],
+          family: "tiny question word",
+        },
+        {
+          id: "mah",
+          level: 1,
+          word: "מָה",
+          plain: "מה",
+          meaning: "what / how",
+          emoji: "❓",
+          translit: "mah",
+          chunks: ["מָ", "ה"],
+          family: "tiny question word",
+        },
+        {
+          id: "bo",
+          level: 1,
+          word: "בּוֹ",
+          plain: "בו",
+          meaning: "in it / on it",
+          emoji: "📍",
+          translit: "bo",
+          chunks: ["בּוֹ"],
+          family: "tiny prayer word",
+        },
+        {
+          id: "lo2",
+          level: 1,
+          word: "לוֹ",
+          plain: "לו",
+          meaning: "to him / for him",
+          emoji: "👉",
+          translit: "lo",
+          chunks: ["לוֹ"],
+          family: "tiny prayer word",
+        },
+        {
+          id: "li",
+          level: 1,
+          word: "לִי",
+          plain: "לי",
+          meaning: "to me / for me",
+          emoji: "🙋",
+          translit: "li",
+          chunks: ["לִי"],
+          family: "tiny prayer word",
+        },
+        {
+          id: "hu",
+          level: 1,
+          word: "הוּא",
+          plain: "הוא",
+          meaning: "He / it",
+          emoji: "☝️",
+          translit: "hu",
+          chunks: ["הוּא"],
+          family: "tiny prayer word",
+        },
+        {
+          id: "am",
+          level: 1,
+          word: "עַם",
+          plain: "עם",
+          meaning: "people / nation",
+          emoji: "👥",
+          translit: "am",
+          chunks: ["עַ", "ם"],
+          family: "tiny prayer word",
+        },
+        {
+          id: "rav",
+          level: 1,
+          word: "רַב",
+          plain: "רב",
+          meaning: "great / much",
+          emoji: "📈",
+          translit: "rav",
+          chunks: ["רַ", "ב"],
+          family: "tiny prayer word",
+        },
+        {
+          id: "yom",
+          level: 1,
+          word: "יוֹם",
+          plain: "יום",
+          meaning: "day",
+          emoji: "☀️",
+          translit: "yom",
+          chunks: ["יוֹ", "ם"],
+          family: "tiny prayer word",
+        },
+        {
+          id: "ner",
+          level: 1,
+          word: "נֵר",
+          plain: "נר",
+          meaning: "candle",
+          emoji: "🕯️",
+          translit: "ner",
+          chunks: ["נֵ", "ר"],
+          family: "tiny Shabbat word",
+        },
+        {
+          id: "yad",
+          level: 1,
+          word: "יָד",
+          plain: "יד",
+          meaning: "hand",
+          emoji: "✋",
+          translit: "yad",
+          chunks: ["יָ", "ד"],
+          family: "tiny prayer word",
+        },
+        {
+          id: "chai",
+          level: 1,
+          word: "חַי",
+          plain: "חי",
+          meaning: "living / alive",
+          emoji: "🌱",
+          translit: "chai",
+          chunks: ["חַ", "י"],
+          family: "tiny prayer word",
+        },
+        {
+          id: "av",
+          level: 1,
+          word: "אָב",
+          plain: "אב",
+          meaning: "father / ancestor",
+          emoji: "👨",
+          translit: "av",
+          chunks: ["אָ", "ב"],
+          family: "tiny prayer word",
+        },
+        {
+          id: "ben",
+          level: 1,
+          word: "בֵּן",
+          plain: "בן",
+          meaning: "son",
+          emoji: "👦",
+          translit: "ben",
+          chunks: ["בֵּ", "ן"],
+          family: "tiny prayer word",
+        },
+        {
+          id: "baruch",
+          level: 2,
+          word: "בָּרוּךְ",
+          plain: "ברוך",
+          meaning: "blessed",
+          emoji: "🙌",
+          translit: "baruch",
+          chunks: ["בָּ", "רוּךְ"],
+          family: "core blessing word",
+        },
+        {
+          id: "atah",
+          level: 2,
+          word: "אַתָּה",
+          plain: "אתה",
+          meaning: "You",
+          emoji: "👉",
+          translit: "atah",
+          chunks: ["אַ", "תָּ", "ה"],
+          family: "core blessing word",
+        },
+        {
+          id: "adonai",
+          level: 2,
+          word: "אֲדֹנָי",
+          plain: "אדני",
+          meaning: "Adonai / Lord",
+          emoji: "✡️",
+          translit: "Adonai",
+          chunks: ["אֲ", "דֹ", "נָי"],
+          family: "core blessing word",
+        },
+        {
+          id: "eloheinu",
+          level: 2,
+          word: "אֱלֹהֵינוּ",
+          plain: "אלהינו",
+          meaning: "our God",
+          emoji: "✨",
+          translit: "Eloheinu",
+          chunks: ["אֱ", "לֹ", "הֵי", "נוּ"],
+          family: "core blessing word",
+        },
+        {
+          id: "melech",
+          level: 2,
+          word: "מֶלֶךְ",
+          plain: "מלך",
+          meaning: "King",
+          emoji: "👑",
+          translit: "melech",
+          chunks: ["מֶ", "לֶךְ"],
+          family: "core blessing word",
+        },
+        {
+          id: "haolam",
+          level: 2,
+          word: "הָעוֹלָם",
+          plain: "העולם",
+          meaning: "the universe / world",
+          emoji: "🌍",
+          translit: "ha-olam",
+          chunks: ["הָ", "עוֹ", "לָם"],
+          family: "core blessing word",
+        },
+        {
+          id: "asher",
+          level: 2,
+          word: "אֲשֶׁר",
+          plain: "אשר",
+          meaning: "who / that",
+          emoji: "🔗",
+          translit: "asher",
+          chunks: ["אֲ", "שֶׁר"],
+          family: "core blessing word",
+        },
+        {
+          id: "kidshanu",
+          level: 2,
+          word: "קִדְּשָׁנוּ",
+          plain: "קדשנו",
+          meaning: "made us holy",
+          emoji: "✨",
+          translit: "kidshanu",
+          chunks: ["קִדְּ", "שָׁ", "נוּ"],
+          family: "core blessing word",
+        },
+        {
+          id: "bemitzvotav",
+          level: 2,
+          word: "בְּמִצְוֹתָיו",
+          plain: "במצותיו",
+          meaning: "with His commandments",
+          emoji: "📜",
+          translit: "b'mitzvotav",
+          chunks: ["בְּ", "מִצְ", "וֹ", "תָיו"],
+          family: "core blessing word",
+        },
+        {
+          id: "vetzivanu",
+          level: 2,
+          word: "וְצִוָּנוּ",
+          plain: "וצונו",
+          meaning: "and commanded us",
+          emoji: "✅",
+          translit: "v'tzivanu",
+          chunks: ["וְ", "צִ", "וָּ", "נוּ"],
+          family: "core blessing word",
+        },
+        {
+          id: "amen",
+          level: 2,
+          word: "אָמֵן",
+          plain: "אמן",
+          meaning: "amen",
+          emoji: "✅",
+          translit: "amen",
+          chunks: ["אָ", "מֵן"],
+          family: "response word",
+        },
+        {
+          id: "shalom",
+          level: 2,
+          word: "שָׁלוֹם",
+          plain: "שלום",
+          meaning: "peace / hello",
+          emoji: "🕊️",
+          translit: "shalom",
+          chunks: ["שָׁ", "לוֹם"],
+          family: "core prayer word",
+        },
+        {
+          id: "bracha",
+          level: 2,
+          word: "בְּרָכָה",
+          plain: "ברכה",
+          meaning: "blessing",
+          emoji: "✨",
+          translit: "brachah",
+          chunks: ["בְּ", "רָ", "כָה"],
+          family: "core blessing word",
+        },
+        {
+          id: "kadosh",
+          level: 2,
+          word: "קָדוֹשׁ",
+          plain: "קדוש",
+          meaning: "holy",
+          emoji: "✨",
+          translit: "kadosh",
+          chunks: ["קָ", "דוֹשׁ"],
+          family: "core prayer word",
+        },
+        {
+          id: "avinu",
+          level: 2,
+          word: "אָבִינוּ",
+          plain: "אבינו",
+          meaning: "our Father",
+          emoji: "👨",
+          translit: "Avinu",
+          chunks: ["אָ", "בִי", "נוּ"],
+          family: "core prayer word",
+        },
+        {
+          id: "malkeinu",
+          level: 2,
+          word: "מַלְכֵּנוּ",
+          plain: "מלכנו",
+          meaning: "our King",
+          emoji: "👑",
+          translit: "Malkeinu",
+          chunks: ["מַלְ", "כֵּ", "נוּ"],
+          family: "core prayer word",
+        },
+        {
+          id: "tov",
+          level: 2,
+          word: "טוֹב",
+          plain: "טוב",
+          meaning: "good",
+          emoji: "👍",
+          translit: "tov",
+          chunks: ["טוֹב"],
+          family: "core prayer word",
+        },
+        {
+          id: "chesed",
+          level: 2,
+          word: "חֶסֶד",
+          plain: "חסד",
+          meaning: "kindness",
+          emoji: "🤝",
+          translit: "chesed",
+          chunks: ["חֶ", "סֶד"],
+          family: "core prayer word",
+        },
+        {
+          id: "emet",
+          level: 2,
+          word: "אֱמֶת",
+          plain: "אמת",
+          meaning: "truth",
+          emoji: "📌",
+          translit: "emet",
+          chunks: ["אֱ", "מֶת"],
+          family: "core prayer word",
+        },
+        {
+          id: "chayim",
+          level: 2,
+          word: "חַיִּים",
+          plain: "חיים",
+          meaning: "life",
+          emoji: "🌱",
+          translit: "chayim",
+          chunks: ["חַ", "יִּים"],
+          family: "core prayer word",
+        },
+        {
+          id: "shema",
+          level: 3,
+          word: "שְׁמַע",
+          plain: "שמע",
+          meaning: "hear / listen",
+          emoji: "👂",
+          translit: "Shema",
+          chunks: ["שְׁ", "מַע"],
+          family: "Shema word",
+        },
+        {
+          id: "yisrael",
+          level: 3,
+          word: "יִשְׂרָאֵל",
+          plain: "ישראל",
+          meaning: "Israel",
+          emoji: "🇮🇱",
+          translit: "Yisrael",
+          chunks: ["יִשְׂ", "רָ", "אֵל"],
+          family: "Shema word",
+        },
+        {
+          id: "echad",
+          level: 3,
+          word: "אֶחָד",
+          plain: "אחד",
+          meaning: "one",
+          emoji: "1️⃣",
+          translit: "echad",
+          chunks: ["אֶ", "חָד"],
+          family: "Shema word",
+        },
+        {
+          id: "baruch_shem",
+          level: 3,
+          word: "בָּרוּךְ שֵׁם",
+          plain: "ברוך שם",
+          meaning: "blessed is the Name",
+          emoji: "🙌",
+          translit: "baruch shem",
+          chunks: ["בָּ", "רוּךְ", "שֵׁם"],
+          family: "short prayer phrase",
+        },
+        {
+          id: "kevodo",
+          level: 3,
+          word: "כְּבוֹדוֹ",
+          plain: "כבודו",
+          meaning: "His glory / honor",
+          emoji: "✨",
+          translit: "k'vodo",
+          chunks: ["כְּ", "בוֹ", "דוֹ"],
+          family: "Shema phrase word",
+        },
+        {
+          id: "leolam",
+          level: 3,
+          word: "לְעוֹלָם",
+          plain: "לעולם",
+          meaning: "forever",
+          emoji: "∞",
+          translit: "l'olam",
+          chunks: ["לְ", "עוֹ", "לָם"],
+          family: "Shema phrase word",
+        },
+        {
+          id: "vaed",
+          level: 3,
+          word: "וָעֶד",
+          plain: "ועד",
+          meaning: "and ever",
+          emoji: "∞",
+          translit: "va-ed",
+          chunks: ["וָ", "עֶד"],
+          family: "Shema phrase word",
+        },
+        {
+          id: "veahavta",
+          level: 3,
+          word: "וְאָהַבְתָּ",
+          plain: "ואהבת",
+          meaning: "and you shall love",
+          emoji: "❤️",
+          translit: "v'ahavta",
+          chunks: ["וְ", "אָ", "הַבְ", "תָּ"],
+          family: "V'ahavta word",
+        },
+        {
+          id: "bechol",
+          level: 3,
+          word: "בְּכָל",
+          plain: "בכל",
+          meaning: "with all",
+          emoji: "🌎",
+          translit: "b'chol",
+          chunks: ["בְּ", "כָל"],
+          family: "V'ahavta word",
+        },
+        {
+          id: "levavcha",
+          level: 3,
+          word: "לְבָבְךָ",
+          plain: "לבבך",
+          meaning: "your heart",
+          emoji: "💙",
+          translit: "l'vavcha",
+          chunks: ["לְ", "בָבְ", "ךָ"],
+          family: "V'ahavta word",
+        },
+        {
+          id: "nafshecha",
+          level: 3,
+          word: "נַפְשְׁךָ",
+          plain: "נפשך",
+          meaning: "your soul",
+          emoji: "🌬️",
+          translit: "nafshecha",
+          chunks: ["נַפְ", "שְׁ", "ךָ"],
+          family: "V'ahavta word",
+        },
+        {
+          id: "meodecha",
+          level: 3,
+          word: "מְאֹדֶךָ",
+          plain: "מאדך",
+          meaning: "your might / strength",
+          emoji: "💪",
+          translit: "m'odecha",
+          chunks: ["מְ", "אֹ", "דֶ", "ךָ"],
+          family: "V'ahavta word",
+        },
+        {
+          id: "hayom",
+          level: 3,
+          word: "הַיּוֹם",
+          plain: "היום",
+          meaning: "today",
+          emoji: "📅",
+          translit: "hayom",
+          chunks: ["הַ", "יּוֹם"],
+          family: "V'ahavta word",
+        },
+        {
+          id: "veshinantam",
+          level: 3,
+          word: "וְשִׁנַּנְתָּם",
+          plain: "ושננתם",
+          meaning: "teach them repeatedly",
+          emoji: "🧠",
+          translit: "v'shinantam",
+          chunks: ["וְ", "שִׁ", "נַּנְ", "תָּם"],
+          family: "V'ahavta word",
+        },
+        {
+          id: "vedibarta",
+          level: 3,
+          word: "וְדִבַּרְתָּ",
+          plain: "ודברת",
+          meaning: "and you shall speak",
+          emoji: "🗣️",
+          translit: "v'dibarta",
+          chunks: ["וְ", "דִ", "בַּרְ", "תָּ"],
+          family: "V'ahavta word",
+        },
+        {
+          id: "beveitecha",
+          level: 3,
+          word: "בְּבֵיתֶךָ",
+          plain: "בביתך",
+          meaning: "in your house",
+          emoji: "🏠",
+          translit: "b'veitecha",
+          chunks: ["בְּ", "בֵי", "תֶ", "ךָ"],
+          family: "V'ahavta word",
+        },
+        {
+          id: "baderech",
+          level: 3,
+          word: "בַּדֶּרֶךְ",
+          plain: "בדרך",
+          meaning: "on the way",
+          emoji: "🛣️",
+          translit: "baderech",
+          chunks: ["בַּ", "דֶּ", "רֶךְ"],
+          family: "V'ahavta word",
+        },
+        {
+          id: "uveshochbecha",
+          level: 3,
+          word: "וּבְשָׁכְבְּךָ",
+          plain: "ובשכבך",
+          meaning: "when you lie down",
+          emoji: "🛏️",
+          translit: "uv'shochbecha",
+          chunks: ["וּ", "בְ", "שָׁכְ", "בְּ", "ךָ"],
+          family: "V'ahavta word",
+        },
+        {
+          id: "uvekumecha",
+          level: 3,
+          word: "וּבְקוּמֶךָ",
+          plain: "ובקומך",
+          meaning: "when you rise up",
+          emoji: "🌅",
+          translit: "uv'kumecha",
+          chunks: ["וּ", "בְ", "קוּ", "מֶ", "ךָ"],
+          family: "V'ahavta word",
+        },
+        {
+          id: "modeh",
+          level: 4,
+          word: "מוֹדֶה",
+          plain: "מודה",
+          meaning: "I thank",
+          emoji: "🙏",
+          translit: "modeh",
+          chunks: ["מוֹ", "דֶה"],
+          family: "morning prayer word",
+        },
+        {
+          id: "ani",
+          level: 4,
+          word: "אֲנִי",
+          plain: "אני",
+          meaning: "I / me",
+          emoji: "🙋",
+          translit: "ani",
+          chunks: ["אֲ", "נִי"],
+          family: "morning prayer word",
+        },
+        {
+          id: "lefanecha",
+          level: 4,
+          word: "לְפָנֶיךָ",
+          plain: "לפניך",
+          meaning: "before You",
+          emoji: "➡️",
+          translit: "l'fanecha",
+          chunks: ["לְ", "פָ", "נֶי", "ךָ"],
+          family: "morning prayer word",
+        },
+        {
+          id: "chai_vekayam",
+          level: 4,
+          word: "חַי וְקַיָּם",
+          plain: "חי וקים",
+          meaning: "living and enduring",
+          emoji: "🌱",
+          translit: "chai v'kayam",
+          chunks: ["חַי", "וְ", "קַיָּם"],
+          family: "morning prayer phrase",
+        },
+        {
+          id: "shehechezarta",
+          level: 4,
+          word: "שֶׁהֶחֱזַרְתָּ",
+          plain: "שהחזרת",
+          meaning: "that You returned",
+          emoji: "🔁",
+          translit: "shehechezarta",
+          chunks: ["שֶׁ", "הֶ", "חֱ", "זַרְ", "תָּ"],
+          family: "morning prayer word",
+        },
+        {
+          id: "nishmati",
+          level: 4,
+          word: "נִשְׁמָתִי",
+          plain: "נשמתי",
+          meaning: "my soul",
+          emoji: "🌬️",
+          translit: "nishmati",
+          chunks: ["נִשְׁ", "מָ", "תִי"],
+          family: "morning prayer word",
+        },
+        {
+          id: "bechemlah",
+          level: 4,
+          word: "בְּחֶמְלָה",
+          plain: "בחמלה",
+          meaning: "with compassion",
+          emoji: "🤲",
+          translit: "b'chemlah",
+          chunks: ["בְּ", "חֶמְ", "לָה"],
+          family: "morning prayer word",
+        },
+        {
+          id: "rabbah",
+          level: 4,
+          word: "רַבָּה",
+          plain: "רבה",
+          meaning: "great",
+          emoji: "📈",
+          translit: "rabbah",
+          chunks: ["רַ", "בָּה"],
+          family: "morning prayer word",
+        },
+        {
+          id: "emunatecha",
+          level: 4,
+          word: "אֱמוּנָתֶךָ",
+          plain: "אמונתך",
+          meaning: "Your faithfulness",
+          emoji: "📌",
+          translit: "emunatecha",
+          chunks: ["אֱ", "מוּ", "נָ", "תֶ", "ךָ"],
+          family: "morning prayer word",
+        },
+        {
+          id: "asher_yatzar",
+          level: 4,
+          word: "אֲשֶׁר יָצַר",
+          plain: "אשר יצר",
+          meaning: "who formed",
+          emoji: "🧍",
+          translit: "asher yatzar",
+          chunks: ["אֲ", "שֶׁר", "יָ", "צַר"],
+          family: "daily blessing phrase",
+        },
+        {
+          id: "chachmah",
+          level: 4,
+          word: "חָכְמָה",
+          plain: "חכמה",
+          meaning: "wisdom",
+          emoji: "🧠",
+          translit: "chochmah",
+          chunks: ["חָכְ", "מָה"],
+          family: "daily blessing word",
+        },
+        {
+          id: "pokeach",
+          level: 4,
+          word: "פּוֹקֵחַ",
+          plain: "פוקח",
+          meaning: "opens",
+          emoji: "👀",
+          translit: "pokeach",
+          chunks: ["פּוֹ", "קֵ", "חַ"],
+          family: "morning blessing word",
+        },
+        {
+          id: "ivrim",
+          level: 4,
+          word: "עִוְרִים",
+          plain: "עורים",
+          meaning: "the blind",
+          emoji: "👁️",
+          translit: "ivrim",
+          chunks: ["עִוְ", "רִים"],
+          family: "morning blessing word",
+        },
+        {
+          id: "malbish",
+          level: 4,
+          word: "מַלְבִּישׁ",
+          plain: "מלביש",
+          meaning: "clothes / dresses",
+          emoji: "👕",
+          translit: "malbish",
+          chunks: ["מַלְ", "בִּישׁ"],
+          family: "morning blessing word",
+        },
+        {
+          id: "arumim",
+          level: 4,
+          word: "עֲרוּמִּים",
+          plain: "ערומים",
+          meaning: "the unclothed",
+          emoji: "👕",
+          translit: "arumim",
+          chunks: ["עֲ", "רוּ", "מִּים"],
+          family: "morning blessing word",
+        },
+        {
+          id: "matir",
+          level: 4,
+          word: "מַתִּיר",
+          plain: "מתיר",
+          meaning: "releases",
+          emoji: "🔓",
+          translit: "matir",
+          chunks: ["מַ", "תִּיר"],
+          family: "morning blessing word",
+        },
+        {
+          id: "asurim",
+          level: 4,
+          word: "אֲסוּרִים",
+          plain: "אסורים",
+          meaning: "the bound",
+          emoji: "⛓️",
+          translit: "asurim",
+          chunks: ["אֲ", "סוּ", "רִים"],
+          family: "morning blessing word",
+        },
+        {
+          id: "zokef",
+          level: 4,
+          word: "זוֹקֵף",
+          plain: "זוקף",
+          meaning: "straightens / raises",
+          emoji: "⬆️",
+          translit: "zokef",
+          chunks: ["זוֹ", "קֵף"],
+          family: "morning blessing word",
+        },
+        {
+          id: "kefufim",
+          level: 4,
+          word: "כְּפוּפִים",
+          plain: "כפופים",
+          meaning: "the bent over",
+          emoji: "↪️",
+          translit: "k'fufim",
+          chunks: ["כְּ", "פוּ", "פִים"],
+          family: "morning blessing word",
+        },
+        {
+          id: "avot",
+          level: 5,
+          word: "אָבוֹת",
+          plain: "אבות",
+          meaning: "ancestors / fathers",
+          emoji: "👴",
+          translit: "avot",
+          chunks: ["אָ", "בוֹת"],
+          family: "Amidah word",
+        },
+        {
+          id: "gibor",
+          level: 5,
+          word: "גִּבּוֹר",
+          plain: "גבור",
+          meaning: "mighty",
+          emoji: "💪",
+          translit: "gibor",
+          chunks: ["גִּ", "בּוֹר"],
+          family: "Amidah word",
+        },
+        {
+          id: "atah_gibor",
+          level: 5,
+          word: "אַתָּה גִבּוֹר",
+          plain: "אתה גבור",
+          meaning: "You are mighty",
+          emoji: "💪",
+          translit: "atah gibor",
+          chunks: ["אַ", "תָּה", "גִ", "בּוֹר"],
+          family: "short prayer phrase",
+        },
+        {
+          id: "mechaye",
+          level: 5,
+          word: "מְחַיֵּה",
+          plain: "מחיה",
+          meaning: "gives life / revives",
+          emoji: "🌱",
+          translit: "m'chaye",
+          chunks: ["מְ", "חַ", "יֵּה"],
+          family: "Amidah word",
+        },
+        {
+          id: "metim",
+          level: 5,
+          word: "מֵתִים",
+          plain: "מתים",
+          meaning: "the dead",
+          emoji: "🪦",
+          translit: "metim",
+          chunks: ["מֵ", "תִים"],
+          family: "Amidah word",
+        },
+        {
+          id: "rav_lehoshia",
+          level: 5,
+          word: "רַב לְהוֹשִׁיעַ",
+          plain: "רב להושיע",
+          meaning: "great to save",
+          emoji: "🛟",
+          translit: "rav l'hoshia",
+          chunks: ["רַב", "לְ", "הוֹ", "שִׁי", "עַ"],
+          family: "short prayer phrase",
+        },
+        {
+          id: "morid",
+          level: 5,
+          word: "מוֹרִיד",
+          plain: "מוריד",
+          meaning: "brings down",
+          emoji: "⬇️",
+          translit: "morid",
+          chunks: ["מוֹ", "רִיד"],
+          family: "Amidah word",
+        },
+        {
+          id: "hageshem",
+          level: 5,
+          word: "הַגֶּשֶׁם",
+          plain: "הגשם",
+          meaning: "the rain",
+          emoji: "🌧️",
+          translit: "hageshem",
+          chunks: ["הַ", "גֶּ", "שֶׁם"],
+          family: "Amidah word",
+        },
+        {
+          id: "mashiv",
+          level: 5,
+          word: "מַשִּׁיב",
+          plain: "משיב",
+          meaning: "makes return / causes",
+          emoji: "🔁",
+          translit: "mashiv",
+          chunks: ["מַ", "שִּׁיב"],
+          family: "Amidah word",
+        },
+        {
+          id: "haruach",
+          level: 5,
+          word: "הָרוּחַ",
+          plain: "הרוח",
+          meaning: "the wind / spirit",
+          emoji: "🌬️",
+          translit: "haruach",
+          chunks: ["הָ", "רוּ", "חַ"],
+          family: "Amidah word",
+        },
+        {
+          id: "somech",
+          level: 5,
+          word: "סוֹמֵךְ",
+          plain: "סומך",
+          meaning: "supports",
+          emoji: "🤝",
+          translit: "somech",
+          chunks: ["סוֹ", "מֵךְ"],
+          family: "Amidah word",
+        },
+        {
+          id: "noflim",
+          level: 5,
+          word: "נוֹפְלִים",
+          plain: "נופלים",
+          meaning: "the falling",
+          emoji: "⬇️",
+          translit: "noflim",
+          chunks: ["נוֹפְ", "לִים"],
+          family: "Amidah word",
+        },
+        {
+          id: "rofeh",
+          level: 5,
+          word: "רוֹפֵא",
+          plain: "רופא",
+          meaning: "heals",
+          emoji: "🩺",
+          translit: "rofeh",
+          chunks: ["רוֹ", "פֵא"],
+          family: "Amidah word",
+        },
+        {
+          id: "cholim",
+          level: 5,
+          word: "חוֹלִים",
+          plain: "חולים",
+          meaning: "the sick",
+          emoji: "🤒",
+          translit: "cholim",
+          chunks: ["חוֹ", "לִים"],
+          family: "Amidah word",
+        },
+        {
+          id: "matir_asurim",
+          level: 5,
+          word: "מַתִּיר אֲסוּרִים",
+          plain: "מתיר אסורים",
+          meaning: "releases the bound",
+          emoji: "🔓",
+          translit: "matir asurim",
+          chunks: ["מַ", "תִּיר", "אֲ", "סוּ", "רִים"],
+          family: "short prayer phrase",
+        },
+        {
+          id: "kadosh3",
+          level: 5,
+          word: "קָדוֹשׁ קָדוֹשׁ קָדוֹשׁ",
+          plain: "קדוש קדוש קדוש",
+          meaning: "holy, holy, holy",
+          emoji: "✨",
+          translit: "kadosh kadosh kadosh",
+          chunks: ["קָ", "דוֹשׁ", "קָ", "דוֹשׁ", "קָ", "דוֹשׁ"],
+          family: "Kedushah phrase",
+        },
+        {
+          id: "tzvaot",
+          level: 5,
+          word: "צְבָאוֹת",
+          plain: "צבאות",
+          meaning: "hosts / multitudes",
+          emoji: "🌌",
+          translit: "tzva'ot",
+          chunks: ["צְ", "בָ", "אוֹת"],
+          family: "Kedushah word",
+        },
+        {
+          id: "melo",
+          level: 5,
+          word: "מְלֹא",
+          plain: "מלא",
+          meaning: "full of",
+          emoji: "🌍",
+          translit: "m'lo",
+          chunks: ["מְ", "לֹא"],
+          family: "Kedushah word",
+        },
+        {
+          id: "kavodo",
+          level: 5,
+          word: "כְבוֹדוֹ",
+          plain: "כבודו",
+          meaning: "His glory",
+          emoji: "✨",
+          translit: "k'vodo",
+          chunks: ["כְ", "בוֹ", "דוֹ"],
+          family: "Kedushah word",
+        },
+        {
+          id: "yitgadal",
+          level: 6,
+          word: "יִתְגַּדַּל",
+          plain: "יתגדל",
+          meaning: "may it be magnified",
+          emoji: "📈",
+          translit: "yitgadal",
+          chunks: ["יִתְ", "גַּ", "דַּל"],
+          family: "Kaddish word",
+        },
+        {
+          id: "veyitkadash",
+          level: 6,
+          word: "וְיִתְקַדַּשׁ",
+          plain: "ויתקדש",
+          meaning: "and sanctified",
+          emoji: "✨",
+          translit: "v'yitkadash",
+          chunks: ["וְ", "יִתְ", "קַ", "דַּשׁ"],
+          family: "Kaddish word",
+        },
+        {
+          id: "shmeh",
+          level: 6,
+          word: "שְׁמֵהּ",
+          plain: "שמה",
+          meaning: "His name",
+          emoji: "📛",
+          translit: "shmeh",
+          chunks: ["שְׁ", "מֵהּ"],
+          family: "Kaddish word",
+        },
+        {
+          id: "rabbah2",
+          level: 6,
+          word: "רַבָּא",
+          plain: "רבא",
+          meaning: "great",
+          emoji: "📈",
+          translit: "rabbah",
+          chunks: ["רַ", "בָּא"],
+          family: "Kaddish word",
+        },
+        {
+          id: "bealma",
+          level: 6,
+          word: "בְּעָלְמָא",
+          plain: "בעלמא",
+          meaning: "in the world",
+          emoji: "🌍",
+          translit: "b'alma",
+          chunks: ["בְּ", "עָלְ", "מָא"],
+          family: "Kaddish word",
+        },
+        {
+          id: "divra",
+          level: 6,
+          word: "דִּי בְרָא",
+          plain: "די ברא",
+          meaning: "that He created",
+          emoji: "🌎",
+          translit: "di v'ra",
+          chunks: ["דִּי", "בְ", "רָא"],
+          family: "Kaddish phrase",
+        },
+        {
+          id: "chiruteh",
+          level: 6,
+          word: "כִרְעוּתֵהּ",
+          plain: "כרעותה",
+          meaning: "according to His will",
+          emoji: "✅",
+          translit: "chiruteh",
+          chunks: ["כִרְ", "עוּ", "תֵהּ"],
+          family: "Kaddish word",
+        },
+        {
+          id: "veyamlich",
+          level: 6,
+          word: "וְיַמְלִיךְ",
+          plain: "וימליך",
+          meaning: "and may He establish kingship",
+          emoji: "👑",
+          translit: "v'yamlich",
+          chunks: ["וְ", "יַמְ", "לִיךְ"],
+          family: "Kaddish word",
+        },
+        {
+          id: "malchuteh",
+          level: 6,
+          word: "מַלְכוּתֵהּ",
+          plain: "מלכותה",
+          meaning: "His kingdom",
+          emoji: "👑",
+          translit: "malchuteh",
+          chunks: ["מַלְ", "כוּ", "תֵהּ"],
+          family: "Kaddish word",
+        },
+        {
+          id: "bechayeichon",
+          level: 6,
+          word: "בְּחַיֵּיכוֹן",
+          plain: "בחייכון",
+          meaning: "in your lives",
+          emoji: "🌱",
+          translit: "b'chayeichon",
+          chunks: ["בְּ", "חַ", "יֵּי", "כוֹן"],
+          family: "Kaddish word",
+        },
+        {
+          id: "uvyomeichon",
+          level: 6,
+          word: "וּבְיוֹמֵיכוֹן",
+          plain: "וביומיכון",
+          meaning: "and in your days",
+          emoji: "📅",
+          translit: "uvyomeichon",
+          chunks: ["וּ", "בְ", "יוֹ", "מֵי", "כוֹן"],
+          family: "Kaddish word",
+        },
+        {
+          id: "yehei",
+          level: 6,
+          word: "יְהֵא",
+          plain: "יהא",
+          meaning: "may there be",
+          emoji: "🌟",
+          translit: "yehei",
+          chunks: ["יְ", "הֵא"],
+          family: "Kaddish word",
+        },
+        {
+          id: "shelama",
+          level: 6,
+          word: "שְׁלָמָא",
+          plain: "שלמא",
+          meaning: "peace",
+          emoji: "🕊️",
+          translit: "shlama",
+          chunks: ["שְׁ", "לָ", "מָא"],
+          family: "Kaddish word",
+        },
+        {
+          id: "min_shemaya",
+          level: 6,
+          word: "מִן שְׁמַיָּא",
+          plain: "מן שמיא",
+          meaning: "from heaven",
+          emoji: "🌌",
+          translit: "min sh'maya",
+          chunks: ["מִן", "שְׁ", "מַיָּא"],
+          family: "Kaddish phrase",
+        },
+        {
+          id: "oseh",
+          level: 6,
+          word: "עוֹשֶׂה",
+          plain: "עושה",
+          meaning: "makes / does",
+          emoji: "🛠️",
+          translit: "oseh",
+          chunks: ["עוֹ", "שֶׂה"],
+          family: "Oseh Shalom word",
+        },
+        {
+          id: "bimromav",
+          level: 6,
+          word: "בִּמְרוֹמָיו",
+          plain: "במרומיו",
+          meaning: "in His heights",
+          emoji: "🌌",
+          translit: "bimromav",
+          chunks: ["בִּמְ", "רוֹ", "מָיו"],
+          family: "Oseh Shalom word",
+        },
+        {
+          id: "hu_yaaseh",
+          level: 6,
+          word: "הוּא יַעֲשֶׂה",
+          plain: "הוא יעשה",
+          meaning: "He will make",
+          emoji: "🕊️",
+          translit: "hu ya'aseh",
+          chunks: ["הוּא", "יַ", "עֲ", "שֶׂה"],
+          family: "Oseh Shalom phrase",
+        },
+        {
+          id: "aleinu",
+          level: 6,
+          word: "עָלֵינוּ",
+          plain: "עלינו",
+          meaning: "upon us",
+          emoji: "👥",
+          translit: "aleinu",
+          chunks: ["עָ", "לֵי", "נוּ"],
+          family: "Oseh Shalom word",
+        },
+        {
+          id: "veimru",
+          level: 6,
+          word: "וְאִמְרוּ",
+          plain: "ואמרו",
+          meaning: "and say",
+          emoji: "🗣️",
+          translit: "v'imru",
+          chunks: ["וְ", "אִמְ", "רוּ"],
+          family: "response word",
+        },
+        {
+          id: "shabbat",
+          level: 7,
+          word: "שַׁבָּת",
+          plain: "שבת",
+          meaning: "Shabbat",
+          emoji: "🕯️",
+          translit: "Shabbat",
+          chunks: ["שַׁ", "בָּת"],
+          family: "Shabbat word",
+        },
+        {
+          id: "kiddush",
+          level: 7,
+          word: "קִדּוּשׁ",
+          plain: "קדוש",
+          meaning: "Kiddush",
+          emoji: "🍷",
+          translit: "Kiddush",
+          chunks: ["קִ", "דּוּשׁ"],
+          family: "Shabbat word",
+        },
+        {
+          id: "yom_hashishi",
+          level: 7,
+          word: "יוֹם הַשִּׁשִּׁי",
+          plain: "יום הששי",
+          meaning: "the sixth day",
+          emoji: "6️⃣",
+          translit: "yom hashishi",
+          chunks: ["יוֹם", "הַ", "שִּׁ", "שִּׁי"],
+          family: "Kiddush phrase",
+        },
+        {
+          id: "vayechulu",
+          level: 7,
+          word: "וַיְכֻלּוּ",
+          plain: "ויכלו",
+          meaning: "and were completed",
+          emoji: "✅",
+          translit: "vayechulu",
+          chunks: ["וַ", "יְ", "כֻ", "לּוּ"],
+          family: "Kiddush word",
+        },
+        {
+          id: "hashamayim",
+          level: 7,
+          word: "הַשָּׁמַיִם",
+          plain: "השמים",
+          meaning: "the heavens",
+          emoji: "🌌",
+          translit: "hashamayim",
+          chunks: ["הַ", "שָּׁ", "מַ", "יִם"],
+          family: "Kiddush word",
+        },
+        {
+          id: "haaretz",
+          level: 7,
+          word: "הָאָרֶץ",
+          plain: "הארץ",
+          meaning: "the earth",
+          emoji: "🌍",
+          translit: "ha-aretz",
+          chunks: ["הָ", "אָ", "רֶץ"],
+          family: "Kiddush word",
+        },
+        {
+          id: "tzevaam",
+          level: 7,
+          word: "צְבָאָם",
+          plain: "צבאם",
+          meaning: "their hosts / array",
+          emoji: "🌟",
+          translit: "tz'va'am",
+          chunks: ["צְ", "בָ", "אָם"],
+          family: "Kiddush word",
+        },
+        {
+          id: "vayishbot",
+          level: 7,
+          word: "וַיִּשְׁבֹּת",
+          plain: "וישבת",
+          meaning: "and He rested",
+          emoji: "😌",
+          translit: "vayishbot",
+          chunks: ["וַ", "יִּשְׁ", "בֹּת"],
+          family: "Kiddush word",
+        },
+        {
+          id: "hashvii",
+          level: 7,
+          word: "הַשְּׁבִיעִי",
+          plain: "השביעי",
+          meaning: "the seventh",
+          emoji: "7️⃣",
+          translit: "hashvi'i",
+          chunks: ["הַ", "שְּׁ", "בִי", "עִי"],
+          family: "Kiddush word",
+        },
+        {
+          id: "melachto",
+          level: 7,
+          word: "מְלַאכְתּוֹ",
+          plain: "מלאכתו",
+          meaning: "His work",
+          emoji: "🛠️",
+          translit: "melachto",
+          chunks: ["מְ", "לַאכְ", "תּוֹ"],
+          family: "Kiddush word",
+        },
+        {
+          id: "vayevarech",
+          level: 7,
+          word: "וַיְבָרֶךְ",
+          plain: "ויברך",
+          meaning: "and He blessed",
+          emoji: "🙌",
+          translit: "vayevarech",
+          chunks: ["וַ", "יְ", "בָ", "רֶךְ"],
+          family: "Kiddush word",
+        },
+        {
+          id: "vayekadesh",
+          level: 7,
+          word: "וַיְקַדֵּשׁ",
+          plain: "ויקדש",
+          meaning: "and He made holy",
+          emoji: "✨",
+          translit: "vayekadesh",
+          chunks: ["וַ", "יְ", "קַ", "דֵּשׁ"],
+          family: "Kiddush word",
+        },
+        {
+          id: "zachor",
+          level: 7,
+          word: "זָכוֹר",
+          plain: "זכור",
+          meaning: "remember",
+          emoji: "🧠",
+          translit: "zachor",
+          chunks: ["זָ", "כוֹר"],
+          family: "Shabbat word",
+        },
+        {
+          id: "shamor",
+          level: 7,
+          word: "שָׁמוֹר",
+          plain: "שמור",
+          meaning: "guard / keep",
+          emoji: "🛡️",
+          translit: "shamor",
+          chunks: ["שָׁ", "מוֹר"],
+          family: "Shabbat word",
+        },
+        {
+          id: "menucha",
+          level: 7,
+          word: "מְנוּחָה",
+          plain: "מנוחה",
+          meaning: "rest",
+          emoji: "😌",
+          translit: "menuchah",
+          chunks: ["מְ", "נוּ", "חָה"],
+          family: "Shabbat word",
+        },
+        {
+          id: "kodesh",
+          level: 7,
+          word: "קֹדֶשׁ",
+          plain: "קדש",
+          meaning: "holiness",
+          emoji: "✨",
+          translit: "kodesh",
+          chunks: ["קֹ", "דֶשׁ"],
+          family: "Shabbat word",
+        },
+        {
+          id: "yayin",
+          level: 7,
+          word: "יַיִן",
+          plain: "יין",
+          meaning: "wine / grape juice",
+          emoji: "🍷",
+          translit: "yayin",
+          chunks: ["יַ", "יִן"],
+          family: "Shabbat word",
+        },
+        {
+          id: "challah",
+          level: 7,
+          word: "חַלָּה",
+          plain: "חלה",
+          meaning: "challah",
+          emoji: "🍞",
+          translit: "challah",
+          chunks: ["חַלָּה"],
+          family: "Shabbat word",
+        },
+        {
+          id: "borei",
+          level: 7,
+          word: "בּוֹרֵא",
+          plain: "בורא",
+          meaning: "creates",
+          emoji: "🌎",
+          translit: "borei",
+          chunks: ["בּוֹ", "רֵא"],
+          family: "blessing word",
+        },
+        {
+          id: "pri_hagafen",
+          level: 7,
+          word: "פְּרִי הַגָּפֶן",
+          plain: "פרי הגפן",
+          meaning: "fruit of the vine",
+          emoji: "🍇",
+          translit: "pri hagafen",
+          chunks: ["פְּרִי", "הַ", "גָּ", "פֶן"],
+          family: "Kiddush phrase",
+        },
+        {
+          id: "adon_olam",
+          level: 8,
+          word: "אֲדוֹן עוֹלָם",
+          plain: "אדון עולם",
+          meaning: "Master of the universe",
+          emoji: "🌍",
+          translit: "Adon Olam",
+          chunks: ["אֲ", "דוֹן", "עוֹ", "לָם"],
+          family: "Shabbat song phrase",
+        },
+        {
+          id: "asher_malach",
+          level: 8,
+          word: "אֲשֶׁר מָלַךְ",
+          plain: "אשר מלך",
+          meaning: "who reigned",
+          emoji: "👑",
+          translit: "asher malach",
+          chunks: ["אֲ", "שֶׁר", "מָ", "לַךְ"],
+          family: "Shabbat song phrase",
+        },
+        {
+          id: "beterem",
+          level: 8,
+          word: "בְּטֶרֶם",
+          plain: "בטרם",
+          meaning: "before",
+          emoji: "⏳",
+          translit: "beterem",
+          chunks: ["בְּ", "טֶ", "רֶם"],
+          family: "Shabbat song word",
+        },
+        {
+          id: "kol_yetzir",
+          level: 8,
+          word: "כָּל יְצִיר",
+          plain: "כל יציר",
+          meaning: "every creature",
+          emoji: "🌎",
+          translit: "kol yetzir",
+          chunks: ["כָּל", "יְ", "צִיר"],
+          family: "Shabbat song phrase",
+        },
+        {
+          id: "nivra",
+          level: 8,
+          word: "נִבְרָא",
+          plain: "נברא",
+          meaning: "was created",
+          emoji: "🌎",
+          translit: "nivra",
+          chunks: ["נִבְ", "רָא"],
+          family: "Shabbat song word",
+        },
+        {
+          id: "lecha_dodi",
+          level: 8,
+          word: "לְכָה דוֹדִי",
+          plain: "לכה דודי",
+          meaning: "come, my beloved",
+          emoji: "🎶",
+          translit: "Lecha Dodi",
+          chunks: ["לְ", "כָה", "דוֹ", "דִי"],
+          family: "Kabbalat Shabbat phrase",
+        },
+        {
+          id: "likrat",
+          level: 8,
+          word: "לִקְרַאת",
+          plain: "לקראת",
+          meaning: "toward / to greet",
+          emoji: "➡️",
+          translit: "likrat",
+          chunks: ["לִקְ", "רַאת"],
+          family: "Kabbalat Shabbat word",
+        },
+        {
+          id: "kallah",
+          level: 8,
+          word: "כַּלָּה",
+          plain: "כלה",
+          meaning: "bride",
+          emoji: "👰",
+          translit: "kallah",
+          chunks: ["כַּלָּה"],
+          family: "Kabbalat Shabbat word",
+        },
+        {
+          id: "pnei_shabbat",
+          level: 8,
+          word: "פְּנֵי שַׁבָּת",
+          plain: "פני שבת",
+          meaning: "the face/presence of Shabbat",
+          emoji: "🕯️",
+          translit: "p'nei Shabbat",
+          chunks: ["פְּ", "נֵי", "שַׁ", "בָּת"],
+          family: "Kabbalat Shabbat phrase",
+        },
+        {
+          id: "nekabelah",
+          level: 8,
+          word: "נְקַבְּלָה",
+          plain: "נקבלה",
+          meaning: "let us receive",
+          emoji: "🤲",
+          translit: "nekabelah",
+          chunks: ["נְ", "קַ", "בְּ", "לָה"],
+          family: "Kabbalat Shabbat word",
+        },
+        {
+          id: "shalom_aleichem",
+          level: 8,
+          word: "שָׁלוֹם עֲלֵיכֶם",
+          plain: "שלום עליכם",
+          meaning: "peace be upon you",
+          emoji: "🕊️",
+          translit: "Shalom Aleichem",
+          chunks: ["שָׁ", "לוֹם", "עֲ", "לֵי", "כֶם"],
+          family: "Shabbat song phrase",
+        },
+        {
+          id: "malachei",
+          level: 8,
+          word: "מַלְאֲכֵי",
+          plain: "מלאכי",
+          meaning: "angels of",
+          emoji: "👼",
+          translit: "malachei",
+          chunks: ["מַלְ", "אֲ", "כֵי"],
+          family: "Shabbat song word",
+        },
+        {
+          id: "hasharet",
+          level: 8,
+          word: "הַשָּׁרֵת",
+          plain: "השרת",
+          meaning: "service / ministering",
+          emoji: "👼",
+          translit: "hasharet",
+          chunks: ["הַ", "שָּׁ", "רֵת"],
+          family: "Shabbat song word",
+        },
+        {
+          id: "elyon",
+          level: 8,
+          word: "עֶלְיוֹן",
+          plain: "עליון",
+          meaning: "Most High",
+          emoji: "⬆️",
+          translit: "elyon",
+          chunks: ["עֶלְ", "יוֹן"],
+          family: "Shabbat song word",
+        },
+        {
+          id: "melech_malchei",
+          level: 8,
+          word: "מֶלֶךְ מַלְכֵי",
+          plain: "מלך מלכי",
+          meaning: "King of kings",
+          emoji: "👑",
+          translit: "melech malchei",
+          chunks: ["מֶ", "לֶךְ", "מַלְ", "כֵי"],
+          family: "Shabbat song phrase",
+        },
+        {
+          id: "hamelachim",
+          level: 8,
+          word: "הַמְּלָכִים",
+          plain: "המלכים",
+          meaning: "the kings",
+          emoji: "👑",
+          translit: "hamelachim",
+          chunks: ["הַ", "מְּ", "לָ", "כִים"],
+          family: "Shabbat song word",
+        },
+        {
+          id: "eitz_chayim",
+          level: 8,
+          word: "עֵץ חַיִּים",
+          plain: "עץ חיים",
+          meaning: "tree of life",
+          emoji: "🌳",
+          translit: "eitz chayim",
+          chunks: ["עֵץ", "חַ", "יִּים"],
+          family: "Torah service phrase",
+        },
+        {
+          id: "hi_lamachazikim",
+          level: 8,
+          word: "הִיא לַמַּחֲזִיקִים",
+          plain: "היא למחזיקים",
+          meaning: "it is for those who hold fast",
+          emoji: "🤲",
+          translit: "hi lamachazikim",
+          chunks: ["הִיא", "לַ", "מַּ", "חֲ", "זִי", "קִים"],
+          family: "Torah service phrase",
+        },
+        {
+          id: "deracheha",
+          level: 8,
+          word: "דְּרָכֶיהָ",
+          plain: "דרכיה",
+          meaning: "its ways",
+          emoji: "🛣️",
+          translit: "d'racheha",
+          chunks: ["דְּ", "רָ", "כֶי", "הָ"],
+          family: "Torah service word",
+        },
+        {
+          id: "darchei_noam",
+          level: 8,
+          word: "דַּרְכֵי נֹעַם",
+          plain: "דרכי נעם",
+          meaning: "ways of pleasantness",
+          emoji: "🌸",
+          translit: "darchei noam",
+          chunks: ["דַּרְ", "כֵי", "נֹ", "עַם"],
+          family: "Torah service phrase",
+        },
+        {
+          id: "hamotzi",
+          level: 3,
+          word: "הַמּוֹצִיא",
+          plain: "המוציא",
+          meaning: "brings forth",
+          emoji: "🍞",
+          translit: "hamotzi",
+          chunks: ["הַ", "מּוֹ", "צִיא"],
+          family: "meal blessing",
+        },
+        {
+          id: "lechem_min_haaretz",
+          level: 4,
+          word: "לֶחֶם מִן הָאָרֶץ",
+          plain: "לחם מן הארץ",
+          meaning: "bread from the earth",
+          emoji: "🍞",
+          translit: "lechem min ha-aretz",
+          chunks: ["לֶ", "חֶם", "מִן", "הָ", "אָ", "רֶץ"],
+          family: "meal blessing phrase",
+        },
+        {
+          id: "shehakol",
+          level: 4,
+          word: "שֶׁהַכֹּל",
+          plain: "שהכל",
+          meaning: "that everything",
+          emoji: "🌎",
+          translit: "shehakol",
+          chunks: ["שֶׁ", "הַ", "כֹּל"],
+          family: "blessing word",
+        },
+        {
+          id: "nihyah_bidvaro",
+          level: 5,
+          word: "נִהְיָה בִּדְבָרוֹ",
+          plain: "נהיה בדברו",
+          meaning: "came to be by His word",
+          emoji: "💬",
+          translit: "nihyah bidvaro",
+          chunks: ["נִהְ", "יָה", "בִּדְ", "בָ", "רוֹ"],
+          family: "blessing phrase",
+        },
+        {
+          id: "borei_pri_haetz",
+          level: 4,
+          word: "בּוֹרֵא פְּרִי הָעֵץ",
+          plain: "בורא פרי העץ",
+          meaning: "creates fruit of the tree",
+          emoji: "🍎",
+          translit: "borei pri ha-eitz",
+          chunks: ["בּוֹ", "רֵא", "פְּ", "רִי", "הָ", "עֵץ"],
+          family: "blessing phrase",
+        },
+        {
+          id: "borei_pri_haadama",
+          level: 5,
+          word: "בּוֹרֵא פְּרִי הָאֲדָמָה",
+          plain: "בורא פרי האדמה",
+          meaning: "creates fruit of the ground",
+          emoji: "🥕",
+          translit: "borei pri ha-adamah",
+          chunks: ["בּוֹ", "רֵא", "פְּ", "רִי", "הָ", "אֲ", "דָ", "מָה"],
+          family: "blessing phrase",
+        },
+        {
+          id: "borei_minei_mezonot",
+          level: 5,
+          word: "בּוֹרֵא מִינֵי מְזוֹנוֹת",
+          plain: "בורא מיני מזונות",
+          meaning: "creates kinds of grain foods",
+          emoji: "🥨",
+          translit: "borei minei mezonot",
+          chunks: ["בּוֹ", "רֵא", "מִי", "נֵי", "מְ", "זוֹ", "נוֹת"],
+          family: "blessing phrase",
+        },
+        {
+          id: "netilat_yadayim",
+          level: 5,
+          word: "נְטִילַת יָדַיִם",
+          plain: "נטילת ידים",
+          meaning: "washing of hands",
+          emoji: "👐",
+          translit: "netilat yadayim",
+          chunks: ["נְ", "טִי", "לַת", "יָ", "דַ", "יִם"],
+          family: "daily blessing phrase",
+        },
+        {
+          id: "asher_kidshanu",
+          level: 5,
+          word: "אֲשֶׁר קִדְּשָׁנוּ",
+          plain: "אשר קדשנו",
+          meaning: "who made us holy",
+          emoji: "✨",
+          translit: "asher kidshanu",
+          chunks: ["אֲ", "שֶׁר", "קִדְּ", "שָׁ", "נוּ"],
+          family: "blessing phrase",
+        },
+        {
+          id: "al_netilat_yadayim",
+          level: 6,
+          word: "עַל נְטִילַת יָדַיִם",
+          plain: "על נטילת ידים",
+          meaning: "about washing hands",
+          emoji: "👐",
+          translit: "al netilat yadayim",
+          chunks: ["עַל", "נְ", "טִי", "לַת", "יָ", "דַ", "יִם"],
+          family: "daily blessing phrase",
+        },
+        {
+          id: "ashrei",
+          level: 4,
+          word: "אַשְׁרֵי",
+          plain: "אשרי",
+          meaning: "happy / fortunate",
+          emoji: "😊",
+          translit: "ashrei",
+          chunks: ["אַשְׁ", "רֵי"],
+          family: "daily prayer word",
+        },
+        {
+          id: "yoshvei_veitecha",
+          level: 6,
+          word: "יוֹשְׁבֵי בֵיתֶךָ",
+          plain: "יושבי ביתך",
+          meaning: "those who dwell in Your house",
+          emoji: "🏠",
+          translit: "yoshvei veitecha",
+          chunks: ["יוֹשְׁ", "בֵי", "בֵי", "תֶ", "ךָ"],
+          family: "Ashrei phrase",
+        },
+        {
+          id: "od_yehalelucha",
+          level: 6,
+          word: "עוֹד יְהַלְלוּךָ",
+          plain: "עוד יהללוך",
+          meaning: "they will praise You again",
+          emoji: "🎶",
+          translit: "od yehalelucha",
+          chunks: ["עוֹד", "יְ", "הַלְ", "לוּ", "ךָ"],
+          family: "Ashrei phrase",
+        },
+        {
+          id: "selah",
+          level: 3,
+          word: "סֶּלָה",
+          plain: "סלה",
+          meaning: "selah / forever",
+          emoji: "∞",
+          translit: "selah",
+          chunks: ["סֶּ", "לָה"],
+          family: "prayer word",
+        },
+        {
+          id: "poteach",
+          level: 5,
+          word: "פּוֹתֵחַ",
+          plain: "פותח",
+          meaning: "opens",
+          emoji: "👐",
+          translit: "poteach",
+          chunks: ["פּוֹ", "תֵ", "חַ"],
+          family: "Ashrei word",
+        },
+        {
+          id: "et_yadecha",
+          level: 5,
+          word: "אֶת יָדֶךָ",
+          plain: "את ידך",
+          meaning: "Your hand",
+          emoji: "✋",
+          translit: "et yadecha",
+          chunks: ["אֶת", "יָ", "דֶ", "ךָ"],
+          family: "Ashrei phrase",
+        },
+        {
+          id: "umasbia",
+          level: 6,
+          word: "וּמַשְׂבִּיעַ",
+          plain: "ומשביע",
+          meaning: "and satisfies",
+          emoji: "🍽️",
+          translit: "umasbia",
+          chunks: ["וּ", "מַשְׂ", "בִּי", "עַ"],
+          family: "Ashrei word",
+        },
+        {
+          id: "lechol_chai",
+          level: 5,
+          word: "לְכָל חַי",
+          plain: "לכל חי",
+          meaning: "every living thing",
+          emoji: "🌱",
+          translit: "l'chol chai",
+          chunks: ["לְ", "כָל", "חַי"],
+          family: "Ashrei phrase",
+        },
+        {
+          id: "ratzon",
+          level: 4,
+          word: "רָצוֹן",
+          plain: "רצון",
+          meaning: "will / desire",
+          emoji: "⭐",
+          translit: "ratzon",
+          chunks: ["רָ", "צוֹן"],
+          family: "prayer word",
+        },
+        {
+          id: "karov_adonai",
+          level: 5,
+          word: "קָרוֹב אֲדֹנָי",
+          plain: "קרוב אדני",
+          meaning: "Adonai is near",
+          emoji: "✨",
+          translit: "karov Adonai",
+          chunks: ["קָ", "רוֹב", "אֲ", "דֹ", "נָי"],
+          family: "Ashrei phrase",
+        },
+        {
+          id: "lechol_korav",
+          level: 5,
+          word: "לְכָל קֹרְאָיו",
+          plain: "לכל קראיו",
+          meaning: "to all who call Him",
+          emoji: "📣",
+          translit: "l'chol korav",
+          chunks: ["לְ", "כָל", "קֹרְ", "אָיו"],
+          family: "Ashrei phrase",
+        },
+        {
+          id: "adonai_sefatai",
+          level: 5,
+          word: "אֲדֹנָי שְׂפָתַי",
+          plain: "אדני שפתי",
+          meaning: "Adonai, my lips",
+          emoji: "👄",
+          translit: "Adonai sefatai",
+          chunks: ["אֲ", "דֹ", "נָי", "שְׂ", "פָ", "תַי"],
+          family: "Amidah opening phrase",
+        },
+        {
+          id: "tiftach",
+          level: 4,
+          word: "תִּפְתָּח",
+          plain: "תפתח",
+          meaning: "open",
+          emoji: "🔓",
+          translit: "tiftach",
+          chunks: ["תִּפְ", "תָּח"],
+          family: "Amidah word",
+        },
+        {
+          id: "ufi_yagid",
+          level: 5,
+          word: "וּפִי יַגִּיד",
+          plain: "ופי יגיד",
+          meaning: "and my mouth will declare",
+          emoji: "🗣️",
+          translit: "ufi yagid",
+          chunks: ["וּ", "פִי", "יַ", "גִּיד"],
+          family: "Amidah opening phrase",
+        },
+        {
+          id: "tehilatecha",
+          level: 6,
+          word: "תְּהִלָּתֶךָ",
+          plain: "תהלתך",
+          meaning: "Your praise",
+          emoji: "🎶",
+          translit: "tehilatecha",
+          chunks: ["תְּ", "הִלָּ", "תֶ", "ךָ"],
+          family: "Amidah word",
+        },
+        {
+          id: "elohei_avraham",
+          level: 5,
+          word: "אֱלֹהֵי אַבְרָהָם",
+          plain: "אלהי אברהם",
+          meaning: "God of Abraham",
+          emoji: "👴",
+          translit: "Elohei Avraham",
+          chunks: ["אֱ", "לֹ", "הֵי", "אַבְ", "רָ", "הָם"],
+          family: "Amidah phrase",
+        },
+        {
+          id: "elohei_yitzchak",
+          level: 5,
+          word: "אֱלֹהֵי יִצְחָק",
+          plain: "אלהי יצחק",
+          meaning: "God of Isaac",
+          emoji: "👴",
+          translit: "Elohei Yitzchak",
+          chunks: ["אֱ", "לֹ", "הֵי", "יִצְ", "חָק"],
+          family: "Amidah phrase",
+        },
+        {
+          id: "elohei_yaakov",
+          level: 5,
+          word: "אֱלֹהֵי יַעֲקֹב",
+          plain: "אלהי יעקב",
+          meaning: "God of Jacob",
+          emoji: "👴",
+          translit: "Elohei Yaakov",
+          chunks: ["אֱ", "לֹ", "הֵי", "יַ", "עֲ", "קֹב"],
+          family: "Amidah phrase",
+        },
+        {
+          id: "hael_hagadol",
+          level: 5,
+          word: "הָאֵל הַגָּדוֹל",
+          plain: "האל הגדול",
+          meaning: "the great God",
+          emoji: "✨",
+          translit: "ha-El ha-gadol",
+          chunks: ["הָ", "אֵל", "הַ", "גָּ", "דוֹל"],
+          family: "Amidah phrase",
+        },
+        {
+          id: "hagibor_vehanora",
+          level: 6,
+          word: "הַגִּבּוֹר וְהַנּוֹרָא",
+          plain: "הגבור והנורא",
+          meaning: "the mighty and awesome",
+          emoji: "💪",
+          translit: "ha-gibor v'hanora",
+          chunks: ["הַ", "גִּ", "בּוֹר", "וְ", "הַ", "נּוֹ", "רָא"],
+          family: "Amidah phrase",
+        },
+        {
+          id: "gomel_chasadim",
+          level: 6,
+          word: "גּוֹמֵל חֲסָדִים",
+          plain: "גומל חסדים",
+          meaning: "does acts of kindness",
+          emoji: "🤝",
+          translit: "gomel chasadim",
+          chunks: ["גּוֹ", "מֵל", "חֲ", "סָ", "דִים"],
+          family: "Amidah phrase",
+        },
+        {
+          id: "chasadim_tovim",
+          level: 6,
+          word: "חֲסָדִים טוֹבִים",
+          plain: "חסדים טובים",
+          meaning: "good kindnesses",
+          emoji: "🤝",
+          translit: "chasadim tovim",
+          chunks: ["חֲ", "סָ", "דִים", "טוֹ", "בִים"],
+          family: "Amidah phrase",
+        },
+        {
+          id: "koneh_hakol",
+          level: 5,
+          word: "קוֹנֵה הַכֹּל",
+          plain: "קונה הכל",
+          meaning: "creator/owner of all",
+          emoji: "🌎",
+          translit: "koneh hakol",
+          chunks: ["קוֹ", "נֵה", "הַ", "כֹּל"],
+          family: "Amidah phrase",
+        },
+        {
+          id: "zocher_chasdei_avot",
+          level: 7,
+          word: "זוֹכֵר חַסְדֵי אָבוֹת",
+          plain: "זוכר חסדי אבות",
+          meaning: "remembers ancestors’ kindnesses",
+          emoji: "🧠",
+          translit: "zocher chasdei avot",
+          chunks: ["זוֹ", "כֵר", "חַסְ", "דֵי", "אָ", "בוֹת"],
+          family: "Amidah phrase",
+        },
+        {
+          id: "umeivi_goel",
+          level: 6,
+          word: "וּמֵבִיא גּוֹאֵל",
+          plain: "ומביא גואל",
+          meaning: "and brings a redeemer",
+          emoji: "🛟",
+          translit: "umeivi goel",
+          chunks: ["וּ", "מֵ", "בִיא", "גּוֹ", "אֵל"],
+          family: "Amidah phrase",
+        },
+        {
+          id: "lemaan_shemo",
+          level: 6,
+          word: "לְמַעַן שְׁמוֹ",
+          plain: "למען שמו",
+          meaning: "for the sake of His name",
+          emoji: "📛",
+          translit: "l'ma'an shemo",
+          chunks: ["לְ", "מַ", "עַן", "שְׁ", "מוֹ"],
+          family: "Amidah phrase",
+        },
+        {
+          id: "beahava",
+          level: 4,
+          word: "בְּאַהֲבָה",
+          plain: "באהבה",
+          meaning: "with love",
+          emoji: "❤️",
+          translit: "b'ahavah",
+          chunks: ["בְּ", "אַ", "הֲ", "בָה"],
+          family: "prayer word",
+        },
+        {
+          id: "melech_ozer",
+          level: 5,
+          word: "מֶלֶךְ עוֹזֵר",
+          plain: "מלך עוזר",
+          meaning: "King who helps",
+          emoji: "👑",
+          translit: "melech ozer",
+          chunks: ["מֶ", "לֶךְ", "עוֹ", "זֵר"],
+          family: "Amidah phrase",
+        },
+        {
+          id: "umoshia_umagen",
+          level: 6,
+          word: "וּמוֹשִׁיעַ וּמָגֵן",
+          plain: "ומושיע ומגן",
+          meaning: "saves and shields",
+          emoji: "🛡️",
+          translit: "umoshia umagen",
+          chunks: ["וּ", "מוֹ", "שִׁי", "עַ", "וּ", "מָ", "גֵן"],
+          family: "Amidah phrase",
+        },
+        {
+          id: "aleinu_leshabeach",
+          level: 6,
+          word: "עָלֵינוּ לְשַׁבֵּחַ",
+          plain: "עלינו לשבח",
+          meaning: "it is upon us to praise",
+          emoji: "🙌",
+          translit: "Aleinu l'shabeach",
+          chunks: ["עָ", "לֵי", "נוּ", "לְ", "שַׁ", "בֵּ", "חַ"],
+          family: "Aleinu phrase",
+        },
+        {
+          id: "laadon_hakol",
+          level: 5,
+          word: "לַאֲדוֹן הַכֹּל",
+          plain: "לאדון הכל",
+          meaning: "to the Master of all",
+          emoji: "🌎",
+          translit: "la-Adon hakol",
+          chunks: ["לַ", "אֲ", "דוֹן", "הַ", "כֹּל"],
+          family: "Aleinu phrase",
+        },
+        {
+          id: "latet_gedulah",
+          level: 5,
+          word: "לָתֵת גְּדֻלָּה",
+          plain: "לתת גדלה",
+          meaning: "to give greatness",
+          emoji: "📈",
+          translit: "latet gedulah",
+          chunks: ["לָ", "תֵת", "גְּ", "דֻ", "לָּה"],
+          family: "Aleinu phrase",
+        },
+        {
+          id: "leyotzer_bereshit",
+          level: 6,
+          word: "לְיוֹצֵר בְּרֵאשִׁית",
+          plain: "ליוצר בראשית",
+          meaning: "to the Creator of beginning",
+          emoji: "🌎",
+          translit: "l'yotzer b'reishit",
+          chunks: ["לְ", "יוֹ", "צֵר", "בְּ", "רֵא", "שִׁית"],
+          family: "Aleinu phrase",
+        },
+        {
+          id: "shelo_asanu",
+          level: 5,
+          word: "שֶׁלֹּא עָשָׂנוּ",
+          plain: "שלא עשנו",
+          meaning: "who did not make us",
+          emoji: "🧍",
+          translit: "shelo asanu",
+          chunks: ["שֶׁ", "לֹּא", "עָ", "שָׂ", "נוּ"],
+          family: "Aleinu phrase",
+        },
+        {
+          id: "kegoyei_haaratzot",
+          level: 7,
+          word: "כְּגוֹיֵי הָאֲרָצוֹת",
+          plain: "כגויי הארצות",
+          meaning: "like the nations of the lands",
+          emoji: "🌍",
+          translit: "k'goyei ha-aratzot",
+          chunks: ["כְּ", "גוֹ", "יֵי", "הָ", "אֲ", "רָ", "צוֹת"],
+          family: "Aleinu phrase",
+        },
+        {
+          id: "korim",
+          level: 4,
+          word: "כּוֹרְעִים",
+          plain: "כורעים",
+          meaning: "bow",
+          emoji: "🙇",
+          translit: "korim",
+          chunks: ["כּוֹרְ", "עִים"],
+          family: "Aleinu word",
+        },
+        {
+          id: "umishtachavim",
+          level: 7,
+          word: "וּמִשְׁתַּחֲוִים",
+          plain: "ומשתחוים",
+          meaning: "and bow down",
+          emoji: "🙇",
+          translit: "umishtachavim",
+          chunks: ["וּ", "מִשְׁ", "תַּ", "חֲ", "וִים"],
+          family: "Aleinu word",
+        },
+        {
+          id: "umodim",
+          level: 5,
+          word: "וּמוֹדִים",
+          plain: "ומודים",
+          meaning: "and give thanks",
+          emoji: "🙏",
+          translit: "umodim",
+          chunks: ["וּ", "מוֹ", "דִים"],
+          family: "Aleinu word",
+        },
+        {
+          id: "lifnei_melech",
+          level: 5,
+          word: "לִפְנֵי מֶלֶךְ",
+          plain: "לפני מלך",
+          meaning: "before the King",
+          emoji: "👑",
+          translit: "lifnei melech",
+          chunks: ["לִפְ", "נֵי", "מֶ", "לֶךְ"],
+          family: "Aleinu phrase",
+        },
+        {
+          id: "malchei_hamelachim",
+          level: 7,
+          word: "מַלְכֵי הַמְּלָכִים",
+          plain: "מלכי המלכים",
+          meaning: "King of kings",
+          emoji: "👑",
+          translit: "malchei hamelachim",
+          chunks: ["מַלְ", "כֵי", "הַ", "מְּ", "לָ", "כִים"],
+          family: "Aleinu phrase",
+        },
+        {
+          id: "hakadosh_baruch_hu",
+          level: 7,
+          word: "הַקָּדוֹשׁ בָּרוּךְ הוּא",
+          plain: "הקדוש ברוך הוא",
+          meaning: "the Holy Blessed One",
+          emoji: "✨",
+          translit: "HaKadosh Baruch Hu",
+          chunks: ["הַ", "קָּ", "דוֹשׁ", "בָּ", "רוּךְ", "הוּא"],
+          family: "Aleinu phrase",
+        },
+        {
+          id: "baagala_uvizman_kariv",
+          level: 7,
+          word: "בַּעֲגָלָא וּבִזְמַן קָרִיב",
+          plain: "בעגלא ובזמן קריב",
+          meaning: "speedily and soon",
+          emoji: "⏱️",
+          translit: "ba'agala uvizman kariv",
+          chunks: ["בַּ", "עֲ", "גָ", "לָא", "וּ", "בִזְ", "מַן", "קָ", "רִיב"],
+          family: "Kaddish phrase",
+        },
+        {
+          id: "yitbarach",
+          level: 5,
+          word: "יִתְבָּרַךְ",
+          plain: "יתברך",
+          meaning: "may it be blessed",
+          emoji: "🙌",
+          translit: "yitbarach",
+          chunks: ["יִתְ", "בָּ", "רַךְ"],
+          family: "Kaddish word",
+        },
+        {
+          id: "veyishtabach",
+          level: 6,
+          word: "וְיִשְׁתַּבַּח",
+          plain: "וישתבח",
+          meaning: "and praised",
+          emoji: "🎶",
+          translit: "v'yishtabach",
+          chunks: ["וְ", "יִשְׁ", "תַּ", "בַּח"],
+          family: "Kaddish word",
+        },
+        {
+          id: "veyitpaar",
+          level: 6,
+          word: "וְיִתְפָּאַר",
+          plain: "ויתפאר",
+          meaning: "and glorified",
+          emoji: "✨",
+          translit: "v'yitpa'ar",
+          chunks: ["וְ", "יִתְ", "פָּ", "אַר"],
+          family: "Kaddish word",
+        },
+        {
+          id: "veyitromam",
+          level: 6,
+          word: "וְיִתְרוֹמָם",
+          plain: "ויתרומם",
+          meaning: "and exalted",
+          emoji: "⬆️",
+          translit: "v'yitromam",
+          chunks: ["וְ", "יִתְ", "רוֹ", "מָם"],
+          family: "Kaddish word",
+        },
+        {
+          id: "veyitnaseh",
+          level: 6,
+          word: "וְיִתְנַשֵּׂא",
+          plain: "ויתנשא",
+          meaning: "and lifted up",
+          emoji: "⬆️",
+          translit: "v'yitnaseh",
+          chunks: ["וְ", "יִתְ", "נַ", "שֵּׂא"],
+          family: "Kaddish word",
+        },
+        {
+          id: "shmeh_dekudsha",
+          level: 7,
+          word: "שְׁמֵהּ דְּקֻדְשָׁא",
+          plain: "שמה דקדשא",
+          meaning: "the Name of the Holy One",
+          emoji: "✨",
+          translit: "shmeh d'kudsha",
+          chunks: ["שְׁ", "מֵהּ", "דְּ", "קֻדְ", "שָׁא"],
+          family: "Kaddish phrase",
+        },
+        {
+          id: "brich_hu",
+          level: 4,
+          word: "בְּרִיךְ הוּא",
+          plain: "בריך הוא",
+          meaning: "blessed is He",
+          emoji: "🙌",
+          translit: "brich hu",
+          chunks: ["בְּ", "רִיךְ", "הוּא"],
+          family: "Kaddish phrase",
+        },
+        {
+          id: "shalom_rav",
+          level: 4,
+          word: "שָׁלוֹם רָב",
+          plain: "שלום רב",
+          meaning: "abundant peace",
+          emoji: "🕊️",
+          translit: "shalom rav",
+          chunks: ["שָׁ", "לוֹם", "רָב"],
+          family: "peace prayer phrase",
+        },
+        {
+          id: "sim_shalom",
+          level: 4,
+          word: "שִׂים שָׁלוֹם",
+          plain: "שים שלום",
+          meaning: "grant peace",
+          emoji: "🕊️",
+          translit: "sim shalom",
+          chunks: ["שִׂים", "שָׁ", "לוֹם"],
+          family: "peace prayer phrase",
+        },
+        {
+          id: "veshamru",
+          level: 4,
+          word: "וְשָׁמְרוּ",
+          plain: "ושמרו",
+          meaning: "and they shall keep",
+          emoji: "🛡️",
+          translit: "v'shamru",
+          chunks: ["וְ", "שָׁמְ", "רוּ"],
+          family: "Shabbat prayer word",
+        },
+        {
+          id: "bnei_yisrael",
+          level: 4,
+          word: "בְּנֵי יִשְׂרָאֵל",
+          plain: "בני ישראל",
+          meaning: "children of Israel",
+          emoji: "👥",
+          translit: "b'nei Yisrael",
+          chunks: ["בְּ", "נֵי", "יִשְׂ", "רָ", "אֵל"],
+          family: "Shabbat phrase",
+        },
+        {
+          id: "et_hashabbat",
+          level: 4,
+          word: "אֶת הַשַּׁבָּת",
+          plain: "את השבת",
+          meaning: "the Shabbat",
+          emoji: "🕯️",
+          translit: "et ha-Shabbat",
+          chunks: ["אֶת", "הַ", "שַּׁ", "בָּת"],
+          family: "Shabbat phrase",
+        },
+        {
+          id: "laasot_et_hashabbat",
+          level: 6,
+          word: "לַעֲשׂוֹת אֶת הַשַּׁבָּת",
+          plain: "לעשות את השבת",
+          meaning: "to observe Shabbat",
+          emoji: "🕯️",
+          translit: "la'asot et ha-Shabbat",
+          chunks: ["לַ", "עֲ", "שׂוֹת", "אֶת", "הַ", "שַּׁ", "בָּת"],
+          family: "Shabbat phrase",
+        },
+        {
+          id: "ledorotam",
+          level: 5,
+          word: "לְדֹרֹתָם",
+          plain: "לדרתם",
+          meaning: "for their generations",
+          emoji: "👥",
+          translit: "l'dorotam",
+          chunks: ["לְ", "דֹ", "רֹ", "תָם"],
+          family: "Shabbat word",
+        },
+        {
+          id: "brit_olam",
+          level: 4,
+          word: "בְּרִית עוֹלָם",
+          plain: "ברית עולם",
+          meaning: "everlasting covenant",
+          emoji: "🤝",
+          translit: "brit olam",
+          chunks: ["בְּ", "רִית", "עוֹ", "לָם"],
+          family: "Shabbat phrase",
+        },
+        {
+          id: "ot_hi",
+          level: 3,
+          word: "אוֹת הִיא",
+          plain: "אות היא",
+          meaning: "it is a sign",
+          emoji: "📌",
+          translit: "ot hi",
+          chunks: ["אוֹת", "הִיא"],
+          family: "Shabbat phrase",
+        },
+        {
+          id: "beini",
+          level: 4,
+          word: "בֵּינִי",
+          plain: "ביני",
+          meaning: "between Me",
+          emoji: "↔️",
+          translit: "beini",
+          chunks: ["בֵּי", "נִי"],
+          family: "Shabbat word",
+        },
+        {
+          id: "uvein_bnei_yisrael",
+          level: 6,
+          word: "וּבֵין בְּנֵי יִשְׂרָאֵל",
+          plain: "ובין בני ישראל",
+          meaning: "and between the children of Israel",
+          emoji: "↔️",
+          translit: "uvein b'nei Yisrael",
+          chunks: ["וּ", "בֵין", "בְּ", "נֵי", "יִשְׂ", "רָ", "אֵל"],
+          family: "Shabbat phrase",
+        },
+        {
+          id: "savri_maranan",
+          level: 5,
+          word: "סַבְרִי מָרָנָן",
+          plain: "סברי מרנן",
+          meaning: "attention, friends",
+          emoji: "🍷",
+          translit: "savri maranan",
+          chunks: ["סַבְ", "רִי", "מָ", "רָ", "נָן"],
+          family: "Kiddush phrase",
+        },
+        {
+          id: "vshabbat_kodsho",
+          level: 6,
+          word: "וְשַׁבַּת קָדְשׁוֹ",
+          plain: "ושבת קדשו",
+          meaning: "and His holy Shabbat",
+          emoji: "🕯️",
+          translit: "v'Shabbat kodsho",
+          chunks: ["וְ", "שַׁ", "בַּת", "קָדְ", "שׁוֹ"],
+          family: "Kiddush phrase",
+        },
+        {
+          id: "beahavah_uvratzon",
+          level: 7,
+          word: "בְּאַהֲבָה וּבְרָצוֹן",
+          plain: "באהבה וברצון",
+          meaning: "with love and favor",
+          emoji: "❤️",
+          translit: "b'ahavah uvratzon",
+          chunks: ["בְּ", "אַ", "הֲ", "בָה", "וּ", "בְ", "רָ", "צוֹן"],
+          family: "Kiddush phrase",
+        },
+        {
+          id: "hinchilanu",
+          level: 5,
+          word: "הִנְחִילָנוּ",
+          plain: "הנחילנו",
+          meaning: "gave us as an inheritance",
+          emoji: "🎁",
+          translit: "hinchilanu",
+          chunks: ["הִנְ", "חִי", "לָ", "נוּ"],
+          family: "Kiddush word",
+        },
+        {
+          id: "zikaron_lemaaseh",
+          level: 7,
+          word: "זִכָּרוֹן לְמַעֲשֵׂה",
+          plain: "זכרון למעשה",
+          meaning: "a remembrance of the work",
+          emoji: "🧠",
+          translit: "zikaron l'ma'aseh",
+          chunks: ["זִ", "כָּ", "רוֹן", "לְ", "מַ", "עֲ", "שֵׂה"],
+          family: "Kiddush phrase",
+        },
+        {
+          id: "bereshit_word",
+          level: 5,
+          word: "בְרֵאשִׁית",
+          plain: "בראשית",
+          meaning: "beginning / creation",
+          emoji: "🌎",
+          translit: "b'reishit",
+          chunks: ["בְ", "רֵא", "שִׁית"],
+          family: "Kiddush word",
+        },
+        {
+          id: "tzur_mishelo",
+          level: 5,
+          word: "צוּר מִשֶּׁלּוֹ",
+          plain: "צור משלו",
+          meaning: "Rock from whose food",
+          emoji: "🪨",
+          translit: "Tzur Mishelo",
+          chunks: ["צוּר", "מִ", "שֶּׁ", "לּוֹ"],
+          family: "Shabbat song phrase",
+        },
+        {
+          id: "achati_kallah",
+          level: 5,
+          word: "אֲחוֹתִי כַלָּה",
+          plain: "אחותי כלה",
+          meaning: "my sister, bride",
+          emoji: "👰",
+          translit: "achoti kallah",
+          chunks: ["אֲ", "חוֹ", "תִי", "כַלָּה"],
+          family: "Shabbat song phrase",
+        },
+        {
+          id: "boi_veshalom",
+          level: 5,
+          word: "בּוֹאִי בְשָׁלוֹם",
+          plain: "בואי בשלום",
+          meaning: "come in peace",
+          emoji: "🕊️",
+          translit: "bo'i v'shalom",
+          chunks: ["בּוֹ", "אִי", "בְ", "שָׁ", "לוֹם"],
+          family: "Shabbat song phrase",
+        },
+        {
+          id: "atarat_baalah",
+          level: 6,
+          word: "עֲטֶרֶת בַּעְלָהּ",
+          plain: "עטרת בעלה",
+          meaning: "crown of her beloved",
+          emoji: "👑",
+          translit: "ateret ba'alah",
+          chunks: ["עֲ", "טֶ", "רֶת", "בַּעְ", "לָהּ"],
+          family: "Shabbat song phrase",
+        },
+        {
+          id: "gam_besimcha",
+          level: 5,
+          word: "גַּם בְּשִׂמְחָה",
+          plain: "גם בשמחה",
+          meaning: "also with joy",
+          emoji: "😊",
+          translit: "gam b'simcha",
+          chunks: ["גַּם", "בְּ", "שִׂמְ", "חָה"],
+          family: "Shabbat song phrase",
+        },
+        {
+          id: "uvtzahalah",
+          level: 5,
+          word: "וּבְצָהֳלָה",
+          plain: "ובצהלה",
+          meaning: "and with gladness",
+          emoji: "🎶",
+          translit: "uvtzahalah",
+          chunks: ["וּ", "בְ", "צָ", "הֳ", "לָה"],
+          family: "Shabbat song word",
+        },
+        {
+          id: "toch_emunei",
+          level: 5,
+          word: "תּוֹךְ אֱמוּנֵי",
+          plain: "תוך אמוני",
+          meaning: "among the faithful",
+          emoji: "👥",
+          translit: "toch emunei",
+          chunks: ["תּוֹךְ", "אֱ", "מוּ", "נֵי"],
+          family: "Shabbat song phrase",
+        },
+        {
+          id: "am_segulah",
+          level: 5,
+          word: "עַם סְגֻלָּה",
+          plain: "עם סגלה",
+          meaning: "treasured people",
+          emoji: "👥",
+          translit: "am segulah",
+          chunks: ["עַם", "סְ", "גֻ", "לָּה"],
+          family: "Shabbat song phrase",
+        },
+        {
+          id: "eitz_chayim_hi",
+          level: 5,
+          word: "עֵץ חַיִּים הִיא",
+          plain: "עץ חיים היא",
+          meaning: "it is a tree of life",
+          emoji: "🌳",
+          translit: "eitz chayim hi",
+          chunks: ["עֵץ", "חַ", "יִּים", "הִיא"],
+          family: "Torah service phrase",
+        },
+        {
+          id: "lamachazikim_bah",
+          level: 6,
+          word: "לַמַּחֲזִיקִים בָּהּ",
+          plain: "למחזיקים בה",
+          meaning: "for those who hold fast to it",
+          emoji: "🤲",
+          translit: "lamachazikim bah",
+          chunks: ["לַ", "מַּ", "חֲ", "זִי", "קִים", "בָּהּ"],
+          family: "Torah service phrase",
+        },
+        {
+          id: "vetomcheha",
+          level: 5,
+          word: "וְתֹמְכֶיהָ",
+          plain: "ותמכיה",
+          meaning: "and its supporters",
+          emoji: "🤝",
+          translit: "v'tomcheha",
+          chunks: ["וְ", "תֹמְ", "כֶי", "הָ"],
+          family: "Torah service word",
+        },
+        {
+          id: "meushar",
+          level: 5,
+          word: "מְאֻשָּׁר",
+          plain: "מאשר",
+          meaning: "are happy / fortunate",
+          emoji: "😊",
+          translit: "m'ushar",
+          chunks: ["מְ", "אֻ", "שָּׁר"],
+          family: "Torah service word",
+        },
+        {
+          id: "hashiveinu",
+          level: 5,
+          word: "הֲשִׁיבֵנוּ",
+          plain: "השיבנו",
+          meaning: "return us",
+          emoji: "🔁",
+          translit: "hashiveinu",
+          chunks: ["הֲ", "שִׁי", "בֵ", "נוּ"],
+          family: "Torah service word",
+        },
+        {
+          id: "venashuvah",
+          level: 5,
+          word: "וְנָשׁוּבָה",
+          plain: "ונשובה",
+          meaning: "and we will return",
+          emoji: "🔁",
+          translit: "v'nashuvah",
+          chunks: ["וְ", "נָ", "שׁוּ", "בָה"],
+          family: "Torah service word",
+        },
+        {
+          id: "chadesh_yameinu",
+          level: 6,
+          word: "חַדֵּשׁ יָמֵינוּ",
+          plain: "חדש ימינו",
+          meaning: "renew our days",
+          emoji: "🌅",
+          translit: "chadesh yameinu",
+          chunks: ["חַ", "דֵּשׁ", "יָ", "מֵי", "נוּ"],
+          family: "Torah service phrase",
+        },
+        {
+          id: "kekedem",
+          level: 4,
+          word: "כְּקֶדֶם",
+          plain: "כקדם",
+          meaning: "as before",
+          emoji: "⏳",
+          translit: "k'kedem",
+          chunks: ["כְּ", "קֶ", "דֶם"],
+          family: "Torah service word",
+        },
+      ];
+
+      const DECKS = {
+        mixed: {
+          label: "Mixed Prayer Deck",
+          desc: "A balanced reading mix: shorter words, medium words, long prayer words, and real Shabbat/siddur phrases.",
+          filter: (w) => true,
+        },
+        long: {
+          label: "Long Words + Prayer Phrases",
+          desc: "Mostly 4+ letter words and multi-word prayer phrases.",
+          filter: (w) => wordLengthScore(w) >= 5 || w.word.includes(" "),
+        },
+        blessings: {
+          label: "Blessings",
+          desc: "Blessing words and food/blessing formulas.",
+          filter: (w) =>
+            /blessing|meal/.test(w.family || "") ||
+            [
+              "baruch",
+              "atah",
+              "adonai",
+              "eloheinu",
+              "melech",
+              "haolam",
+              "amen",
+            ].includes(w.id),
+        },
+        shema: {
+          label: "Shema / V’ahavta",
+          desc: "Words and phrases that appear in Shema and V’ahavta practice.",
+          filter: (w) =>
+            /Shema|V'ahavta/.test(w.family || "") ||
+            ["shema", "yisrael", "echad", "veahavta"].includes(w.id),
+        },
+        amidah: {
+          label: "Amidah / Kedushah / Aleinu",
+          desc: "Longer weekday prayer words and phrases.",
+          filter: (w) => /Amidah|Kedushah|Aleinu/.test(w.family || ""),
+        },
+        shabbat: {
+          label: "Shabbat / Kiddush / Songs",
+          desc: "Shabbat, Kiddush, Torah service, and Shabbat song phrases.",
+          filter: (w) =>
+            /Shabbat|Kiddush|Torah service|Kabbalat/.test(w.family || "") ||
+            ["shabbat", "lecha_dodi", "shalom_aleichem"].includes(w.id),
+        },
+        short: {
+          label: "Short Warm-Up",
+          desc: "A small warm-up deck for confidence before longer prayer phrases.",
+          filter: (w) => wordLengthScore(w) <= 4 && !w.word.includes(" "),
+        },
+      };
+
+      const PRIORITY_IDS = [
+        "aleinu_leshabeach",
+        "adonai_sefatai",
+        "veshamru",
+        "bnei_yisrael",
+        "borei_pri_haetz",
+        "pri_hagafen",
+        "lecha_dodi",
+        "shalom_aleichem",
+        "eitz_chayim_hi",
+        "hashiveinu",
+        "al_netilat_yadayim",
+        "yitgadal",
+        "baruch",
+        "atah",
+        "adonai",
+        "eloheinu",
+        "melech",
+        "haolam",
+        "shema",
+        "yisrael",
+        "veahavta",
+        "bechol",
+        "levavcha",
+        "vayechulu",
+        "hashamayim",
+        "haaretz",
+        "oseh",
+        "bimromav",
+      ];
+
+      function defaultState() {
+        return {
+          xp: 0,
+          streak: 0,
+          bestStreak: 0,
+          currentDeck: "mixed",
+          indexes: {
+            mixed: 0,
+            long: 0,
+            blessings: 0,
+            shema: 0,
+            amidah: 0,
+            shabbat: 0,
+            short: 0,
+          },
+          stats: {},
+          session: {
+            mode: "reader",
+            correct: 0,
+            attempts: 0,
+            target: 12,
+            started: new Date().toISOString(),
+          },
+          recordings: [],
+          settings: {
+            showMeaning: false,
+            showChunks: true,
+            showTranslit: true,
+            speakRate: 0.82,
+            autoSpeak: false,
+          },
+        };
+      }
+      function loadState() {
+        try {
+          const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
+          return {
+            ...defaultState(),
+            ...saved,
+            settings: {
+              ...defaultState().settings,
+              ...(saved?.settings || {}),
+            },
+          };
+        } catch (e) {
+          return defaultState();
+        }
+      }
+      let state = loadState();
+      let activeView = "reader";
+      let mediaRecorder = null;
+      let mediaChunks = [];
+      let activeRecording = null;
+      let activeRecordingTimer = null;
+      let sprintTimer = null;
+      let sprintSeconds = 60;
+      let bossHP = 100;
+      let doorOpened = 0;
+      let rainTimer = null;
+      let rainSeconds = 12;
+      let practiceAttemptCount = 0;
+
+      function stripNikud(s) {
+        return String(s || "")
+          .normalize("NFKD")
+          .replace(/[\u0591-\u05C7]/g, "");
+      }
+      function normalizeHebrew(s) {
+        return stripNikud(s)
+          .replace(/[^\u0590-\u05FF\s]/g, "")
+          .replace(/[ך]/g, "כ")
+          .replace(/[ם]/g, "מ")
+          .replace(/[ן]/g, "נ")
+          .replace(/[ף]/g, "פ")
+          .replace(/[ץ]/g, "צ")
+          .replace(/\s+/g, "")
+          .trim();
+      }
+      function wordLengthScore(w) {
+        return normalizeHebrew(w.word).length + (w.word.includes(" ") ? 4 : 0);
+      }
+      function wordById(id) {
+        return WORDS.find((w) => w.id === id);
+      }
+
+      function translitForWord(w) {
+        if (!w) return "";
+        return w.translit || "";
+      }
+      function translitHTML(w, extraClass = "") {
+        const t = translitForWord(w);
+        if (!t || !state.settings.showTranslit) return "";
+        return `<div class="translit ${extraClass}">Pronunciation: ${t}</div>`;
+      }
+      const LADDER_TRANSLIT = {
+        בָּרוּךְ: "baruch",
+        "בָּרוּךְ אַתָּה": "baruch atah",
+        "בָּרוּךְ אַתָּה אֲדֹנָי": "baruch atah Adonai",
+        "אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם": "Eloheinu melech ha-olam",
+        "בּוֹרֵא פְּרִי הַגָּפֶן": "borei pri ha-gafen",
+        שְׁמַע: "Shema",
+        "שְׁמַע יִשְׂרָאֵל": "Shema Yisrael",
+        "אֲדֹנָי אֶחָד": "Adonai echad",
+        וְאָהַבְתָּ: "v'ahavta",
+        "בְּכָל לְבָבְךָ": "b'chol l'vavcha",
+        וְשָׁמְרוּ: "v'shamru",
+        "בְּנֵי יִשְׂרָאֵל": "b'nei Yisrael",
+        "אֶת הַשַּׁבָּת": "et ha-Shabbat",
+        "לַעֲשׂוֹת אֶת הַשַּׁבָּת": "la'asot et ha-Shabbat",
+        "בְּרִית עוֹלָם": "brit olam",
+        "לְכָה דוֹדִי": "Lecha Dodi",
+        "לִקְרַאת כַּלָּה": "likrat kallah",
+        "שָׁלוֹם עֲלֵיכֶם": "Shalom Aleichem",
+        "מַלְאֲכֵי הַשָּׁרֵת": "malachei hasharet",
+        "עֵץ חַיִּים הִיא": "eitz chayim hi",
+      };
+      function translitForPhrase(phrase) {
+        return LADDER_TRANSLIT[phrase] || "";
+      }
+      function phraseTranslitHTML(phrase) {
+        const t = translitForPhrase(phrase);
+        if (!t || !state.settings.showTranslit) return "";
+        return `<div class="translit block">Pronunciation: ${t}</div>`;
+      }
+
+      function shuffle(arr) {
+        return [...arr].sort(() => Math.random() - 0.5);
+      }
+      function save() {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+        updateHeader();
+      }
+      function toast(msg) {
+        const t = document.getElementById("toast");
+        t.textContent = msg;
+        t.classList.add("show");
+        clearTimeout(t._timer);
+        t._timer = setTimeout(() => t.classList.remove("show"), 2600);
+      }
+      function statFor(id) {
+        if (!state.stats[id])
+          state.stats[id] = {
+            attempts: 0,
+            correct: 0,
+            mic: 0,
+            coach: 0,
+            record: 0,
+            last: "",
+          };
+        return state.stats[id];
+      }
+      function getDeck(deckName = state.currentDeck) {
+        const spec = DECKS[deckName] || DECKS.mixed;
+        let deck = WORDS.filter(spec.filter);
+        if (deckName === "mixed") {
+          const priority = PRIORITY_IDS.map(wordById).filter(Boolean);
+          const used = new Set(priority.map((w) => w.id));
+          const rest = deck.filter((w) => !used.has(w.id));
+          deck = [...priority, ...rest];
+        }
+        if (deckName === "long")
+          deck = deck.sort((a, b) => wordLengthScore(b) - wordLengthScore(a));
+        return deck.length ? deck : WORDS;
+      }
+      function getIndex(deckName = state.currentDeck) {
+        const deck = getDeck(deckName);
+        state.indexes[deckName] = Number(state.indexes[deckName] || 0);
+        state.indexes[deckName] =
+          ((state.indexes[deckName] % deck.length) + deck.length) % deck.length;
+        return state.indexes[deckName];
+      }
+      function currentWord(deckName = state.currentDeck) {
+        const deck = getDeck(deckName);
+        return deck[getIndex(deckName)] || deck[0];
+      }
+      function advanceWord(manual = false) {
+        const deck = getDeck();
+        state.indexes[state.currentDeck] = (getIndex() + 1) % deck.length;
+        save();
+        renderActive();
+        toast(manual ? "Next word." : "Correct — next word.");
+        if (state.settings.autoSpeak)
+          setTimeout(() => speak(currentWord().word), 300);
+      }
+      function previousWord() {
+        const deck = getDeck();
+        state.indexes[state.currentDeck] =
+          (getIndex() - 1 + deck.length) % deck.length;
+        save();
+        renderActive();
+        toast("Previous word.");
+      }
+      function setDeck(name) {
+        state.currentDeck = name;
+        save();
+        renderActive();
+        toast(`${DECKS[name].label} loaded.`);
+      }
+      function updateHeader() {
+        const totalCorrect = Object.values(state.stats || {}).reduce(
+          (s, x) => s + (x.correct || 0),
+          0,
+        );
+        document.getElementById("xpStat").textContent = state.xp;
+        document.getElementById("streakStat").textContent = state.streak;
+        document.getElementById("readStat").textContent = totalCorrect;
+        document.getElementById("deckLabel").textContent =
+          DECKS[state.currentDeck]?.label || "Mixed";
+        const pct = Math.min(
+          100,
+          (state.session.correct / Math.max(1, state.session.target)) * 100,
+        );
+        document.getElementById("sessionMeter").style.width = pct + "%";
+      }
+      function addXP(n) {
+        state.xp += n;
+        save();
+      }
+
+      function levenshtein(a, b) {
+        const dp = Array.from({ length: a.length + 1 }, () =>
+          Array(b.length + 1).fill(0),
+        );
+        for (let i = 0; i <= a.length; i++) dp[i][0] = i;
+        for (let j = 0; j <= b.length; j++) dp[0][j] = j;
+        for (let i = 1; i <= a.length; i++)
+          for (let j = 1; j <= b.length; j++) {
+            dp[i][j] = Math.min(
+              dp[i - 1][j] + 1,
+              dp[i][j - 1] + 1,
+              dp[i - 1][j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1),
+            );
+          }
+        return dp[a.length][b.length];
+      }
+      function similarity(a, b) {
+        a = normalizeHebrew(a);
+        b = normalizeHebrew(b);
+        if (!a || !b) return 0;
+        return 1 - levenshtein(a, b) / Math.max(a.length, b.length);
+      }
+
+      function speak(text) {
+        if (!("speechSynthesis" in window)) {
+          toast("Text-to-speech is not available in this browser.");
+          return;
+        }
+        speechSynthesis.cancel();
+        const u = new SpeechSynthesisUtterance(text);
+        u.lang = "he-IL";
+        u.rate = state.settings.speakRate;
+        const voices = speechSynthesis.getVoices();
+        const hv = voices.find((v) =>
+          /he|Hebrew|Israel/i.test(v.lang + " " + v.name),
+        );
+        if (hv) u.voice = hv;
+        speechSynthesis.speak(u);
+      }
+
+      function getBestAudioMimeType() {
+        if (typeof MediaRecorder === "undefined") return "";
+        const types = [
+          "audio/webm;codecs=opus",
+          "audio/webm",
+          "audio/mp4",
+          "audio/mpeg",
+          "audio/aac",
+          "audio/ogg;codecs=opus",
+          "audio/ogg",
+        ];
+        return (
+          types.find(
+            (t) =>
+              MediaRecorder.isTypeSupported && MediaRecorder.isTypeSupported(t),
+          ) || ""
+        );
+      }
+      function isMicAvailable() {
+        return !!(
+          navigator.mediaDevices &&
+          navigator.mediaDevices.getUserMedia &&
+          typeof MediaRecorder !== "undefined"
+        );
+      }
+      function stopActiveRecording() {
+        if (mediaRecorder && mediaRecorder.state === "recording") {
+          mediaRecorder.stop();
+        }
+      }
+
+      function markRead(id, correct = true, source = "coach") {
+        const s = statFor(id);
+        s.attempts++;
+        s.last = new Date().toLocaleString();
+        state.session.attempts++;
+        if (correct) {
+          s.correct++;
+          if (source === "mic") s.mic++;
+          if (source === "coach") s.coach++;
+          state.streak++;
+          state.bestStreak = Math.max(state.bestStreak, state.streak);
+          state.session.correct++;
+          state.xp += source === "mic" ? 16 : 12;
+          save();
+          handleCorrectAdvance();
+        } else {
+          state.streak = 0;
+          state.xp += 2;
+          save();
+          renderActive();
+          toast("Marked for more practice.");
+        }
+      }
+      function handleCorrectAdvance() {
+        if (activeView === "boss") {
+          bossHP = Math.max(0, bossHP - 13);
+          if (bossHP <= 0) {
+            state.xp += 50;
+            save();
+            toast("Boss defeated! +50 XP");
+            bossHP = 100;
+          }
+        }
+        if (activeView === "doors") {
+          doorOpened++;
+        }
+        advanceWord(false);
+      }
+
+      function checkMic(id, resultId) {
+        const w = wordById(id);
+        const res = document.getElementById(resultId);
+        if (!SpeechRecognitionAPI) {
+          res.className = "result warn";
+          res.innerHTML =
+            "Mic Check is not available in this browser. Use <b>Coach Correct</b> or <b>Record</b>.";
+          return;
+        }
+        try {
+          const rec = new SpeechRecognitionAPI();
+          rec.lang = "he-IL";
+          rec.interimResults = false;
+          rec.maxAlternatives = 5;
+          res.className = "result warn";
+          res.textContent = "Listening… read the Hebrew out loud.";
+          rec.onresult = (e) => {
+            const heard = Array.from(e.results[0]).map((x) => x.transcript);
+            const score = Math.max(...heard.map((h) => similarity(h, w.word)));
+            if (score >= 0.82) {
+              res.className = "result good";
+              res.innerHTML = `Heard: <b class="hebrew">${heard[0]}</b>. Correct. Moving on…`;
+              setTimeout(() => markRead(id, true, "mic"), 450);
+            } else {
+              res.className = "result bad";
+              res.innerHTML = `Heard: <b class="hebrew">${heard[0] || "unclear"}</b>. Try again or use Coach Correct.`;
+            }
+          };
+          rec.onerror = () => {
+            res.className = "result warn";
+            res.textContent =
+              "Mic Check could not run. Use Record or Coach Correct.";
+          };
+          rec.start();
+        } catch (e) {
+          res.className = "result warn";
+          res.textContent =
+            "Mic Check could not start. Use Record or Coach Correct.";
+        }
+      }
+
+      async function recordRead(id, resultId) {
+        const res = document.getElementById(resultId);
+        if (!res) return;
+
+        // If already recording, this button becomes Stop.
+        if (mediaRecorder && mediaRecorder.state === "recording") {
+          stopActiveRecording();
+          return;
+        }
+
+        if (!isMicAvailable()) {
+          res.className = "result warn";
+          res.innerHTML = `
+      <b>Recording is not available in this browser/context.</b><br>
+      Try Chrome or Edge, allow microphone access, and open the file from an HTTPS page or localhost if the browser blocks local-file recording.
+    `;
+          return;
+        }
+
+        try {
+          const stream = await navigator.mediaDevices.getUserMedia({
+            audio: {
+              echoCancellation: true,
+              noiseSuppression: true,
+              autoGainControl: true,
+            },
+          });
+
+          const mimeType = getBestAudioMimeType();
+          const options = mimeType ? { mimeType } : undefined;
+
+          mediaChunks = [];
+          activeRecording = {
+            id,
+            resultId,
+            startedAt: Date.now(),
+            mimeType: mimeType || "browser default",
+          };
+
+          try {
+            mediaRecorder = new MediaRecorder(stream, options);
+          } catch (formatErr) {
+            // Some browsers reject explicit options even when they report support.
+            mediaRecorder = new MediaRecorder(stream);
+            activeRecording.mimeType =
+              mediaRecorder.mimeType || "browser default";
+          }
+
+          mediaRecorder.ondataavailable = (e) => {
+            if (e.data && e.data.size > 0) mediaChunks.push(e.data);
+          };
+
+          mediaRecorder.onerror = (e) => {
+            stream.getTracks().forEach((t) => t.stop());
+            clearTimeout(activeRecordingTimer);
+            res.className = "result bad";
+            res.innerHTML = `Recording error. Use Coach Correct for this word, or try another browser.`;
+            activeRecording = null;
+          };
+
+          mediaRecorder.onstart = () => {
+            res.className = "result warn";
+            res.innerHTML = `
+        <div class="recording-banner">
+          <span><span class="record-dot"></span>Recording… read the Hebrew now.</span>
+          <button class="btn rose small" onclick="stopActiveRecording()">Stop Recording</button>
+        </div>
+        <div class="micro">The recording will also stop automatically after 12 seconds.</div>
+      `;
+            clearTimeout(activeRecordingTimer);
+            activeRecordingTimer = setTimeout(() => {
+              if (mediaRecorder && mediaRecorder.state === "recording")
+                mediaRecorder.stop();
+            }, 12000);
+          };
+
+          mediaRecorder.onstop = () => {
+            stream.getTracks().forEach((t) => t.stop());
+            clearTimeout(activeRecordingTimer);
+
+            const actualType =
+              mediaRecorder.mimeType ||
+              activeRecording?.mimeType ||
+              "audio/webm";
+            const blob = new Blob(mediaChunks, { type: actualType });
+            const url = URL.createObjectURL(blob);
+
+            if (typeof addPracticeRecording === "function") {
+              addPracticeRecording(id, url, actualType, blob.size);
+            }
+
+            const s = statFor(id);
+            s.record++;
+            save();
+
+            if (!blob.size) {
+              res.className = "result bad";
+              res.innerHTML = `
+          <b>No audio was captured.</b><br>
+          Check microphone permission, then try Record again. You can still use Coach Correct.
+        `;
+              activeRecording = null;
+              return;
+            }
+
+            res.className = "result";
+            res.innerHTML = `
+        <div class="playback-card">
+          <b>Playback your reading and compare it to the model:</b>
+          <audio controls preload="metadata" src="${url}" style="width:100%;margin-top:8px"></audio>
+          <div class="micro" style="margin-top:6px">Audio format: ${actualType}. If playback does not appear, try Chrome/Edge or open from a hosted HTTPS page.</div>
+          <div class="toolbar" style="margin-top:10px">
+            <button class="btn green small" onclick="markRead('${id}',true,'coach')">Correct — Next</button>
+            <button class="btn ghost small" onclick="markRead('${id}',false,'coach')">Practice Again</button>
+            <button class="btn secondary small" onclick="recordRead('${id}','${resultId}')">Record Again</button>
+          </div>
+        </div>
+      `;
+            activeRecording = null;
+          };
+
+          mediaRecorder.start(250);
+        } catch (e) {
+          res.className = "result warn";
+          const msg = e && e.name ? e.name : "Microphone error";
+          res.innerHTML = `
+      <b>Microphone could not start: ${msg}</b><br>
+      Allow microphone permission in the browser. If you opened this as a downloaded local file and recording is blocked, run it from localhost or host it on Cloudflare/GitHub Pages.
+    `;
+          activeRecording = null;
+        }
+      }
+
+      function deckSelectHTML() {
+        return `<select class="select" onchange="setDeck(this.value)">
+    ${Object.entries(DECKS)
+      .map(
+        ([k, d]) =>
+          `<option value="${k}" ${state.currentDeck === k ? "selected" : ""}>${d.label}</option>`,
+      )
+      .join("")}
+  </select>`;
+      }
+      function meaningSupport(w) {
+        return `<button class="btn ghost small" onclick="toggleMeaning(this)">Show Meaning</button>
+    <div class="hidden-meaning">${w.meaning}</div>`;
+      }
+      function toggleMeaning(btn) {
+        const div = btn.nextElementSibling;
+        div.style.display = div.style.display === "block" ? "none" : "block";
+        btn.textContent =
+          div.style.display === "block" ? "Hide Meaning" : "Show Meaning";
+      }
+      function readerCard(w, resultId = "readerResult", options = {}) {
+        const deck = getDeck();
+        const idx = getIndex();
+        const isPhrase =
+          w.word.includes(" ") || normalizeHebrew(w.word).length > 8;
+        return `
+    <div class="card soft-mint reader">
+      <div class="reader-meta">
+        <div>
+          <h3>${options.title || "Read this out loud"}</h3>
+          <p>${DECKS[state.currentDeck].label} · Item ${idx + 1} of ${deck.length} · ${w.family || "prayer reading"}</p>
+        </div>
+        <div class="toolbar">
+          ${deckSelectHTML()}
+        </div>
+      </div>
+      <div class="meter"><span style="width:${((idx + 1) / deck.length) * 100}%"></span></div>
+      <div class="${isPhrase ? "big-word phrase-word" : "big-word"}">${w.word}</div>
+      ${translitHTML(w, "block")}
+      ${state.settings.showChunks ? `<div class="sound-row">${(w.chunks || []).map((c) => `<span class="sound-chip">${c}</span>`).join("")}</div>` : ""}
+      <div class="verify-box">
+        <b>Read it. Then verify.</b> A correct check automatically loads the next word.
+        <div class="toolbar" style="margin-top:10px">
+          <button class="btn secondary small" onclick="previousWord()">Previous</button>
+          <button class="btn blue small" onclick="speak('${w.word}')">Hear</button>
+          <button class="btn gold small" onclick="checkMic('${w.id}','${resultId}')">Mic Check</button>
+          <button class="btn secondary small" onclick="recordRead('${w.id}','${resultId}')">Record / Stop</button>
+          <button class="btn green small" onclick="markRead('${w.id}',true,'coach')">Correct — Next</button>
+          <button class="btn ghost small" onclick="markRead('${w.id}',false,'coach')">Practice Again</button>
+          <button class="btn secondary small" onclick="advanceWord(true)">Skip / Next</button>
+          ${meaningSupport(w)}
+        </div>
+        <div id="${resultId}" class="result">Waiting for reading check.</div>
+      </div>
+    </div>`;
+      }
+
+      function renderReader() {
+        const w = currentWord();
+        document.getElementById("reader").innerHTML = `
+    <div class="head">
+      <div>
+        <h2>Reader Mode</h2>
+        <p>One job: read the Hebrew. No matching, no building, no vocabulary quiz. Correct reading advances to the next item.</p>
+      </div>
+      <div class="toolbar">
+        ${deckSelectHTML()}
+        <button class="btn gold" onclick="resetSession()">New Session</button>
+      </div>
+    </div>
+    ${readerCard(w, "readerResult")}
+    <div class="grid three" style="margin-top:15px">
+      <div class="card soft-blue"><h3>1. Look</h3><p>Read the Hebrew from right to left.</p></div>
+      <div class="card soft-gold"><h3>2. Say</h3><p>Read it out loud. Use Hear only if stuck.</p></div>
+      <div class="card soft-mint"><h3>3. Verify</h3><p>Mic, record, or coach. Correct moves on automatically.</p></div>
+    </div>`;
+      }
+
+      function addPracticeRecording(id, url, type, size) {
+        if (activeView !== "practice") return;
+        const w = wordById(id);
+        state.recordings = state.recordings || [];
+        state.recordings.unshift({
+          id,
+          word: w?.word || "",
+          label: w?.family || "practice",
+          url,
+          type,
+          size,
+          time: new Date().toLocaleTimeString(),
+        });
+        state.recordings = state.recordings.slice(0, 6);
+      }
+      function clearPracticeRecordings() {
+        state.recordings = [];
+        save();
+        renderPractice();
+        toast("Practice recordings cleared.");
+      }
+      function practiceCorrect(id) {
+        practiceAttemptCount = 0;
+        markRead(id, true, "coach");
+      }
+      function practiceAgain() {
+        practiceAttemptCount++;
+        renderPractice();
+        toast("Try another recording of the same item.");
+      }
+      function renderPractice() {
+        const w = currentWord();
+        const history = (state.recordings || []).filter((r) => r.id === w.id);
+        document.getElementById("practice").innerHTML = `
+    <div class="head">
+      <div>
+        <h2>Practice + Playback Studio</h2>
+        <p>Practice one Hebrew word or phrase, record it, play it back, compare it to the model, then mark it correct to move to the next item.</p>
+      </div>
+      <div class="toolbar">
+        ${deckSelectHTML()}
+        <button class="btn secondary" onclick="clearPracticeRecordings()">Clear Recordings</button>
+      </div>
+    </div>
+
+    <div class="practice-studio">
+      <div class="card soft-mint reader">
+        <div class="reader-meta">
+          <div>
+            <h3>Practice item</h3>
+            <p>${DECKS[state.currentDeck].label} · ${w.family || "reading practice"} · Attempt ${practiceAttemptCount + 1}</p>
+          </div>
+          <div class="toolbar">
+            <button class="btn secondary small" onclick="previousWord();practiceAttemptCount=0;">Previous</button>
+            <button class="btn secondary small" onclick="advanceWord(true);practiceAttemptCount=0;">Skip / Next</button>
+          </div>
+        </div>
+
+        <div class="${w.word.includes(" ") ? "big-word phrase-word" : "big-word"}">${w.word}</div>
+        ${translitHTML(w, "block")}
+
+        ${state.settings.showChunks ? `<div class="sound-row">${(w.chunks || []).map((c) => `<span class="sound-chip">${c}</span>`).join("")}</div>` : ""}
+
+        <div class="practice-steps">
+          <div class="practice-step"><strong>1. Listen</strong><span class="micro">Hear the model only if needed.</span><br><button class="btn blue small" style="margin-top:8px" onclick="speak('${w.word}')">Hear Model</button></div>
+          <div class="practice-step"><strong>2. Read</strong><span class="micro">Read the Hebrew out loud first.</span></div>
+          <div class="practice-step"><strong>3. Record</strong><span class="micro">Record yourself reading.</span><br><button class="btn gold small" style="margin-top:8px" onclick="recordRead('${w.id}','practiceResult')">Record / Stop</button></div>
+          <div class="practice-step"><strong>4. Decide</strong><span class="micro">Playback, compare, then move on.</span><br><button class="btn green small" style="margin-top:8px" onclick="practiceCorrect('${w.id}')">Correct — Next</button></div>
+        </div>
+
+        <div class="verify-box" style="margin-top:12px">
+          <b>Goal:</b> Can you read it clearly without guessing?
+          <div class="toolbar" style="margin-top:10px">
+            <button class="btn blue small" onclick="speak('${w.word}')">Hear Model Again</button>
+            <button class="btn gold small" onclick="recordRead('${w.id}','practiceResult')">Record / Stop</button>
+            <button class="btn secondary small" onclick="practiceAgain()">Practice Same Word Again</button>
+            <button class="btn green small" onclick="practiceCorrect('${w.id}')">Correct — Next</button>
+            <button class="btn ghost small" onclick="markRead('${w.id}',false,'coach')">Needs More Practice</button>
+            ${meaningSupport(w)}
+          </div>
+          <div id="practiceResult" class="result">Press Record, read the Hebrew, then play it back here.</div>
+        </div>
+      </div>
+
+      <aside class="card soft-blue">
+        <h3>Playback History for This Item</h3>
+        <p>Record more than once and compare. These recordings are temporary for this browser session.</p>
+        <div class="record-history">
+          ${
+            history.length
+              ? history
+                  .map(
+                    (r, i) => `
+            <div class="record-chip">
+              <b>Take ${history.length - i}</b> · <span class="micro">${r.time} · ${(r.size / 1024).toFixed(1)} KB</span>
+              <audio controls preload="metadata" src="${r.url}"></audio>
+            </div>
+          `,
+                  )
+                  .join("")
+              : `<div class="result">No recording yet for this word or phrase.</div>`
+          }
+        </div>
+        <div class="card soft-gold" style="margin-top:12px;box-shadow:none">
+          <h3>Quick coaching check</h3>
+          <p style="margin-bottom:0">Listen for: correct direction, no skipped syllables, clear vowels, and smooth rereading.</p>
+        </div>
+      </aside>
+    </div>`;
+      }
+
+      function renderSprint() {
+        const w = currentWord();
+        document.getElementById("sprint").innerHTML = `
+    <div class="head">
+      <div><h2>Speed Read Sprint</h2><p>Read as many words or phrases as possible. Each correct reading advances instantly.</p></div>
+      <div class="toolbar">${deckSelectHTML()}<button class="btn gold" onclick="startSprint()">Start 60 Sec</button><button class="btn secondary" onclick="stopSprint()">Stop</button></div>
+    </div>
+    <div class="grid two">
+      <div class="card soft-gold" style="text-align:center">
+        <h3>Timer</h3><div style="font-size:4rem;font-weight:1000">${sprintSeconds}</div>
+        <p>Correct this round: <b>${state.session.correct}</b></p>
+      </div>
+      <div>${readerCard(w, "sprintResult", { title: "Sprint word" })}</div>
+    </div>`;
+      }
+      function startSprint() {
+        stopSprint();
+        state.session = {
+          mode: "sprint",
+          correct: 0,
+          attempts: 0,
+          target: 20,
+          started: new Date().toISOString(),
+        };
+        sprintSeconds = 60;
+        activeView = "sprint";
+        sprintTimer = setInterval(() => {
+          sprintSeconds--;
+          if (sprintSeconds <= 0) {
+            stopSprint();
+            toast(
+              `Sprint complete: ${state.session.correct} correct readings.`,
+            );
+          }
+          renderSprint();
+        }, 1000);
+        renderSprint();
+      }
+      function stopSprint() {
+        if (sprintTimer) clearInterval(sprintTimer);
+        sprintTimer = null;
+      }
+
+      function renderDoors() {
+        const deck = getDeck();
+        const start = getIndex();
+        const words = Array.from(
+          { length: 8 },
+          (_, i) => deck[(start + i) % deck.length],
+        );
+        document.getElementById("doors").innerHTML = `
+    <div class="head">
+      <div><h2>Reading Doors</h2><p>Open each door by reading the Hebrew correctly. It is still just reading practice.</p></div>
+      <div class="toolbar">${deckSelectHTML()}<button class="btn gold" onclick="doorOpened=0;renderDoors()">Restart Doors</button></div>
+    </div>
+    <div class="door-grid">
+      ${words
+        .map(
+          (w, i) => `
+        <div class="door ${i < doorOpened ? "opened" : i > doorOpened ? "locked" : ""}">
+          <h3>Door ${i + 1}</h3>
+          ${
+            i <= doorOpened
+              ? `<div class="hebrew" style="font-size:2.25rem;margin:14px 0">${w.word}</div>
+            <button class="btn green small" onclick="state.indexes[state.currentDeck]=${(start + i) % deck.length};save();markRead('${w.id}',true,'coach')">Read Correctly</button>
+            <button class="btn blue small" onclick="speak('${w.word}')">Hear</button>`
+              : `<div style="font-size:3rem">🔒</div><p>Read the previous door.</p>`
+          }
+        </div>`,
+        )
+        .join("")}
+    </div>`;
+      }
+
+      function renderRain() {
+        const w = currentWord();
+        document.getElementById("rain").innerHTML = `
+    <div class="head">
+      <div><h2>Word Rain</h2><p>A word falls. Read it before time runs out. Correct reading loads the next falling word.</p></div>
+      <div class="toolbar">${deckSelectHTML()}<button class="btn gold" onclick="startRain()">Start Rain</button><button class="btn secondary" onclick="stopRain()">Stop</button></div>
+    </div>
+    <div class="rain-stage">
+      <div class="fall-word">
+        <div class="reader-meta"><h3>Read before the timer ends</h3><strong>${rainSeconds} sec</strong></div>
+        <div class="${w.word.includes(" ") ? "big-word phrase-word" : "big-word"}">${w.word}</div>
+        <div class="toolbar" style="justify-content:center">
+          <button class="btn green small" onclick="markRead('${w.id}',true,'coach'); rainSeconds=12;">Correct — Next</button>
+          <button class="btn gold small" onclick="checkMic('${w.id}','rainResult')">Mic Check</button>
+          <button class="btn blue small" onclick="speak('${w.word}')">Hear</button>
+          <button class="btn secondary small" onclick="advanceWord(true); rainSeconds=12;">Skip</button>
+        </div>
+        <div id="rainResult" class="result">Read the falling word.</div>
+      </div>
+    </div>`;
+      }
+      function startRain() {
+        stopRain();
+        rainSeconds = 12;
+        rainTimer = setInterval(() => {
+          rainSeconds--;
+          if (rainSeconds <= 0) {
+            markRead(currentWord().id, false, "coach");
+            rainSeconds = 12;
+          }
+          renderRain();
+        }, 1000);
+        renderRain();
+      }
+      function stopRain() {
+        if (rainTimer) clearInterval(rainTimer);
+        rainTimer = null;
+      }
+
+      function renderBoss() {
+        const w = currentWord();
+        document.getElementById("boss").innerHTML = `
+    <div class="head">
+      <div><h2>Reading Boss</h2><p>Attack only by reading. Every correct reading damages the boss and moves to the next item.</p></div>
+      <div class="toolbar">${deckSelectHTML()}<button class="btn gold" onclick="bossHP=100;renderBoss()">New Boss</button></div>
+    </div>
+    <div class="grid two">
+      <div class="card soft-rose" style="text-align:center">
+        <div class="boss">🐉</div>
+        <h3>Nikkud Dragon</h3>
+        <div class="health"><span style="width:${bossHP}%"></span></div>
+        <p>Health: ${bossHP}%</p>
+      </div>
+      <div>${readerCard(w, "bossResult", { title: "Read to attack" })}</div>
+    </div>`;
+      }
+
+      const LADDERS = {
+        blessings: [
+          "בָּרוּךְ",
+          "בָּרוּךְ אַתָּה",
+          "בָּרוּךְ אַתָּה אֲדֹנָי",
+          "אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם",
+          "בּוֹרֵא פְּרִי הַגָּפֶן",
+        ],
+        shema: [
+          "שְׁמַע",
+          "שְׁמַע יִשְׂרָאֵל",
+          "אֲדֹנָי אֶחָד",
+          "וְאָהַבְתָּ",
+          "בְּכָל לְבָבְךָ",
+        ],
+        shabbat: [
+          "וְשָׁמְרוּ",
+          "בְּנֵי יִשְׂרָאֵל",
+          "אֶת הַשַּׁבָּת",
+          "לַעֲשׂוֹת אֶת הַשַּׁבָּת",
+          "בְּרִית עוֹלָם",
+        ],
+        songs: [
+          "לְכָה דוֹדִי",
+          "לִקְרַאת כַּלָּה",
+          "שָׁלוֹם עֲלֵיכֶם",
+          "מַלְאֲכֵי הַשָּׁרֵת",
+          "עֵץ חַיִּים הִיא",
+        ],
+      };
+      let ladderName = "blessings";
+      let ladderIndex = 0;
+      function renderLadder() {
+        const phrase = LADDERS[ladderName][ladderIndex];
+        document.getElementById("ladder").innerHTML = `
+    <div class="head">
+      <div><h2>Phrase Ladder</h2><p>Read one line. Correct moves to the next line. This is phrase reading only.</p></div>
+      <div class="toolbar">
+        <select class="select" onchange="ladderName=this.value;ladderIndex=0;renderLadder()">
+          ${Object.keys(LADDERS)
+            .map(
+              (k) =>
+                `<option value="${k}" ${ladderName === k ? "selected" : ""}>${k}</option>`,
+            )
+            .join("")}
+        </select>
+      </div>
+    </div>
+    <div class="card soft-blue reader">
+      <h3>Line ${ladderIndex + 1} of ${LADDERS[ladderName].length}</h3>
+      <div class="big-word phrase-word">${phrase}</div>
+      ${phraseTranslitHTML(phrase)}
+      <div class="verify-box">
+        <b>Read the phrase out loud.</b>
+        <div class="toolbar" style="margin-top:10px">
+          <button class="btn blue small" onclick="speak('${phrase}')">Hear</button>
+          <button class="btn green small" onclick="ladderCorrect()">Correct — Next</button>
+          <button class="btn secondary small" onclick="ladderIndex=Math.max(0,ladderIndex-1);renderLadder()">Previous</button>
+          <button class="btn ghost small" onclick="ladderIndex=(ladderIndex+1)%LADDERS[ladderName].length;renderLadder()">Skip</button>
+        </div>
+        <div class="result">Phrase ladder is coach-checked because full prayer phrases are harder for browser speech recognition.</div>
+      </div>
+    </div>`;
+      }
+      function ladderCorrect() {
+        state.streak++;
+        state.session.correct++;
+        state.xp += 12;
+        ladderIndex = (ladderIndex + 1) % LADDERS[ladderName].length;
+        save();
+        renderLadder();
+        toast("Correct — next phrase.");
+      }
+
+      function renderRecord() {
+        const w = currentWord();
+        document.getElementById("record").innerHTML = `
+    <div class="head">
+      <div><h2>Record Review</h2><p>For Hebrew speech-recognition limits: record the reading, listen back, then mark correct to move on.</p></div>
+      <div class="toolbar">${deckSelectHTML()}</div>
+    </div>
+    ${readerCard(w, "recordResult", { title: "Record and review" })}`;
+      }
+
+      function renderProgress() {
+        const rows = WORDS.map((w) => {
+          const s = statFor(w.id);
+          return `<tr><td><span class="hebrew">${w.word}</span></td><td>${translitForWord(w)}</td><td>${w.family || ""}</td><td>${s.correct}</td><td>${s.attempts}</td><td>${s.record}</td></tr>`;
+        }).join("");
+        document.getElementById("progress").innerHTML = `
+    <div class="head">
+      <div><h2>Reading Progress</h2><p>Tracks words that were actually checked as read correctly.</p></div>
+      <div class="toolbar"><button class="btn secondary" onclick="exportCSV()">Export CSV</button><button class="btn rose" onclick="resetAll()">Reset</button></div>
+    </div>
+    <div class="grid three">
+      <div class="card soft-blue"><h3>Total Correct</h3><p style="font-size:2.5rem;font-weight:1000">${Object.values(state.stats).reduce((s, x) => s + (x.correct || 0), 0)}</p></div>
+      <div class="card soft-gold"><h3>Best Streak</h3><p style="font-size:2.5rem;font-weight:1000">${state.bestStreak}</p></div>
+      <div class="card soft-mint"><h3>XP</h3><p style="font-size:2.5rem;font-weight:1000">${state.xp}</p></div>
+    </div>
+    <div class="card" style="margin-top:15px">
+      <h3>Word Reading Table</h3>
+      <div class="table-wrap"><table><thead><tr><th>Hebrew</th><th>Transliteration</th><th>Category</th><th>Correct</th><th>Attempts</th><th>Recordings</th></tr></thead><tbody>${rows}</tbody></table></div>
+    </div>`;
+      }
+      function exportCSV() {
+        const lines = [
+          [
+            "word",
+            "transliteration",
+            "category",
+            "correct",
+            "attempts",
+            "recordings",
+          ].join(","),
+        ];
+        WORDS.forEach((w) => {
+          const s = statFor(w.id);
+          lines.push(
+            [
+              w.word,
+              translitForWord(w),
+              w.family || "",
+              s.correct,
+              s.attempts,
+              s.record,
+            ]
+              .map((v) => `"${String(v).replace(/"/g, '""')}"`)
+              .join(","),
+          );
+        });
+        const blob = new Blob([lines.join("\n")], {
+          type: "text/csv;charset=utf-8",
+        });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "hebrew-reading-progress.csv";
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+      function resetAll() {
+        if (confirm("Reset all reading progress?")) {
+          state = defaultState();
+          save();
+          renderActive();
+          toast("Progress reset.");
+        }
+      }
+      function resetSession() {
+        state.session = {
+          mode: activeView,
+          correct: 0,
+          attempts: 0,
+          target: 12,
+          started: new Date().toISOString(),
+        };
+        save();
+        renderActive();
+        toast("New reading session started.");
+      }
+      function startMode(view) {
+        switchView(view || "reader");
+      }
+
+      function openSettings() {
+        document.getElementById("modalTitle").textContent = "Settings";
+        document.getElementById("modalBody").innerHTML = `
+    <div class="card soft-blue">
+      <h3>Reading-Only Rules</h3>
+      <p>The games do not ask for matching meanings or building words. Transliteration is now built in by default and can be hidden when he is ready to read without support.</p>
+    </div>
+    <div class="grid two" style="margin-top:12px">
+      <button class="btn ${state.settings.showChunks ? "green" : "secondary"}" onclick="state.settings.showChunks=!state.settings.showChunks;save();openSettings();renderActive()">Sound Chunks: ${state.settings.showChunks ? "On" : "Off"}</button>
+      <button class="btn ${state.settings.showMeaning ? "green" : "secondary"}" onclick="state.settings.showMeaning=!state.settings.showMeaning;save();openSettings();renderActive()">Meaning Support Default: ${state.settings.showMeaning ? "On" : "Off"}</button>
+      <button class="btn ${state.settings.showTranslit ? "green" : "secondary"}" onclick="state.settings.showTranslit=!state.settings.showTranslit;save();openSettings();renderActive()">Transliteration Support: ${state.settings.showTranslit ? "On" : "Off"}</button>
+      <button class="btn ${state.settings.autoSpeak ? "green" : "secondary"}" onclick="state.settings.autoSpeak=!state.settings.autoSpeak;save();openSettings();renderActive()">Auto-Hear Next: ${state.settings.autoSpeak ? "On" : "Off"}</button>
+    </div>
+    <div class="card soft-gold" style="margin-top:12px">
+      <h3>Best Use</h3>
+      <p>Use <b>Coach Correct</b> for reliable verification. Recording/playback works best in Chrome or Edge with microphone permission; if a local downloaded file blocks recording, host it on Cloudflare/GitHub Pages or run it from localhost.</p>
+    </div>`;
+        document.getElementById("modalBackdrop").classList.add("open");
+      }
+      function closeModal() {
+        document.getElementById("modalBackdrop").classList.remove("open");
+      }
+
+      function renderActive() {
+        updateHeader();
+        if (activeView === "reader") renderReader();
+        if (activeView === "practice") renderPractice();
+        if (activeView === "sprint") renderSprint();
+        if (activeView === "doors") renderDoors();
+        if (activeView === "rain") renderRain();
+        if (activeView === "boss") renderBoss();
+        if (activeView === "ladder") renderLadder();
+        if (activeView === "record") renderRecord();
+        if (activeView === "progress") renderProgress();
+      }
+      function switchView(id) {
+        stopSprint();
+        stopRain();
+        activeView = id;
+        document
+          .querySelectorAll(".tab")
+          .forEach((t) => t.classList.toggle("active", t.dataset.view === id));
+        document
+          .querySelectorAll(".view")
+          .forEach((v) => v.classList.toggle("active", v.id === id));
+        renderActive();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+
+      document
+        .querySelectorAll(".tab")
+        .forEach((t) =>
+          t.addEventListener("click", () => switchView(t.dataset.view)),
+        );
+      document
+        .getElementById("modalBackdrop")
+        .addEventListener("click", (e) => {
+          if (e.target.id === "modalBackdrop") closeModal();
+        });
+      if ("speechSynthesis" in window)
+        speechSynthesis.onvoiceschanged = () => {};
+
+      updateHeader();
+      renderReader();
+    </script>
+  </body>
+</html>
