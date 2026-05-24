@@ -1,0 +1,5 @@
+# Keep app folder URLs clean.
+/apps/:slug /apps/:slug/index.html 200
+
+# Safe fallback to the launcher for mistyped routes.
+/* /index.html 200
