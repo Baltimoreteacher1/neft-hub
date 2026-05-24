@@ -1,0 +1,1715 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hebrew Quiz Quest — 5.4 Vocabulary Review</title>
+  <style>
+    :root {
+      --navy:#14213d;
+      --ink:#1e293b;
+      --cream:#fff8ea;
+      --sand:#f7dfb5;
+      --gold:#f9c74f;
+      --coral:#ef476f;
+      --teal:#2a9d8f;
+      --blue:#3a86ff;
+      --green:#57cc99;
+      --purple:#8338ec;
+      --white:#ffffff;
+      --soft:#f4f7fb;
+      --shadow: 0 18px 40px rgba(20,33,61,.16);
+      --line: rgba(20,33,61,.14);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Calibri, Arial, Helvetica, sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 12% 8%, rgba(249,199,79,.35), transparent 28%),
+        radial-gradient(circle at 90% 18%, rgba(42,157,143,.22), transparent 32%),
+        linear-gradient(135deg, #fff8ea 0%, #eff8f6 52%, #f7f3ff 100%);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .app {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 22px;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      border-radius: 30px;
+      padding: 26px;
+      color: white;
+      background:
+        linear-gradient(135deg, rgba(20,33,61,.98), rgba(42,157,143,.92)),
+        radial-gradient(circle at 80% 0%, rgba(249,199,79,.52), transparent 36%);
+      box-shadow: var(--shadow);
+    }
+
+    .hero::after {
+      content: "ם ר ה ו ב ת כ י ס";
+      position: absolute;
+      right: -18px;
+      bottom: -44px;
+      font-size: 138px;
+      letter-spacing: 6px;
+      opacity: .08;
+      direction: rtl;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    .hero-grid {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1.4fr .8fr;
+      gap: 22px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 12px;
+      border: 1px solid rgba(255,255,255,.28);
+      border-radius: 999px;
+      background: rgba(255,255,255,.12);
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    h1 {
+      margin: 14px 0 8px;
+      font-size: clamp(34px, 5vw, 62px);
+      line-height: .95;
+      letter-spacing: -1.6px;
+    }
+
+    .hero p {
+      margin: 0;
+      max-width: 720px;
+      font-size: 18px;
+      line-height: 1.45;
+      opacity: .94;
+    }
+
+    .score-card {
+      background: rgba(255,255,255,.13);
+      border: 1px solid rgba(255,255,255,.22);
+      border-radius: 24px;
+      padding: 18px;
+      backdrop-filter: blur(10px);
+    }
+
+    .name-row {
+      display:flex;
+      gap: 10px;
+      align-items:center;
+      margin-bottom: 14px;
+    }
+
+    input, button, select, textarea {
+      font-family: inherit;
+    }
+
+    .name-row input {
+      width: 100%;
+      border: 0;
+      padding: 12px 13px;
+      border-radius: 14px;
+      font-size: 16px;
+      outline: none;
+    }
+
+    .stat-grid {
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+
+    .stat {
+      padding: 12px;
+      background: rgba(255,255,255,.14);
+      border-radius: 18px;
+      text-align:center;
+    }
+
+    .stat strong {
+      display:block;
+      font-size: 28px;
+      line-height: 1;
+      color: var(--gold);
+    }
+
+    .stat span {
+      display:block;
+      margin-top: 6px;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      opacity:.9;
+      font-weight: 700;
+    }
+
+    .tabs {
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin: 22px 0;
+    }
+
+    .tab {
+      border: 0;
+      padding: 12px 15px;
+      border-radius: 16px;
+      background: white;
+      color: var(--navy);
+      box-shadow: 0 8px 18px rgba(20,33,61,.10);
+      cursor:pointer;
+      font-weight: 800;
+      font-size: 15px;
+      transition: transform .15s ease, background .15s ease, color .15s ease;
+    }
+
+    .tab:hover { transform: translateY(-2px); }
+    .tab.active {
+      background: var(--navy);
+      color: white;
+    }
+
+    .panel {
+      display:none;
+      animation: rise .28s ease both;
+    }
+    .panel.active { display:block; }
+
+    @keyframes rise {
+      from { opacity:0; transform: translateY(10px); }
+      to { opacity:1; transform: translateY(0); }
+    }
+
+    .card {
+      background: rgba(255,255,255,.94);
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      padding: 22px;
+      box-shadow: var(--shadow);
+    }
+
+    .section-head {
+      display:flex;
+      align-items:flex-start;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 18px;
+    }
+
+    .section-head h2 {
+      margin:0;
+      color: var(--navy);
+      font-size: 30px;
+      letter-spacing:-.4px;
+    }
+
+    .section-head p {
+      margin: 7px 0 0;
+      color: #475569;
+      font-size: 16px;
+      line-height: 1.35;
+      max-width: 760px;
+    }
+
+    .btn-row {
+      display:flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items:center;
+    }
+
+    .btn {
+      border: 0;
+      padding: 11px 14px;
+      border-radius: 15px;
+      font-weight: 900;
+      cursor:pointer;
+      background: var(--navy);
+      color: white;
+      box-shadow: 0 8px 16px rgba(20,33,61,.16);
+      transition: transform .15s ease, filter .15s ease;
+      font-size: 15px;
+    }
+    .btn:hover { transform: translateY(-2px); filter: brightness(1.03); }
+    .btn.secondary { background: #e8eef8; color: var(--navy); box-shadow:none; }
+    .btn.gold { background: var(--gold); color: #3b2f04; }
+    .btn.teal { background: var(--teal); }
+    .btn.coral { background: var(--coral); }
+    .btn.green { background: var(--green); color:#073b2d; }
+    .btn.small { padding: 8px 10px; border-radius: 12px; font-size: 13px; }
+
+    .hebrew {
+      direction: rtl;
+      unicode-bidi: isolate;
+      font-family: Arial, "Times New Roman", sans-serif;
+      letter-spacing: .02em;
+    }
+
+    .flash-layout {
+      display:grid;
+      grid-template-columns: 1fr .8fr;
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .flashcard {
+      min-height: 340px;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+      text-align:center;
+      border-radius: 28px;
+      background:
+        radial-gradient(circle at 15% 20%, rgba(249,199,79,.30), transparent 30%),
+        linear-gradient(135deg, #ffffff, #effaf7);
+      border: 3px solid rgba(20,33,61,.10);
+      padding: 22px;
+      position: relative;
+      overflow:hidden;
+    }
+
+    .flashcard::before {
+      content:"✦";
+      position:absolute;
+      top:18px;
+      left:22px;
+      color: var(--gold);
+      font-size: 34px;
+    }
+
+    .flash-label {
+      font-size: 14px;
+      color:#64748b;
+      text-transform:uppercase;
+      letter-spacing:.12em;
+      font-weight:900;
+      margin-bottom: 10px;
+    }
+
+    .flash-word {
+      font-size: clamp(54px, 10vw, 96px);
+      line-height:1.05;
+      color: var(--navy);
+      font-weight: 900;
+    }
+
+    .flash-answer {
+      display:none;
+      margin-top: 20px;
+      font-size: 28px;
+      font-weight: 900;
+      color: var(--teal);
+    }
+
+    .flash-answer.visible { display:block; }
+
+    .micro {
+      margin-top: 10px;
+      color:#64748b;
+      font-size: 15px;
+      line-height:1.35;
+    }
+
+    .word-bank {
+      display:grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 10px;
+    }
+
+    .mini-word {
+      display:flex;
+      justify-content:space-between;
+      gap: 12px;
+      align-items:center;
+      padding: 12px;
+      border: 1px solid var(--line);
+      background: #fbfdff;
+      border-radius: 17px;
+    }
+
+    .mini-word .hebrew { font-size: 24px; font-weight:900; color:var(--navy); }
+    .mini-word .eng { font-size: 14px; color:#475569; }
+    .mastery-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 999px;
+      background:#cbd5e1;
+      flex: 0 0 auto;
+    }
+    .mastery-dot.good { background: var(--green); }
+    .mastery-dot.warn { background: var(--gold); }
+    .mastery-dot.bad { background: var(--coral); }
+
+    .match-board {
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .tile-area {
+      display:grid;
+      gap: 10px;
+    }
+
+    .tile {
+      min-height: 58px;
+      border: 2px solid rgba(20,33,61,.12);
+      background: #ffffff;
+      border-radius: 18px;
+      padding: 12px 14px;
+      font-size: 20px;
+      font-weight: 900;
+      cursor:pointer;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      transition: transform .12s ease, border .12s ease, background .12s ease;
+      user-select:none;
+    }
+
+    .tile:hover { transform: translateY(-2px); }
+    .tile.selected { border-color: var(--blue); background:#eef6ff; }
+    .tile.matched { background:#e8fff4; border-color: var(--green); color:#156f55; pointer-events:none; }
+    .tile.wrong { animation: shake .28s ease; border-color: var(--coral); background:#fff0f4; }
+
+    @keyframes shake {
+      0%,100%{ transform: translateX(0); }
+      25%{ transform: translateX(-6px); }
+      75%{ transform: translateX(6px); }
+    }
+
+    .game-zone {
+      display:grid;
+      grid-template-columns: minmax(0, 1fr) 300px;
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .prompt-box {
+      min-height: 360px;
+      border-radius: 28px;
+      padding: 22px;
+      background:
+        linear-gradient(135deg, #ffffff, #f8fbff);
+      border: 1px solid var(--line);
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+    }
+
+    .prompt-big {
+      font-size: clamp(44px, 8vw, 82px);
+      font-weight: 900;
+      color: var(--navy);
+      line-height:1.05;
+      margin: 10px 0 8px;
+    }
+
+    .choice-grid {
+      display:grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 12px;
+      width:100%;
+      margin-top: 20px;
+    }
+
+    .choice {
+      min-height: 72px;
+      border: 0;
+      border-radius: 20px;
+      background: #edf3fb;
+      color: var(--navy);
+      font-size: 20px;
+      font-weight: 900;
+      cursor:pointer;
+      padding: 12px;
+      transition: transform .13s ease, background .13s ease;
+    }
+    .choice:hover { transform: translateY(-2px); }
+    .choice.correct { background:#d9ffe9; color:#0b6b4e; }
+    .choice.incorrect { background:#ffe1e8; color:#a51639; }
+
+    .side-meter {
+      background: #ffffff;
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      padding: 18px;
+    }
+
+    .meter-label {
+      display:flex;
+      justify-content:space-between;
+      font-weight: 900;
+      color: var(--navy);
+      margin-bottom: 7px;
+    }
+
+    .bar {
+      height: 14px;
+      background:#e2e8f0;
+      border-radius:999px;
+      overflow:hidden;
+      margin-bottom: 14px;
+    }
+    .bar > span {
+      display:block;
+      height:100%;
+      width:0%;
+      background: linear-gradient(90deg, var(--teal), var(--gold));
+      transition: width .25s ease;
+    }
+
+    .feedback {
+      min-height: 48px;
+      margin-top: 16px;
+      padding: 12px;
+      border-radius: 18px;
+      background:#f8fafc;
+      color:#334155;
+      font-weight: 800;
+    }
+
+    .builder-wrap {
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .answer-slot {
+      direction: rtl;
+      min-height: 80px;
+      border: 3px dashed rgba(20,33,61,.22);
+      border-radius: 20px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap: 8px;
+      flex-wrap: wrap;
+      padding: 12px;
+      background:#fffaf0;
+      font-size: 36px;
+      font-weight: 900;
+    }
+
+    .letter-bank {
+      display:flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      direction: rtl;
+      justify-content:center;
+      margin-top: 14px;
+    }
+
+    .letter {
+      min-width: 48px;
+      height: 48px;
+      border: 0;
+      border-radius: 15px;
+      background: var(--navy);
+      color: white;
+      font-size: 25px;
+      font-weight: 900;
+      cursor:pointer;
+      box-shadow: 0 8px 16px rgba(20,33,61,.18);
+    }
+    .letter.used { opacity:.25; pointer-events:none; }
+
+    .canvas-wrap {
+      display:grid;
+      grid-template-columns: minmax(0, 1fr) 330px;
+      gap: 18px;
+    }
+
+    canvas {
+      width:100%;
+      height: 380px;
+      border-radius: 24px;
+      border: 3px solid rgba(20,33,61,.15);
+      background:
+        repeating-linear-gradient(to bottom, #ffffff, #ffffff 38px, #edf2f7 39px, #edf2f7 40px);
+      cursor: crosshair;
+      touch-action: none;
+      display:block;
+    }
+
+    .script-card {
+      background:#fff;
+      border-radius:24px;
+      padding:18px;
+      border: 1px solid var(--line);
+    }
+
+    .script-card .target {
+      font-size: 52px;
+      font-weight: 900;
+      color: var(--navy);
+      text-align:center;
+      margin: 12px 0;
+    }
+
+    .reveal-box {
+      display:none;
+      padding: 14px;
+      border-radius: 18px;
+      background: #eefaf7;
+      text-align:center;
+      margin: 12px 0;
+    }
+    .reveal-box.visible { display:block; }
+    .reveal-box .hebrew { font-size: 44px; font-weight:900; color:var(--teal); }
+    .reveal-box .eng { font-weight:900; color: var(--navy); margin-top:5px; }
+
+    .boss-arena {
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .avatar-stage {
+      border-radius: 28px;
+      background:
+        radial-gradient(circle at 50% 25%, rgba(249,199,79,.35), transparent 24%),
+        linear-gradient(160deg, #14213d, #235c70 70%, #2a9d8f);
+      min-height: 420px;
+      color:white;
+      padding: 20px;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .monster {
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      height: 100%;
+      gap: 12px;
+      position:relative;
+      z-index:1;
+    }
+
+    .monster-face {
+      width: 190px;
+      height: 190px;
+      border-radius: 44% 56% 55% 45% / 48% 46% 54% 52%;
+      background: linear-gradient(145deg, #ef476f, #8338ec);
+      box-shadow: 0 22px 45px rgba(0,0,0,.25), inset -12px -14px 0 rgba(0,0,0,.10);
+      display:grid;
+      place-items:center;
+      font-size: 74px;
+      animation: floaty 2.6s ease-in-out infinite;
+    }
+
+    @keyframes floaty {
+      0%,100% { transform: translateY(0) rotate(-1deg); }
+      50% { transform: translateY(-10px) rotate(2deg); }
+    }
+
+    .monster-name {
+      font-size: 26px;
+      font-weight: 900;
+      text-align:center;
+    }
+
+    .speech {
+      max-width: 340px;
+      background: rgba(255,255,255,.14);
+      border:1px solid rgba(255,255,255,.18);
+      border-radius: 20px;
+      padding: 14px;
+      text-align:center;
+      font-weight: 800;
+      line-height:1.3;
+    }
+
+    .boss-controls .prompt-box { min-height: 420px; }
+
+    .type-input {
+      width:100%;
+      max-width: 560px;
+      border: 3px solid rgba(20,33,61,.12);
+      border-radius: 20px;
+      padding: 15px 16px;
+      font-size: 22px;
+      outline:none;
+      text-align:center;
+      font-weight:800;
+      margin-top: 16px;
+    }
+
+    .type-input:focus { border-color: var(--blue); }
+
+    .summary-grid {
+      display:grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap: 14px;
+    }
+
+    .summary-card {
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:22px;
+      padding:16px;
+    }
+
+    .summary-card h3 {
+      margin:0 0 8px;
+      color:var(--navy);
+      font-size: 20px;
+    }
+
+    .tag-list {
+      display:flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tag {
+      background:#edf3fb;
+      color:var(--navy);
+      padding: 7px 9px;
+      border-radius:999px;
+      font-weight:800;
+      font-size: 14px;
+    }
+
+    .table-wrap { overflow-x:auto; }
+    table {
+      width:100%;
+      border-collapse: collapse;
+      background:white;
+      border-radius: 18px;
+      overflow:hidden;
+    }
+    th, td {
+      border: 2px solid #0f172a;
+      padding: 12px;
+      text-align:left;
+      vertical-align: middle;
+      font-size: 18px;
+    }
+    th { background: var(--navy); color:white; }
+    td .hebrew { font-size: 27px; font-weight:900; }
+
+    .print-card {
+      background: #ffffff;
+      border-radius:24px;
+      padding:18px;
+      border:1px solid var(--line);
+    }
+
+    .practice-lines {
+      display:grid;
+      gap: 8px;
+      margin-top: 12px;
+    }
+    .practice-line {
+      min-height: 54px;
+      border-bottom: 2px solid #94a3b8;
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap: 12px;
+      padding: 5px 0;
+    }
+    .practice-line span:first-child { color:#475569; font-weight:800; }
+    .practice-line span:last-child { color:#cbd5e1; font-size: 12px; }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 22px;
+      transform: translateX(-50%) translateY(30px);
+      opacity: 0;
+      pointer-events:none;
+      background: var(--navy);
+      color:white;
+      padding: 12px 16px;
+      border-radius: 999px;
+      font-weight:900;
+      box-shadow: var(--shadow);
+      transition: .22s ease;
+      z-index: 20;
+      max-width: calc(100vw - 40px);
+      text-align:center;
+    }
+    .toast.show { opacity:1; transform: translateX(-50%) translateY(0); }
+
+    .confetti {
+      position:fixed;
+      width:10px;
+      height:14px;
+      top:-20px;
+      z-index: 50;
+      animation: fall 900ms linear forwards;
+    }
+    @keyframes fall {
+      to { transform: translateY(105vh) rotate(520deg); opacity:.2; }
+    }
+
+    .hidden { display:none !important; }
+
+    @media (max-width: 900px) {
+      .hero-grid, .flash-layout, .game-zone, .builder-wrap, .canvas-wrap, .boss-arena, .summary-grid {
+        grid-template-columns: 1fr;
+      }
+      .word-bank { grid-template-columns: 1fr; }
+      .choice-grid { grid-template-columns: 1fr; }
+      .section-head { flex-direction:column; }
+      .app { padding: 14px; }
+      .hero { padding: 20px; border-radius: 24px; }
+      .card { padding: 16px; border-radius: 24px; }
+      .match-board { grid-template-columns: 1fr; }
+      .stat-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    @media print {
+      body { background:white; }
+      .hero, .tabs, .panel:not(#printPanel), .no-print, .toast { display:none !important; }
+      .app { max-width: 100%; padding: 0; }
+      #printPanel { display:block !important; animation:none; }
+      .card { box-shadow:none; border:0; padding: 0; }
+      .print-card { border:0; padding:0; }
+      th, td { font-size: 14px; padding: 7px; }
+      td .hebrew { font-size: 20px; }
+      h2 { font-size: 22px !important; }
+      .practice-line { min-height: 42px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header class="hero">
+      <div class="hero-grid">
+        <div>
+          <div class="eyebrow">⚡ Quiz Tomorrow Mission · 5.4 Hebrew Vocabulary</div>
+          <h1>Hebrew Quest:<br/>The Old City Word Heist</h1>
+          <p>Rescue all 15 vocabulary words by flipping, matching, building, writing, and battling the Quiz Monster. The goal is simple: see the Hebrew, know the English, then write the Hebrew from memory.</p>
+        </div>
+        <div class="score-card">
+          <div class="name-row">
+            <input id="studentName" placeholder="Student name" />
+            <button class="btn gold small" onclick="saveName()">Save</button>
+          </div>
+          <div class="stat-grid">
+            <div class="stat"><strong id="totalCorrect">0</strong><span>Correct</span></div>
+            <div class="stat"><strong id="streak">0</strong><span>Streak</span></div>
+            <div class="stat"><strong id="mastered">0</strong><span>Mastered</span></div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <nav class="tabs no-print" aria-label="Game modes">
+      <button class="tab active" data-panel="studyPanel">1 · Flashcard Lab</button>
+      <button class="tab" data-panel="matchPanel">2 · Match Mission</button>
+      <button class="tab" data-panel="blitzPanel">3 · Translation Blitz</button>
+      <button class="tab" data-panel="builderPanel">4 · Hebrew Builder</button>
+      <button class="tab" data-panel="scriptPanel">5 · Script Sprint</button>
+      <button class="tab" data-panel="bossPanel">Final · Boss Battle</button>
+      <button class="tab" data-panel="printPanel">Print Practice</button>
+    </nav>
+
+    <main>
+      <section class="panel active" id="studyPanel">
+        <div class="card">
+          <div class="section-head">
+            <div>
+              <h2>Flashcard Lab</h2>
+              <p>Say the word out loud. Guess the meaning. Reveal it. Then mark it honestly so the weak-word detector knows what to practice.</p>
+            </div>
+            <div class="btn-row">
+              <button class="btn secondary" onclick="toggleFlashSide()">Flip Hebrew/English First</button>
+              <button class="btn secondary" onclick="shuffleFlash()">Shuffle</button>
+              <button class="btn coral" onclick="resetProgress()">Reset Progress</button>
+            </div>
+          </div>
+          <div class="flash-layout">
+            <div>
+              <div class="flashcard" onclick="revealFlash()">
+                <div class="flash-label" id="flashLabel">Hebrew word</div>
+                <div class="flash-word hebrew" id="flashWord">---</div>
+                <div class="flash-answer" id="flashAnswer">---</div>
+                <div class="micro" id="flashHint">Tap the card to reveal.</div>
+              </div>
+              <div class="btn-row" style="margin-top:14px; justify-content:center;">
+                <button class="btn teal" onclick="revealFlash()">Reveal</button>
+                <button class="btn green" onclick="markFlash(true)">I knew it</button>
+                <button class="btn gold" onclick="markFlash(false)">Need practice</button>
+                <button class="btn secondary" onclick="speakCurrent()">🔊 Say Hebrew</button>
+              </div>
+            </div>
+            <aside>
+              <div class="section-head" style="margin-bottom:10px;">
+                <div>
+                  <h2 style="font-size:24px;">Word Bank</h2>
+                  <p style="font-size:14px;">Green = strong. Yellow = mixed. Red = needs review.</p>
+                </div>
+              </div>
+              <div class="word-bank" id="wordBank"></div>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel" id="matchPanel">
+        <div class="card">
+          <div class="section-head">
+            <div>
+              <h2>Match Mission</h2>
+              <p>Click a Hebrew tile, then click its English match. This builds quick recognition before the harder writing rounds.</p>
+            </div>
+            <div class="btn-row">
+              <button class="btn teal" onclick="newMatchRound()">New Round</button>
+            </div>
+          </div>
+          <div class="meter-label"><span>Pairs rescued</span><span id="matchCount">0/8</span></div>
+          <div class="bar"><span id="matchBar"></span></div>
+          <div class="match-board">
+            <div>
+              <h3>Hebrew</h3>
+              <div class="tile-area" id="hebrewTiles"></div>
+            </div>
+            <div>
+              <h3>English</h3>
+              <div class="tile-area" id="englishTiles"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel" id="blitzPanel">
+        <div class="card">
+          <div class="section-head">
+            <div>
+              <h2>Translation Blitz</h2>
+              <p>Fast multiple choice. The questions mix Hebrew → English and English → Hebrew so the quiz does not feel predictable.</p>
+            </div>
+            <div class="btn-row">
+              <button class="btn teal" onclick="startBlitz()">Start 60-Second Blitz</button>
+              <button class="btn secondary" onclick="nextBlitzQuestion()">Skip</button>
+            </div>
+          </div>
+          <div class="game-zone">
+            <div class="prompt-box">
+              <div class="flash-label" id="blitzMode">Press Start</div>
+              <div class="prompt-big" id="blitzPrompt">Ready?</div>
+              <div class="choice-grid" id="blitzChoices"></div>
+              <div class="feedback" id="blitzFeedback">Try to beat 10 correct before time runs out.</div>
+            </div>
+            <aside class="side-meter">
+              <div class="meter-label"><span>Time</span><span id="blitzTime">60</span></div>
+              <div class="bar"><span id="timeBar" style="width:100%;"></span></div>
+              <div class="meter-label"><span>Score</span><span id="blitzScore">0</span></div>
+              <div class="bar"><span id="scoreBar"></span></div>
+              <p><strong>Power tip:</strong> Do one calm round first, then one speed round.</p>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel" id="builderPanel">
+        <div class="card">
+          <div class="section-head">
+            <div>
+              <h2>Hebrew Builder</h2>
+              <p>See the English meaning. Tap Hebrew letters in the correct order to build the word. This is the bridge from recognition to spelling.</p>
+            </div>
+            <div class="btn-row">
+              <button class="btn teal" onclick="newBuildQuestion()">New Word</button>
+              <button class="btn secondary" onclick="clearBuild()">Clear</button>
+              <button class="btn gold" onclick="checkBuild()">Check</button>
+            </div>
+          </div>
+          <div class="builder-wrap">
+            <div class="prompt-box">
+              <div class="flash-label">Build this Hebrew word</div>
+              <div class="prompt-big" id="buildEnglish">---</div>
+              <div class="micro" id="buildMicro">Tap the letters from right to left, just like Hebrew is written.</div>
+              <div class="answer-slot hebrew" id="buildAnswer"></div>
+              <div class="letter-bank" id="letterBank"></div>
+              <div class="feedback" id="buildFeedback">Press “New Word” to begin.</div>
+            </div>
+            <aside class="side-meter">
+              <h3 style="margin-top:0;color:var(--navy);">Hebrew Writing Reminder</h3>
+              <p>Hebrew is read and written <strong>right → left</strong>.</p>
+              <p>For tomorrow, do not only recognize the word. Practice writing it by hand after each builder round.</p>
+              <div class="tag-list" id="troubleTags"></div>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel" id="scriptPanel">
+        <div class="card">
+          <div class="section-head">
+            <div>
+              <h2>Script Sprint</h2>
+              <p>This round matches the worksheet: write the Hebrew in script, then give the English meaning. Write first, reveal second.</p>
+            </div>
+            <div class="btn-row">
+              <button class="btn teal" onclick="newScriptPrompt()">New Prompt</button>
+              <button class="btn secondary" onclick="clearCanvas()">Clear Board</button>
+              <button class="btn gold" onclick="revealScript()">Reveal Answer</button>
+            </div>
+          </div>
+          <div class="canvas-wrap">
+            <canvas id="writeCanvas" width="900" height="420" aria-label="Script writing practice canvas"></canvas>
+            <aside class="script-card">
+              <div class="flash-label">Write from memory</div>
+              <div class="target" id="scriptTarget">---</div>
+              <div class="micro">Use the big board. Say it, write it, then reveal. Self-score like a coach.</div>
+              <div class="reveal-box" id="scriptReveal">
+                <div class="hebrew" id="scriptHebrew">---</div>
+                <div class="eng" id="scriptEnglish">---</div>
+                <div class="micro" id="scriptTranslit">---</div>
+              </div>
+              <div class="btn-row" style="margin-top:12px;">
+                <button class="btn green" onclick="scoreScript(true)">Looks right</button>
+                <button class="btn coral" onclick="scoreScript(false)">Need another try</button>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel" id="bossPanel">
+        <div class="card">
+          <div class="section-head">
+            <div>
+              <h2>Final Boss Battle</h2>
+              <p>The Quiz Monster mixes everything: translation, spelling, and fast recall. Defeat it by answering 12 questions.</p>
+            </div>
+            <div class="btn-row">
+              <button class="btn coral" onclick="startBoss()">Start Boss Battle</button>
+            </div>
+          </div>
+          <div class="boss-arena">
+            <div class="avatar-stage">
+              <div class="monster">
+                <div class="meter-label" style="width:100%; color:white;"><span>Quiz Monster HP</span><span id="bossHPText">100%</span></div>
+                <div class="bar" style="width:100%; background:rgba(255,255,255,.22);"><span id="bossHP" style="width:100%; background:linear-gradient(90deg,#ef476f,#f9c74f);"></span></div>
+                <div class="monster-face" id="monsterFace">👹</div>
+                <div class="monster-name">The Tomorrow Quiz Monster</div>
+                <div class="speech" id="monsterSpeech">I stole the Hebrew words. Start the battle to get them back.</div>
+              </div>
+            </div>
+            <div class="boss-controls">
+              <div class="prompt-box">
+                <div class="flash-label" id="bossRound">Round 0/12</div>
+                <div class="prompt-big" id="bossPrompt">Ready?</div>
+                <div id="bossChoices" class="choice-grid"></div>
+                <input id="bossInput" class="type-input hidden" placeholder="Type answer here" />
+                <div class="btn-row" style="margin-top:12px; justify-content:center;">
+                  <button class="btn gold hidden" id="bossSubmit" onclick="submitBossTyped()">Submit</button>
+                  <button class="btn secondary hidden" id="bossNext" onclick="nextBossQuestion()">Next</button>
+                </div>
+                <div class="feedback" id="bossFeedback">Correct answers hit the monster. Wrong answers create a weak-word card.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel" id="printPanel">
+        <div class="card">
+          <div class="section-head no-print">
+            <div>
+              <h2>Printable Last-Minute Practice</h2>
+              <p>Use this as a quick paper check: cover one column, say the answer, then write the Hebrew in script.</p>
+            </div>
+            <div class="btn-row">
+              <button class="btn teal" onclick="window.print()">Print</button>
+              <button class="btn secondary" onclick="shufflePrintPractice()">Shuffle Prompts</button>
+            </div>
+          </div>
+          <div class="print-card">
+            <h2 style="margin-top:0;color:var(--navy);">5.4 Hebrew Vocabulary — Last-Minute Practice</h2>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>English Meaning</th><th>Hebrew</th><th>Say It / Remember It</th></tr></thead>
+                <tbody id="printTable"></tbody>
+              </table>
+            </div>
+            <h3 style="color:var(--navy);">Write in Script from Memory</h3>
+            <div id="practicePrompts" class="practice-lines"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div id="toast" class="toast">Nice!</div>
+
+  <script>
+    const WORDS = [
+      { id:'kotev', hebrew:'כּוֹתֵב', plain:'כותב', english:'writes (he/boy)', simple:['writes','he writes','boy writes'], translit:'kotév', hint:'He/boy writes.' },
+      { id:'kotevet', hebrew:'כּוֹתֶבֶת', plain:'כותבת', english:'writes (she/girl)', simple:['writes','she writes','girl writes'], translit:'kotévet', hint:'She/girl writes. Notice the ת ending.' },
+      { id:'todaraba', hebrew:'תּוֹדָה רַבָּה', plain:'תודה רבה', english:'thank you very much', simple:['thanks a lot','thank you very much','thank you'], translit:'todá rabá', hint:'A bigger thank you.' },
+      { id:'tov', hebrew:'טוֹב', plain:'טוב', english:'good', simple:['good'], translit:'tov', hint:'Good.' },
+      { id:'bevakasha', hebrew:'בְּבַקָּשָׁה', plain:'בבקשה', english:'please / you’re welcome', simple:['please','youre welcome','you’re welcome','you are welcome'], translit:'bevakashá', hint:'This can mean please or you’re welcome.' },
+      { id:'beseder', hebrew:'בְּסֵדֶר', plain:'בסדר', english:'okay / all right', simple:['okay','ok','all right','alright'], translit:'beséder', hint:'Everything is okay.' },
+      { id:'ir', hebrew:'עִיר', plain:'עיר', english:'city', simple:['city'], translit:'ir', hint:'A city.' },
+      { id:'yam', hebrew:'יָם', plain:'ים', english:'sea', simple:['sea','ocean'], translit:'yam', hint:'The sea.' },
+      { id:'yashan', hebrew:'יָשָׁן', plain:'ישן', english:'old', simple:['old'], translit:'yashán', hint:'Old.' },
+      { id:'chadash', hebrew:'חָדָשׁ', plain:'חדש', english:'new', simple:['new'], translit:'chadásh', hint:'New.' },
+      { id:'saba', hebrew:'סַבָּא', plain:'סבא', english:'grandfather', simple:['grandfather','grandpa','saba'], translit:'sába', hint:'Grandfather.' },
+      { id:'savta', hebrew:'סַבְתָּא', plain:'סבתא', english:'grandmother', simple:['grandmother','grandma','savta'], translit:'sávta', hint:'Grandmother.' },
+      { id:'rechov', hebrew:'רְחוֹב', plain:'רחוב', english:'street', simple:['street','road'], translit:'rechóv', hint:'A street.' },
+      { id:'yafeh', hebrew:'יָפֶה', plain:'יפה', english:'nice / beautiful', simple:['nice','beautiful','pretty'], translit:'yaféh', hint:'Nice or beautiful.' },
+      { id:'torah', hebrew:'תּוֹרָה', plain:'תורה', english:'Torah', simple:['torah'], translit:'toráh', hint:'Torah.' }
+    ];
+
+    const encouragement = [
+      'That was fire. 🔥',
+      'Quiz Monster is sweating. 😅',
+      'Hebrew brain unlocked. 🧠',
+      'No cap, that was clean. ✨',
+      'You just cooked that word. 🍳',
+      'Big word energy. 💪',
+      'Tomorrow’s quiz felt that hit. ⚡'
+    ];
+
+    let progress = JSON.parse(localStorage.getItem('hebrewQuestProgress') || '{}');
+    let totalCorrect = Number(localStorage.getItem('hebrewQuestCorrect') || '0');
+    let streak = Number(localStorage.getItem('hebrewQuestStreak') || '0');
+    let flashOrder = shuffle([...WORDS]);
+    let flashIndex = 0;
+    let flashEnglishFirst = false;
+    let flashRevealed = false;
+    let selectedHebrew = null;
+    let selectedEnglish = null;
+    let matchPairs = [];
+    let matchedCount = 0;
+    let blitzTimer = null;
+    let blitzTime = 60;
+    let blitzScore = 0;
+    let currentBlitz = null;
+    let currentBuild = null;
+    let buildPieces = [];
+    let currentScript = null;
+    let bossQuestions = [];
+    let bossIndex = 0;
+    let bossHP = 100;
+    let currentBoss = null;
+
+    function normalizeHebrew(str) {
+      return (str || '')
+        .normalize('NFD')
+        .replace(/[\u0591-\u05C7]/g, '')
+        .replace(/\s+/g, ' ')
+        .trim();
+    }
+
+    function normalizeEnglish(str) {
+      return (str || '')
+        .toLowerCase()
+        .replace(/[’']/g, '')
+        .replace(/[^a-z\s]/g, ' ')
+        .replace(/\s+/g, ' ')
+        .trim();
+    }
+
+    function shuffle(arr) {
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
+
+    function choice(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+
+    function sample(arr, n) { return shuffle([...arr]).slice(0, n); }
+
+    function saveProgress() {
+      localStorage.setItem('hebrewQuestProgress', JSON.stringify(progress));
+      localStorage.setItem('hebrewQuestCorrect', String(totalCorrect));
+      localStorage.setItem('hebrewQuestStreak', String(streak));
+      updateStats();
+      renderWordBank();
+      renderTroubleTags();
+    }
+
+    function getRecord(id) {
+      if (!progress[id]) progress[id] = { correct: 0, wrong: 0 };
+      return progress[id];
+    }
+
+    function record(id, ok) {
+      const rec = getRecord(id);
+      if (ok) {
+        rec.correct += 1;
+        totalCorrect += 1;
+        streak += 1;
+      } else {
+        rec.wrong += 1;
+        streak = 0;
+      }
+      saveProgress();
+    }
+
+    function updateStats() {
+      document.getElementById('totalCorrect').textContent = totalCorrect;
+      document.getElementById('streak').textContent = streak;
+      const mastered = WORDS.filter(w => {
+        const r = getRecord(w.id);
+        return r.correct >= 3 && r.correct >= r.wrong + 2;
+      }).length;
+      document.getElementById('mastered').textContent = mastered;
+    }
+
+    function masteryClass(word) {
+      const r = getRecord(word.id);
+      if (r.correct >= 3 && r.correct >= r.wrong + 2) return 'good';
+      if (r.wrong > r.correct) return 'bad';
+      if (r.correct || r.wrong) return 'warn';
+      return '';
+    }
+
+    function renderWordBank() {
+      const bank = document.getElementById('wordBank');
+      bank.innerHTML = WORDS.map(w => `
+        <div class="mini-word" title="${w.hint}">
+          <span class="mastery-dot ${masteryClass(w)}"></span>
+          <span class="hebrew">${w.hebrew}</span>
+          <span class="eng">${w.english}</span>
+        </div>
+      `).join('');
+    }
+
+    function renderTroubleTags() {
+      const box = document.getElementById('troubleTags');
+      if (!box) return;
+      const trouble = WORDS.filter(w => {
+        const r = getRecord(w.id);
+        return r.wrong > 0 && r.correct < r.wrong + 2;
+      }).slice(0, 8);
+      box.innerHTML = trouble.length
+        ? trouble.map(w => `<span class="tag hebrew">${w.plain}</span>`).join('')
+        : '<span class="tag">No weak words yet</span>';
+    }
+
+    function showToast(text) {
+      const toast = document.getElementById('toast');
+      toast.textContent = text;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 1400);
+    }
+
+    function confetti(count = 28) {
+      const colors = ['#ef476f','#ffd166','#06d6a0','#118ab2','#8338ec','#f9c74f'];
+      for (let i = 0; i < count; i++) {
+        const el = document.createElement('div');
+        el.className = 'confetti';
+        el.style.left = Math.random() * 100 + 'vw';
+        el.style.background = colors[Math.floor(Math.random() * colors.length)];
+        el.style.animationDelay = Math.random() * 260 + 'ms';
+        document.body.appendChild(el);
+        setTimeout(() => el.remove(), 1300);
+      }
+    }
+
+    function saveName() {
+      const name = document.getElementById('studentName').value.trim();
+      localStorage.setItem('hebrewQuestName', name);
+      showToast(name ? `Saved for ${name}!` : 'Name cleared.');
+    }
+
+    function initTabs() {
+      document.querySelectorAll('.tab').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
+          document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+          btn.classList.add('active');
+          document.getElementById(btn.dataset.panel).classList.add('active');
+          if (btn.dataset.panel === 'matchPanel' && !matchPairs.length) newMatchRound();
+          if (btn.dataset.panel === 'builderPanel' && !currentBuild) newBuildQuestion();
+          if (btn.dataset.panel === 'scriptPanel' && !currentScript) newScriptPrompt();
+        });
+      });
+    }
+
+    function renderFlash() {
+      const w = flashOrder[flashIndex % flashOrder.length];
+      flashRevealed = false;
+      document.getElementById('flashAnswer').classList.remove('visible');
+      if (!flashEnglishFirst) {
+        document.getElementById('flashLabel').textContent = 'Hebrew word';
+        document.getElementById('flashWord').className = 'flash-word hebrew';
+        document.getElementById('flashWord').textContent = w.hebrew;
+        document.getElementById('flashAnswer').textContent = w.english + ' · ' + w.translit;
+        document.getElementById('flashHint').textContent = 'Tap to reveal the English meaning.';
+      } else {
+        document.getElementById('flashLabel').textContent = 'English meaning';
+        document.getElementById('flashWord').className = 'flash-word';
+        document.getElementById('flashWord').textContent = w.english;
+        document.getElementById('flashAnswer').innerHTML = `<span class="hebrew">${w.hebrew}</span> · ${w.translit}`;
+        document.getElementById('flashHint').textContent = 'Tap to reveal the Hebrew word.';
+      }
+    }
+
+    function revealFlash() {
+      document.getElementById('flashAnswer').classList.add('visible');
+      flashRevealed = true;
+    }
+
+    function markFlash(ok) {
+      if (!flashRevealed) revealFlash();
+      const w = flashOrder[flashIndex % flashOrder.length];
+      record(w.id, ok);
+      showToast(ok ? choice(encouragement) : `Practice card saved: ${w.plain}`);
+      flashIndex++;
+      setTimeout(renderFlash, 250);
+    }
+
+    function toggleFlashSide() {
+      flashEnglishFirst = !flashEnglishFirst;
+      renderFlash();
+    }
+
+    function shuffleFlash() {
+      flashOrder = shuffle([...WORDS]);
+      flashIndex = 0;
+      renderFlash();
+      showToast('Flashcards shuffled.');
+    }
+
+    function speakCurrent() {
+      const w = flashOrder[flashIndex % flashOrder.length];
+      try {
+        const utter = new SpeechSynthesisUtterance(w.plain);
+        utter.lang = 'he-IL';
+        utter.rate = .82;
+        window.speechSynthesis.cancel();
+        window.speechSynthesis.speak(utter);
+      } catch(e) {
+        showToast('Speech is not available in this browser.');
+      }
+    }
+
+    function resetProgress() {
+      if (!confirm('Reset all scores for this Hebrew review game?')) return;
+      progress = {};
+      totalCorrect = 0;
+      streak = 0;
+      saveProgress();
+      showToast('Progress reset. Fresh start!');
+    }
+
+    function newMatchRound() {
+      matchPairs = sample(WORDS, Math.min(8, WORDS.length));
+      matchedCount = 0;
+      selectedHebrew = null;
+      selectedEnglish = null;
+      const heb = shuffle([...matchPairs]);
+      const eng = shuffle([...matchPairs]);
+      document.getElementById('hebrewTiles').innerHTML = heb.map(w => `<div class="tile hebrew" data-kind="hebrew" data-id="${w.id}">${w.hebrew}</div>`).join('');
+      document.getElementById('englishTiles').innerHTML = eng.map(w => `<div class="tile" data-kind="english" data-id="${w.id}">${w.english}</div>`).join('');
+      document.querySelectorAll('#hebrewTiles .tile, #englishTiles .tile').forEach(t => t.addEventListener('click', clickMatchTile));
+      updateMatchMeter();
+    }
+
+    function clickMatchTile(e) {
+      const tile = e.currentTarget;
+      if (tile.classList.contains('matched')) return;
+      const kind = tile.dataset.kind;
+      const id = tile.dataset.id;
+      if (kind === 'hebrew') {
+        if (selectedHebrew) selectedHebrew.classList.remove('selected');
+        selectedHebrew = tile;
+      } else {
+        if (selectedEnglish) selectedEnglish.classList.remove('selected');
+        selectedEnglish = tile;
+      }
+      tile.classList.add('selected');
+      if (selectedHebrew && selectedEnglish) checkMatch();
+    }
+
+    function checkMatch() {
+      const ok = selectedHebrew.dataset.id === selectedEnglish.dataset.id;
+      const id = selectedHebrew.dataset.id;
+      if (ok) {
+        selectedHebrew.classList.remove('selected');
+        selectedEnglish.classList.remove('selected');
+        selectedHebrew.classList.add('matched');
+        selectedEnglish.classList.add('matched');
+        record(id, true);
+        matchedCount++;
+        showToast(choice(encouragement));
+        if (matchedCount === matchPairs.length) {
+          confetti();
+          showToast('Mission complete: all pairs rescued!');
+        }
+      } else {
+        selectedHebrew.classList.add('wrong');
+        selectedEnglish.classList.add('wrong');
+        record(id, false);
+        setTimeout(() => {
+          selectedHebrew?.classList.remove('selected','wrong');
+          selectedEnglish?.classList.remove('selected','wrong');
+        }, 360);
+      }
+      selectedHebrew = null;
+      selectedEnglish = null;
+      updateMatchMeter();
+    }
+
+    function updateMatchMeter() {
+      document.getElementById('matchCount').textContent = `${matchedCount}/${matchPairs.length || 8}`;
+      const pct = matchPairs.length ? matchedCount / matchPairs.length * 100 : 0;
+      document.getElementById('matchBar').style.width = pct + '%';
+    }
+
+    function startBlitz() {
+      clearInterval(blitzTimer);
+      blitzTime = 60;
+      blitzScore = 0;
+      document.getElementById('blitzScore').textContent = blitzScore;
+      document.getElementById('scoreBar').style.width = '0%';
+      document.getElementById('blitzFeedback').textContent = 'Go! Read carefully. Speed comes after accuracy.';
+      blitzTimer = setInterval(() => {
+        blitzTime--;
+        document.getElementById('blitzTime').textContent = blitzTime;
+        document.getElementById('timeBar').style.width = Math.max(0, blitzTime / 60 * 100) + '%';
+        if (blitzTime <= 0) {
+          clearInterval(blitzTimer);
+          document.getElementById('blitzFeedback').textContent = `Time! Final score: ${blitzScore}. ${blitzScore >= 10 ? 'Boss Battle ready.' : 'Do one more round.'}`;
+          if (blitzScore >= 10) confetti(36);
+        }
+      }, 1000);
+      nextBlitzQuestion();
+    }
+
+    function makeQuestion() {
+      const w = choice(WORDS);
+      const type = Math.random() < .5 ? 'heToEng' : 'engToHe';
+      const opts = sample(WORDS.filter(x => x.id !== w.id), 3).concat(w);
+      shuffle(opts);
+      return { word: w, type, opts };
+    }
+
+    function nextBlitzQuestion() {
+      currentBlitz = makeQuestion();
+      const { word, type, opts } = currentBlitz;
+      const promptEl = document.getElementById('blitzPrompt');
+      const choices = document.getElementById('blitzChoices');
+      document.getElementById('blitzMode').textContent = type === 'heToEng' ? 'Hebrew → English' : 'English → Hebrew';
+      if (type === 'heToEng') {
+        promptEl.className = 'prompt-big hebrew';
+        promptEl.textContent = word.hebrew;
+        choices.innerHTML = opts.map(o => `<button class="choice" data-id="${o.id}">${o.english}</button>`).join('');
+      } else {
+        promptEl.className = 'prompt-big';
+        promptEl.textContent = word.english;
+        choices.innerHTML = opts.map(o => `<button class="choice hebrew" data-id="${o.id}">${o.hebrew}</button>`).join('');
+      }
+      choices.querySelectorAll('button').forEach(b => b.addEventListener('click', answerBlitz));
+    }
+
+    function answerBlitz(e) {
+      if (!currentBlitz || blitzTime <= 0) return;
+      const btn = e.currentTarget;
+      const ok = btn.dataset.id === currentBlitz.word.id;
+      btn.classList.add(ok ? 'correct' : 'incorrect');
+      record(currentBlitz.word.id, ok);
+      if (ok) {
+        blitzScore++;
+        document.getElementById('blitzScore').textContent = blitzScore;
+        document.getElementById('scoreBar').style.width = Math.min(100, blitzScore / 10 * 100) + '%';
+        document.getElementById('blitzFeedback').textContent = choice(encouragement);
+      } else {
+        const correct = document.querySelector(`#blitzChoices [data-id="${currentBlitz.word.id}"]`);
+        if (correct) correct.classList.add('correct');
+        document.getElementById('blitzFeedback').innerHTML = `Watch this one: <strong class="hebrew">${currentBlitz.word.hebrew}</strong> = <strong>${currentBlitz.word.english}</strong>`;
+      }
+      setTimeout(nextBlitzQuestion, ok ? 420 : 1000);
+    }
+
+    function newBuildQuestion() {
+      currentBuild = choice(WORDS);
+      buildPieces = [];
+      const letters = currentBuild.plain.split('');
+      const distractors = sample(['א','ב','ג','ד','ה','ו','ז','ח','ט','י','כ','ל','מ','נ','ס','ע','פ','צ','ק','ר','ש','ת'], Math.min(3, Math.max(1, 6 - letters.length)));
+      const tiles = shuffle(letters.concat(distractors));
+      document.getElementById('buildEnglish').textContent = currentBuild.english;
+      document.getElementById('buildAnswer').textContent = '';
+      document.getElementById('buildFeedback').textContent = 'Tap the Hebrew letters to build the word.';
+      const bank = document.getElementById('letterBank');
+      bank.innerHTML = tiles.map((l,i) => `<button class="letter" data-i="${i}" data-letter="${l}">${l === ' ' ? '␣' : l}</button>`).join('');
+      bank.querySelectorAll('.letter').forEach(b => b.addEventListener('click', addLetter));
+    }
+
+    function addLetter(e) {
+      const b = e.currentTarget;
+      b.classList.add('used');
+      buildPieces.push({ letter: b.dataset.letter, el: b });
+      document.getElementById('buildAnswer').textContent = buildPieces.map(x => x.letter).join('');
+    }
+
+    function clearBuild() {
+      buildPieces.forEach(x => x.el.classList.remove('used'));
+      buildPieces = [];
+      document.getElementById('buildAnswer').textContent = '';
+      document.getElementById('buildFeedback').textContent = 'Cleared. Try again.';
+    }
+
+    function checkBuild() {
+      if (!currentBuild) return newBuildQuestion();
+      const answer = normalizeHebrew(buildPieces.map(x => x.letter).join(''));
+      const target = normalizeHebrew(currentBuild.plain);
+      const ok = answer === target;
+      record(currentBuild.id, ok);
+      if (ok) {
+        document.getElementById('buildFeedback').innerHTML = `Correct! <strong class="hebrew">${currentBuild.hebrew}</strong> = <strong>${currentBuild.english}</strong>`;
+        confetti(14);
+        setTimeout(newBuildQuestion, 900);
+      } else {
+        document.getElementById('buildFeedback').innerHTML = `Not yet. Correct word: <strong class="hebrew">${currentBuild.hebrew}</strong>. Clear and rebuild it once.`;
+      }
+    }
+
+    function newScriptPrompt() {
+      clearCanvas();
+      currentScript = choice(WORDS);
+      const mode = Math.random() < .55 ? 'english' : 'hebrew';
+      document.getElementById('scriptTarget').className = mode === 'hebrew' ? 'target hebrew' : 'target';
+      document.getElementById('scriptTarget').textContent = mode === 'hebrew' ? currentScript.hebrew : currentScript.english;
+      document.getElementById('scriptReveal').classList.remove('visible');
+    }
+
+    function revealScript() {
+      if (!currentScript) newScriptPrompt();
+      document.getElementById('scriptHebrew').textContent = currentScript.hebrew;
+      document.getElementById('scriptEnglish').textContent = currentScript.english;
+      document.getElementById('scriptTranslit').textContent = currentScript.translit + ' · ' + currentScript.hint;
+      document.getElementById('scriptReveal').classList.add('visible');
+    }
+
+    function scoreScript(ok) {
+      if (!currentScript) return;
+      revealScript();
+      record(currentScript.id, ok);
+      showToast(ok ? 'Script sprint point earned!' : `Practice again: ${currentScript.plain}`);
+      setTimeout(newScriptPrompt, ok ? 700 : 1200);
+    }
+
+    function setupCanvas() {
+      const canvas = document.getElementById('writeCanvas');
+      const ctx = canvas.getContext('2d');
+      ctx.lineWidth = 7;
+      ctx.lineCap = 'round';
+      ctx.lineJoin = 'round';
+      ctx.strokeStyle = '#14213d';
+      let drawing = false;
+
+      function getPos(e) {
+        const rect = canvas.getBoundingClientRect();
+        const touch = e.touches && e.touches[0];
+        const clientX = touch ? touch.clientX : e.clientX;
+        const clientY = touch ? touch.clientY : e.clientY;
+        return {
+          x: (clientX - rect.left) * (canvas.width / rect.width),
+          y: (clientY - rect.top) * (canvas.height / rect.height)
+        };
+      }
+      function start(e) { drawing = true; const p = getPos(e); ctx.beginPath(); ctx.moveTo(p.x, p.y); e.preventDefault(); }
+      function move(e) { if (!drawing) return; const p = getPos(e); ctx.lineTo(p.x, p.y); ctx.stroke(); e.preventDefault(); }
+      function stop() { drawing = false; }
+      canvas.addEventListener('mousedown', start);
+      canvas.addEventListener('mousemove', move);
+      window.addEventListener('mouseup', stop);
+      canvas.addEventListener('touchstart', start, { passive:false });
+      canvas.addEventListener('touchmove', move, { passive:false });
+      canvas.addEventListener('touchend', stop);
+    }
+
+    function clearCanvas() {
+      const canvas = document.getElementById('writeCanvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      ctx.clearRect(0,0,canvas.width, canvas.height);
+    }
+
+    function startBoss() {
+      bossQuestions = [];
+      for (let i=0; i<12; i++) bossQuestions.push(makeBossQuestion());
+      bossIndex = 0;
+      bossHP = 100;
+      document.getElementById('bossHP').style.width = '100%';
+      document.getElementById('bossHPText').textContent = '100%';
+      document.getElementById('monsterSpeech').textContent = 'You have 12 rounds. Use your Hebrew powers.';
+      document.getElementById('monsterFace').textContent = '👹';
+      nextBossQuestion();
+    }
+
+    function makeBossQuestion() {
+      const w = choice(WORDS);
+      const types = ['choiceHeToEng','choiceEngToHe','typeEng','typeHebrew'];
+      return { word: w, type: choice(types) };
+    }
+
+    function nextBossQuestion() {
+      if (bossIndex >= bossQuestions.length) return finishBoss();
+      currentBoss = bossQuestions[bossIndex];
+      bossIndex++;
+      document.getElementById('bossRound').textContent = `Round ${bossIndex}/12`;
+      document.getElementById('bossFeedback').textContent = 'Answer carefully.';
+      document.getElementById('bossNext').classList.add('hidden');
+      document.getElementById('bossSubmit').classList.add('hidden');
+      document.getElementById('bossInput').classList.add('hidden');
+      document.getElementById('bossInput').value = '';
+      const choices = document.getElementById('bossChoices');
+      choices.innerHTML = '';
+      choices.classList.remove('hidden');
+      const w = currentBoss.word;
+      const prompt = document.getElementById('bossPrompt');
+      if (currentBoss.type === 'choiceHeToEng') {
+        prompt.className = 'prompt-big hebrew';
+        prompt.textContent = w.hebrew;
+        const opts = shuffle(sample(WORDS.filter(x => x.id !== w.id), 3).concat(w));
+        choices.innerHTML = opts.map(o => `<button class="choice" data-id="${o.id}">${o.english}</button>`).join('');
+        choices.querySelectorAll('button').forEach(b => b.addEventListener('click', answerBossChoice));
+      } else if (currentBoss.type === 'choiceEngToHe') {
+        prompt.className = 'prompt-big';
+        prompt.textContent = w.english;
+        const opts = shuffle(sample(WORDS.filter(x => x.id !== w.id), 3).concat(w));
+        choices.innerHTML = opts.map(o => `<button class="choice hebrew" data-id="${o.id}">${o.hebrew}</button>`).join('');
+        choices.querySelectorAll('button').forEach(b => b.addEventListener('click', answerBossChoice));
+      } else if (currentBoss.type === 'typeEng') {
+        prompt.className = 'prompt-big hebrew';
+        prompt.textContent = w.hebrew;
+        choices.classList.add('hidden');
+        document.getElementById('bossInput').classList.remove('hidden');
+        document.getElementById('bossInput').placeholder = 'Type the English meaning';
+        document.getElementById('bossSubmit').classList.remove('hidden');
+        document.getElementById('bossInput').focus();
+      } else {
+        prompt.className = 'prompt-big';
+        prompt.textContent = w.english;
+        choices.classList.add('hidden');
+        document.getElementById('bossInput').classList.remove('hidden');
+        document.getElementById('bossInput').placeholder = 'Type the Hebrew word if you can';
+        document.getElementById('bossSubmit').classList.remove('hidden');
+        document.getElementById('bossInput').focus();
+      }
+    }
+
+    function answerBossChoice(e) {
+      const btn = e.currentTarget;
+      const ok = btn.dataset.id === currentBoss.word.id;
+      btn.classList.add(ok ? 'correct' : 'incorrect');
+      const correct = document.querySelector(`#bossChoices [data-id="${currentBoss.word.id}"]`);
+      if (correct) correct.classList.add('correct');
+      resolveBoss(ok);
+    }
+
+    function submitBossTyped() {
+      if (!currentBoss) return;
+      const input = document.getElementById('bossInput').value;
+      let ok = false;
+      const w = currentBoss.word;
+      if (currentBoss.type === 'typeEng') {
+        const ans = normalizeEnglish(input);
+        ok = [w.english, ...w.simple].map(normalizeEnglish).some(x => x === ans || ans.includes(x) || x.includes(ans));
+      } else {
+        ok = normalizeHebrew(input) === normalizeHebrew(w.plain) || normalizeHebrew(input) === normalizeHebrew(w.hebrew);
+      }
+      resolveBoss(ok);
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && !document.getElementById('bossSubmit').classList.contains('hidden')) submitBossTyped();
+    });
+
+    function resolveBoss(ok) {
+      const w = currentBoss.word;
+      record(w.id, ok);
+      document.getElementById('bossSubmit').classList.add('hidden');
+      document.getElementById('bossNext').classList.remove('hidden');
+      if (ok) {
+        bossHP = Math.max(0, bossHP - 100 / bossQuestions.length);
+        document.getElementById('monsterFace').textContent = bossHP <= 0 ? '😵' : '😬';
+        document.getElementById('monsterSpeech').textContent = choice(encouragement);
+        document.getElementById('bossFeedback').innerHTML = `Hit! <strong class="hebrew">${w.hebrew}</strong> = <strong>${w.english}</strong>`;
+      } else {
+        document.getElementById('monsterFace').textContent = '😈';
+        document.getElementById('monsterSpeech').textContent = 'Nice try. I am adding that to your review pile.';
+        document.getElementById('bossFeedback').innerHTML = `Correct answer: <strong class="hebrew">${w.hebrew}</strong> = <strong>${w.english}</strong> <br><span class="micro">Say it: ${w.translit}</span>`;
+      }
+      document.getElementById('bossHP').style.width = Math.max(0, bossHP) + '%';
+      document.getElementById('bossHPText').textContent = Math.round(Math.max(0, bossHP)) + '%';
+    }
+
+    function finishBoss() {
+      const won = bossHP <= 35;
+      document.getElementById('bossRound').textContent = 'Battle Complete';
+      document.getElementById('bossPrompt').className = 'prompt-big';
+      document.getElementById('bossPrompt').textContent = won ? 'Words Rescued!' : 'Practice Round Needed';
+      document.getElementById('bossChoices').innerHTML = '';
+      document.getElementById('bossChoices').classList.remove('hidden');
+      document.getElementById('bossInput').classList.add('hidden');
+      document.getElementById('bossSubmit').classList.add('hidden');
+      document.getElementById('bossNext').classList.add('hidden');
+      document.getElementById('monsterFace').textContent = won ? '🏆' : '👹';
+      document.getElementById('monsterSpeech').textContent = won ? 'You beat me. The Hebrew words are yours.' : 'I still have a few words. Review the weak-word list and battle again.';
+      document.getElementById('bossFeedback').textContent = won ? 'Great job. Finish with one Script Sprint round for handwriting.' : 'Best next move: Flashcard Lab → Script Sprint → Boss Battle again.';
+      if (won) confetti(60);
+    }
+
+    function renderPrintTable() {
+      document.getElementById('printTable').innerHTML = WORDS.map(w => `
+        <tr>
+          <td>${w.english}</td>
+          <td><span class="hebrew">${w.hebrew}</span></td>
+          <td>${w.translit}</td>
+        </tr>
+      `).join('');
+      shufflePrintPractice();
+    }
+
+    function shufflePrintPractice() {
+      const prompts = sample(WORDS, WORDS.length);
+      document.getElementById('practicePrompts').innerHTML = prompts.map((w, i) => `
+        <div class="practice-line"><span>${i+1}. ${w.english}</span><span>write Hebrew in script</span></div>
+      `).join('');
+    }
+
+    function init() {
+      document.getElementById('studentName').value = localStorage.getItem('hebrewQuestName') || '';
+      initTabs();
+      renderFlash();
+      renderWordBank();
+      renderTroubleTags();
+      updateStats();
+      setupCanvas();
+      renderPrintTable();
+    }
+
+    init();
+  </script>
+</body>
+</html>

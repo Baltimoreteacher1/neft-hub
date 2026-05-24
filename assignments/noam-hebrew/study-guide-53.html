@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hebrew 5.3 Interactive Study Guide</title>
+  <style>
+    :root{
+      --navy:#17233f;
+      --teal:#1d7d83;
+      --teal-dark:#0f5f64;
+      --cream:#fff8ea;
+      --paper:#ffffff;
+      --sand:#f4dfc4;
+      --peach:#f6cbbd;
+      --mint:#dff2ea;
+      --sky:#dfefff;
+      --ink:#1f2937;
+      --muted:#667085;
+      --line:#d0d5dd;
+      --success:#167c48;
+      --danger:#b42318;
+      --warning:#b54708;
+      --shadow: 0 16px 36px rgba(23,35,63,.12);
+      --radius:22px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family: Calibri, Arial, Helvetica, sans-serif;
+      color:var(--ink);
+      background:
+        radial-gradient(circle at 10% 0%, rgba(29,125,131,.18), transparent 28%),
+        radial-gradient(circle at 92% 10%, rgba(246,203,189,.5), transparent 25%),
+        linear-gradient(135deg,#f7fbff 0%,#fff8ea 52%,#f6fbf8 100%);
+      min-height:100vh;
+      line-height:1.35;
+    }
+    .app{
+      width:min(1180px, 94vw);
+      margin:24px auto 44px;
+    }
+    .hero{
+      background:linear-gradient(135deg,var(--navy),#21416a 58%, var(--teal));
+      color:white;
+      border-radius:30px;
+      padding:28px;
+      box-shadow:var(--shadow);
+      position:relative;
+      overflow:hidden;
+    }
+    .hero:before,.hero:after{
+      content:"";
+      position:absolute;
+      border-radius:999px;
+      background:rgba(255,255,255,.12);
+      filter:blur(.1px);
+    }
+    .hero:before{width:190px;height:190px;right:-55px;top:-60px}
+    .hero:after{width:260px;height:260px;left:-120px;bottom:-150px;background:rgba(255,248,234,.15)}
+    .hero-content{position:relative;z-index:1;display:grid;grid-template-columns:1.5fr .7fr;gap:20px;align-items:center}
+    h1{font-size:clamp(2rem, 4vw, 3.4rem);line-height:1.02;margin:0 0 10px;font-weight:900;letter-spacing:-.03em}
+    .subtitle{font-size:clamp(1.02rem, 1.8vw, 1.22rem);max-width:760px;color:#eaf6f6;margin:0}
+    .badge-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+    .badge{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.24);padding:8px 12px;border-radius:999px;font-weight:700;font-size:.94rem;color:white}
+    .meter-card{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.26);border-radius:22px;padding:18px;backdrop-filter:blur(6px)}
+    .meter-title{font-weight:900;margin-bottom:8px;font-size:1.05rem}
+    .progress-track{height:16px;background:rgba(255,255,255,.22);border-radius:999px;overflow:hidden;border:1px solid rgba(255,255,255,.2)}
+    .progress-fill{height:100%;width:0%;background:linear-gradient(90deg,#ffd166,#9be7c3);border-radius:999px;transition:width .35s ease}
+    .progress-text{font-size:.92rem;color:#eaf6f6;margin-top:8px}
+
+    .tabs-wrap{
+      position:sticky;
+      top:0;
+      z-index:20;
+      padding:14px 0 8px;
+      background:linear-gradient(180deg, rgba(247,251,255,.95), rgba(247,251,255,.75));
+      backdrop-filter:blur(10px);
+    }
+    .tabs{
+      display:flex;
+      gap:8px;
+      overflow:auto;
+      padding:8px;
+      border:2px solid rgba(23,35,63,.12);
+      border-radius:22px;
+      background:white;
+      box-shadow:0 8px 24px rgba(23,35,63,.07);
+    }
+    .tab{
+      border:0;
+      border-radius:16px;
+      padding:12px 16px;
+      font-weight:900;
+      color:var(--navy);
+      background:#eef6f6;
+      cursor:pointer;
+      white-space:nowrap;
+      transition:.2s transform,.2s background,.2s color;
+      font-size:1rem;
+    }
+    .tab:hover{transform:translateY(-1px);background:#dff2ea}
+    .tab[aria-selected="true"]{background:var(--navy);color:white}
+    .panel{display:none;animation:fadeIn .25s ease}
+    .panel.active{display:block}
+    @keyframes fadeIn{from{opacity:.4;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+
+    .grid{display:grid;gap:18px}
+    .grid.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .card{
+      background:rgba(255,255,255,.93);
+      border:2px solid rgba(23,35,63,.1);
+      border-radius:var(--radius);
+      box-shadow:0 10px 30px rgba(23,35,63,.08);
+      padding:20px;
+    }
+    .card.tight{padding:14px}
+    .card h2,.card h3{margin-top:0;color:var(--navy)}
+    h2{font-size:1.72rem;margin:22px 0 12px;letter-spacing:-.02em}
+    h3{font-size:1.24rem;margin:0 0 10px;letter-spacing:-.01em}
+    .mini{font-size:.96rem;color:var(--muted)}
+    .callout{background:linear-gradient(135deg,#fff8ea,#ffffff);border-left:8px solid var(--teal);padding:16px;border-radius:18px;margin:12px 0}
+    .routine{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:14px}
+    .step{background:#f8fbff;border:2px solid var(--line);border-radius:18px;padding:14px;text-align:center;font-weight:800;color:var(--navy)}
+    .step span{display:block;font-size:1.7rem;margin-bottom:4px}
+
+    .vocab-table{width:100%;border-collapse:separate;border-spacing:0;overflow:hidden;border:2px solid var(--navy);border-radius:18px;background:white}
+    .vocab-table th,.vocab-table td{padding:13px 12px;border-right:2px solid var(--navy);border-bottom:2px solid var(--navy);vertical-align:middle}
+    .vocab-table th:last-child,.vocab-table td:last-child{border-right:0}
+    .vocab-table tr:last-child td{border-bottom:0}
+    .vocab-table th{background:var(--navy);color:white;text-align:left;font-size:1rem}
+    .hebrew{font-size:2rem;font-weight:900;direction:rtl;text-align:right;letter-spacing:.01em;color:#101828;font-family: Arial, "Noto Sans Hebrew", "Arial Hebrew", sans-serif}
+    .hebrew.small{font-size:1.42rem}
+    .sound{font-weight:900;color:var(--teal-dark)}
+    .pill{display:inline-flex;align-items:center;gap:6px;background:#eef6f6;border:1.5px solid #b9dddf;border-radius:999px;padding:5px 10px;font-weight:800;color:var(--teal-dark);font-size:.9rem}
+    .btn-row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:12px}
+    button,.button-like{
+      font-family:inherit;
+    }
+    .primary,.secondary,.danger,.ghost{
+      border:0;
+      border-radius:14px;
+      padding:11px 15px;
+      font-weight:900;
+      cursor:pointer;
+      transition:.18s transform,.18s box-shadow,.18s background;
+      font-size:1rem;
+    }
+    .primary{background:var(--teal);color:white;box-shadow:0 8px 18px rgba(29,125,131,.2)}
+    .secondary{background:var(--navy);color:white;box-shadow:0 8px 18px rgba(23,35,63,.18)}
+    .danger{background:#fff1f0;color:var(--danger);border:2px solid #fecdca}
+    .ghost{background:#f2f4f7;color:var(--navy);border:2px solid #e4e7ec}
+    .primary:hover,.secondary:hover,.danger:hover,.ghost:hover{transform:translateY(-1px)}
+    .primary:active,.secondary:active,.danger:active,.ghost:active{transform:translateY(0)}
+
+    .flashcard-shell{display:grid;grid-template-columns:minmax(280px,470px) 1fr;gap:20px;align-items:start}
+    .flashcard{
+      min-height:310px;
+      border-radius:28px;
+      background:linear-gradient(145deg,#ffffff,#eef8f6);
+      border:3px solid var(--navy);
+      box-shadow:0 20px 40px rgba(23,35,63,.16);
+      display:grid;
+      place-items:center;
+      text-align:center;
+      padding:24px;
+      cursor:pointer;
+      position:relative;
+      overflow:hidden;
+      user-select:none;
+    }
+    .flashcard:after{content:"tap to flip";position:absolute;right:18px;bottom:14px;font-weight:900;color:#667085;font-size:.9rem;text-transform:uppercase;letter-spacing:.08em}
+    .flash-main{font-size:clamp(2.3rem, 7vw, 5rem);font-weight:950;color:var(--navy)}
+    .flash-sub{font-size:1.2rem;font-weight:800;color:var(--teal-dark);margin-top:12px}
+    .flash-index{position:absolute;left:18px;top:14px;background:var(--navy);color:white;border-radius:999px;padding:6px 10px;font-weight:900}
+    .known-list{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+    .dot{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:#f2f4f7;border:2px solid #d0d5dd;font-weight:900;color:var(--muted)}
+    .dot.good{background:#dcfae6;border-color:#75e0a7;color:var(--success)}
+
+    .match-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    .match-col{display:grid;gap:10px}
+    .choice{
+      border:2px solid #d0d5dd;
+      background:white;
+      color:var(--navy);
+      border-radius:16px;
+      padding:13px;
+      min-height:54px;
+      font-weight:900;
+      text-align:left;
+      cursor:pointer;
+      transition:.18s background,.18s transform,.18s border-color;
+    }
+    .choice:hover{transform:translateY(-1px);background:#f9fafb}
+    .choice.selected{border-color:var(--teal);background:#e6f6f5}
+    .choice.correct{border-color:#17b26a;background:#dcfae6;color:#067647;cursor:default}
+    .choice.wrong{border-color:#f04438;background:#fef3f2;animation:shake .22s ease}
+    @keyframes shake{25%{transform:translateX(3px)}50%{transform:translateX(-3px)}75%{transform:translateX(2px)}}
+
+    .sort-board{display:grid;grid-template-columns:1fr 1.2fr;gap:18px}
+    .word-bank{display:flex;gap:8px;flex-wrap:wrap;align-content:flex-start}
+    .token{
+      border:2px solid var(--line);
+      background:white;
+      border-radius:18px;
+      padding:10px 13px;
+      font-weight:900;
+      color:var(--navy);
+      cursor:grab;
+      transition:.18s;
+      display:inline-grid;
+      gap:0;
+      min-width:98px;
+      text-align:center;
+      box-shadow:0 5px 14px rgba(23,35,63,.07);
+      touch-action:none;
+    }
+    .token:hover{background:#f9fafb;transform:translateY(-1px)}
+    .token:active{cursor:grabbing}
+    .token.selected{border-color:var(--teal);background:#e6f6f5;box-shadow:0 0 0 4px rgba(29,125,131,.12)}
+    .token.dragging{opacity:.45;transform:scale(.97);box-shadow:none}
+    .token.wrong{border-color:#f04438;background:#fef3f2;animation:shake .22s ease}
+    .token.used{opacity:.35;pointer-events:none;cursor:default}
+    .token-sub{font-size:.82rem;color:var(--muted);font-weight:800}
+    .category-boxes{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+    .category{
+      border:2px dashed #98a2b3;
+      border-radius:18px;
+      min-height:230px;
+      background:#ffffffa8;
+      padding:12px;
+      transition:.18s background,.18s border-color,.18s transform,.18s box-shadow;
+    }
+    .category h4{margin:0 0 8px;color:var(--navy)}
+    .category.active{border-color:var(--teal);background:#eefafa}
+    .category.drag-over{border-color:var(--teal);background:#e6f6f5;transform:translateY(-2px);box-shadow:0 12px 24px rgba(29,125,131,.12)}
+    .category.wrong-drop{border-color:#f04438;background:#fff1f0;animation:shake .22s ease}
+    .category .placed{display:block;margin:7px 0;background:#f8fbff;border:1.5px solid #d0d5dd;border-radius:12px;padding:8px;font-weight:900;text-align:center}
+    .drag-clone{position:fixed;z-index:9999;pointer-events:none;transform:translate(-50%,-50%) scale(1.04);box-shadow:0 18px 30px rgba(23,35,63,.22);background:white}
+    .drag-disabled-select{user-select:none;}
+
+    .prompt-box{
+      background:linear-gradient(135deg,#eef6f6,#ffffff);
+      border:2px solid #b9dddf;
+      border-radius:20px;
+      padding:18px;
+      display:grid;
+      gap:8px;
+    }
+    input[type="text"]{
+      width:100%;
+      border:2px solid #98a2b3;
+      border-radius:16px;
+      padding:14px 15px;
+      font-size:1.22rem;
+      font-weight:800;
+      outline:none;
+      background:white;
+    }
+    input[type="text"]:focus{border-color:var(--teal);box-shadow:0 0 0 4px rgba(29,125,131,.13)}
+    .hebrew-input{direction:rtl;text-align:right;font-family:Arial,"Noto Sans Hebrew","Arial Hebrew",sans-serif}
+    .feedback{font-weight:900;margin-top:10px;min-height:28px}
+    .feedback.good{color:var(--success)}
+    .feedback.bad{color:var(--danger)}
+    .practice-list{display:grid;gap:10px}
+    .write-row{display:grid;grid-template-columns:1fr 1.1fr .8fr;gap:10px;align-items:center;border:2px solid #eaecf0;border-radius:16px;padding:10px;background:#fff}
+    .write-row input{font-size:1.06rem;padding:10px 12px}
+    .check-mini{border:0;border-radius:12px;background:#eef6f6;color:var(--teal-dark);font-weight:900;padding:9px 10px;cursor:pointer}
+    .status-chip{font-weight:900;font-size:.93rem}
+    .status-chip.ok{color:var(--success)}
+    .status-chip.no{color:var(--danger)}
+
+    .quiz-header{display:grid;grid-template-columns:1fr auto;gap:16px;align-items:center}
+    .score-box{background:var(--navy);color:white;border-radius:20px;padding:14px 18px;text-align:center;min-width:150px;box-shadow:0 8px 20px rgba(23,35,63,.18)}
+    .score-big{font-size:2rem;font-weight:950;line-height:1}
+    .question{border:2px solid #d0d5dd;border-radius:20px;background:white;padding:16px;margin:14px 0}
+    .question h4{margin:0 0 10px;color:var(--navy);font-size:1.05rem}
+    .options{display:grid;gap:8px;margin-top:10px}
+    .option-label{display:flex;align-items:center;gap:10px;border:2px solid #eaecf0;border-radius:14px;padding:10px;cursor:pointer;background:#fcfcfd;font-weight:800}
+    .option-label:hover{background:#f8fbff}
+    .option-label input{width:18px;height:18px}
+    .result-line{padding:10px;border-radius:12px;margin-top:8px;font-weight:800}
+    .result-line.correct{background:#dcfae6;color:#067647}
+    .result-line.incorrect{background:#fef3f2;color:#b42318}
+    .hidden{display:none!important}
+
+    .mini-game-status{font-weight:900;color:var(--navy);margin:10px 0;min-height:28px}
+    .memory-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+    .memory-card{min-height:86px;border:2px solid #d0d5dd;border-radius:16px;background:#fff;display:grid;place-items:center;text-align:center;padding:8px;font-weight:950;color:var(--navy);cursor:pointer;transition:.16s}
+    .memory-card:hover{transform:translateY(-1px)}
+    .memory-card.flipped,.memory-card.done{background:#e6f6f5;border-color:var(--teal)}
+    .memory-card.done{background:#dcfae6;border-color:#17b26a;color:#067647;cursor:default}
+    .memory-card .back{font-size:1.2rem}
+    .memory-card:not(.flipped):not(.done) .back{display:none}
+    .memory-card:not(.flipped):not(.done)::before{content:"?";font-size:2rem;color:#98a2b3}
+
+    .footer-note{margin:18px 0 0;color:#667085;font-size:.95rem;text-align:center}
+    .print-only{display:none}
+
+    @media (max-width: 900px){
+      .hero-content,.grid.two,.grid.three,.flashcard-shell,.sort-board{grid-template-columns:1fr}
+      .routine{grid-template-columns:repeat(2,1fr)}
+      .category-boxes{grid-template-columns:1fr}
+      .match-grid{grid-template-columns:1fr}
+      .write-row{grid-template-columns:1fr}
+      .quiz-header{grid-template-columns:1fr}
+      .memory-grid{grid-template-columns:repeat(2,1fr)}
+    }
+    @media print{
+      body{background:white}
+      .tabs-wrap,.btn-row,.primary,.secondary,.danger,.ghost,.check-mini{display:none!important}
+      .panel{display:block!important;break-inside:auto}
+      .hero{box-shadow:none;background:white;color:#111;border:2px solid #111}
+      .subtitle,.badge,.progress-text{color:#111}
+      .card{box-shadow:none;border:2px solid #111;break-inside:avoid}
+      .print-only{display:block}
+    }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <section class="hero" aria-label="Interactive Hebrew study guide header">
+      <div class="hero-content">
+        <div>
+          <h1>Hebrew 5.3 Study Quest</h1>
+          <p class="subtitle">Learn the words, practice matching and writing them, play review games, then finish with a quiz/test on the final tab.</p>
+          <div class="badge-row" aria-label="Study guide features">
+            <span class="badge">8 target words</span>
+            <span class="badge">No vowel dots required</span>
+            <span class="badge">Flashcards + games</span>
+            <span class="badge">Final quiz/test</span>
+          </div>
+        </div>
+        <div class="meter-card">
+          <div class="meter-title">Word Quest Progress</div>
+          <div class="progress-track" aria-label="Overall progress"><div id="progressFill" class="progress-fill"></div></div>
+          <div id="progressText" class="progress-text">Start with Learn, then unlock confidence one activity at a time.</div>
+          <div class="btn-row"><button class="ghost" onclick="resetAllProgress()">Reset progress</button><button class="ghost" onclick="window.print()">Print</button></div>
+        </div>
+      </div>
+    </section>
+
+    <nav class="tabs-wrap" aria-label="Study guide tabs">
+      <div class="tabs" role="tablist">
+        <button class="tab" role="tab" aria-selected="true" aria-controls="learn" data-tab="learn">1. Learn</button>
+        <button class="tab" role="tab" aria-selected="false" aria-controls="flashcards" data-tab="flashcards">2. Flashcards</button>
+        <button class="tab" role="tab" aria-selected="false" aria-controls="practice" data-tab="practice">3. Practice</button>
+        <button class="tab" role="tab" aria-selected="false" aria-controls="games" data-tab="games">4. Games</button>
+        <button class="tab" role="tab" aria-selected="false" aria-controls="quiz" data-tab="quiz">5. Quiz/Test</button>
+      </div>
+    </nav>
+
+    <section id="learn" class="panel active" role="tabpanel">
+      <div class="grid two">
+        <article class="card">
+          <h2>How to Study</h2>
+          <p class="mini">Use the same quick routine for each word. The goal is to recognize the Hebrew, say it, know the meaning, and write it without needing the vowel dots.</p>
+          <div class="routine">
+            <div class="step"><span>👀</span>See it</div>
+            <div class="step"><span>🔊</span>Say it</div>
+            <div class="step"><span>✍️</span>Write it</div>
+            <div class="step"><span>✅</span>Check it</div>
+          </div>
+          <div class="callout"><strong>Important:</strong> On the quiz, you can type Hebrew without vowels. For example, <span class="hebrew small">מַיִם</span> and <span class="hebrew small">מים</span> will both count as correct.</div>
+        </article>
+        <article class="card">
+          <h2>Quick Grammar Clues</h2>
+          <p><span class="pill">m.s.</span> means <strong>masculine singular</strong>.</p>
+          <p><span class="pill">f.s.</span> means <strong>feminine singular</strong>.</p>
+          <p><span class="pill">ב...</span> means <strong>in / at</strong>. The dots show that a place can come after it.</p>
+          <div class="callout"><strong>Watch the tiny difference:</strong> <span class="hebrew small">קורא</span> = read (m.s.) and <span class="hebrew small">קוראת</span> = read (f.s.). The extra <span class="hebrew small">ת</span> helps show feminine singular.</div>
+        </article>
+      </div>
+
+      <article class="card" style="margin-top:18px;">
+        <h2>Target Words</h2>
+        <div style="overflow:auto;">
+          <table class="vocab-table" aria-label="Hebrew vocabulary words from study guide">
+            <thead><tr><th>English</th><th>Hebrew</th><th>Sound It Out</th><th>Study Tip</th></tr></thead>
+            <tbody id="vocabBody"></tbody>
+          </table>
+        </div>
+      </article>
+    </section>
+
+    <section id="flashcards" class="panel" role="tabpanel">
+      <article class="card">
+        <h2>Flashcard Sprint</h2>
+        <p class="mini">Tap the card to flip. Use “I know it” when you can say the English meaning and the Hebrew word.</p>
+        <div class="flashcard-shell">
+          <div>
+            <div id="flashcard" class="flashcard" onclick="flipCard()" tabindex="0" role="button" aria-label="Flashcard. Tap to flip.">
+              <span id="flashIndex" class="flash-index">1/8</span>
+              <div>
+                <div id="flashMain" class="flash-main hebrew">אוכל</div>
+                <div id="flashSub" class="flash-sub">What does it mean?</div>
+              </div>
+            </div>
+            <div class="btn-row">
+              <button class="secondary" onclick="prevCard()">← Back</button>
+              <button class="primary" onclick="markKnown()">I know it ✓</button>
+              <button class="secondary" onclick="nextCard()">Next →</button>
+              <button class="ghost" onclick="speakCurrent()">Say it 🔊</button>
+            </div>
+          </div>
+          <div class="card tight">
+            <h3>Known Words</h3>
+            <p class="mini">Turn every circle green.</p>
+            <div id="knownDots" class="known-list"></div>
+            <div class="callout"><strong>Challenge:</strong> Go through all cards twice. First round: Hebrew → English. Second round: English → Hebrew.</div>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <section id="practice" class="panel" role="tabpanel">
+      <div class="grid two">
+        <article class="card">
+          <h2>Match Hebrew to English</h2>
+          <p class="mini">Click one English word and one Hebrew word. Correct matches stay green.</p>
+          <div id="matchStatus" class="mini-game-status">Make your first match.</div>
+          <div class="match-grid">
+            <div class="match-col" id="englishChoices"></div>
+            <div class="match-col" id="hebrewChoices"></div>
+          </div>
+          <div class="btn-row"><button class="ghost" onclick="buildMatchGame()">Restart matching</button></div>
+        </article>
+
+        <article class="card">
+          <h2>Type the Hebrew</h2>
+          <p class="mini">Read the prompt. Type the Hebrew word. Vowel dots are optional.</p>
+          <div class="prompt-box">
+            <div class="pill">Prompt</div>
+            <div id="typePrompt" style="font-size:1.55rem;font-weight:950;color:var(--navy);">food</div>
+            <div id="typeHint" class="mini">Sound hint: o-khel</div>
+            <input id="typeAnswer" class="hebrew-input" type="text" placeholder="Type Hebrew here…" autocomplete="off" />
+            <div class="btn-row"><button class="primary" onclick="checkTyping()">Check</button><button class="secondary" onclick="nextTypingPrompt()">New word</button><button class="ghost" onclick="showTypingAnswer()">Show answer</button></div>
+            <div id="typeFeedback" class="feedback"></div>
+          </div>
+        </article>
+      </div>
+
+      <article class="card" style="margin-top:18px;">
+        <h2>Write-It Practice</h2>
+        <p class="mini">Copy each Hebrew word. Then click check. This is a low-pressure practice space before the quiz.</p>
+        <div id="writePractice" class="practice-list"></div>
+      </article>
+    </section>
+
+    <section id="games" class="panel" role="tabpanel">
+      <div class="grid two">
+        <article class="card">
+          <h2>Word Sort</h2>
+          <p class="mini">Drag each Hebrew word into the correct category. If you are on a tablet, tap a word first, then tap the category.</p>
+          <div class="sort-board">
+            <div>
+              <h3>Word Bank</h3>
+              <div id="sortBank" class="word-bank"></div>
+              <div id="sortStatus" class="mini-game-status">Drag a word into a category.</div>
+              <div class="btn-row"><button class="ghost" onclick="buildSortGame()">Restart sort</button></div>
+            </div>
+            <div class="category-boxes">
+              <div class="category" data-category="thing" tabindex="0" aria-label="Drop Things words here"><h4>Things</h4><div class="mini">2 matching Hebrew cards</div></div>
+              <div class="category" data-category="time" tabindex="0" aria-label="Drop Time Words here"><h4>Time Words</h4><div class="mini">3 matching Hebrew cards</div></div>
+              <div class="category" data-category="action" tabindex="0" aria-label="Drop Actions and Phrases here"><h4>Actions / Phrases</h4><div class="mini">3 matching Hebrew cards</div></div>
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <h2>Memory Match</h2>
+          <p class="mini">Flip cards to find Hebrew-English pairs.</p>
+          <div id="memoryStatus" class="mini-game-status">Find the pairs.</div>
+          <div id="memoryGrid" class="memory-grid"></div>
+          <div class="btn-row"><button class="ghost" onclick="buildMemoryGame()">New memory board</button></div>
+        </article>
+      </div>
+    </section>
+
+    <section id="quiz" class="panel" role="tabpanel">
+      <article class="card">
+        <div class="quiz-header">
+          <div>
+            <h2>Final Quiz/Test</h2>
+            <p class="mini">This is the final tab. Answer every question, then submit. Vowel dots are optional for typed Hebrew.</p>
+          </div>
+          <div class="score-box"><div class="score-big" id="scoreBig">—</div><div id="scoreLabel">Not submitted</div></div>
+        </div>
+        <div class="btn-row"><button class="primary" onclick="buildQuiz()">Start / New Quiz</button><button class="secondary" onclick="submitQuiz()">Submit Quiz</button><button class="ghost" onclick="clearQuizInputs()">Clear answers</button></div>
+        <div id="quizContainer"></div>
+        <div id="quizSummary" class="callout hidden"></div>
+      </article>
+    </section>
+
+    <p class="footer-note">Made for quick review, active practice, and a final self-check.</p>
+  </main>
+
+  <script>
+    const vocab = [
+      {key:'food', english:'food', hebrew:'אוכל', hebrewV:'אֹכֶל', sound:'o-khel', category:'thing', tip:'Looks short. Think: food = אוכל.'},
+      {key:'water', english:'water', hebrew:'מים', hebrewV:'מַיִם', sound:'ma-yim', category:'thing', tip:'Two mem letters: מ…ם.'},
+      {key:'morning', english:'morning', hebrew:'בוקר', hebrewV:'בּוֹקֶר', sound:'bo-ker', category:'time', tip:'Morning starts with ב.'},
+      {key:'noon', english:'noon', hebrew:'צהריים', hebrewV:'צָהֳרַיִים', sound:'tzo-ho-ra-yim', category:'time', tip:'A longer time word.'},
+      {key:'satnight', english:'Saturday Night', hebrew:'מוצאי שבת', hebrewV:'מוֹצָאֵי שַׁבָּת', sound:"motza'ei shabbat", category:'time', tip:'Two-word phrase: after Shabbat.'},
+      {key:'readms', english:'read (m.s.)', hebrew:'קורא', hebrewV:'קוֹרֵא', sound:'ko-reh', category:'action', tip:'Masculine singular read.'},
+      {key:'readfs', english:'read (f.s.)', hebrew:'קוראת', hebrewV:'קוֹרֵאת', sound:"ko-ret / ko-re-et", category:'action', tip:'Feminine singular has ת at the end.'},
+      {key:'livesms', english:'lives in (m.s.)', hebrew:'גר ב...', hebrewV:'גָּר בְּ...', sound:'gar b...', category:'action', tip:'Use it before a place: גר ב…'}
+    ];
+
+    const storageKey = 'hebrew53StudyQuest';
+    let state = loadState();
+    let cardIndex = 0;
+    let cardFlipped = false;
+    let typeIndex = 0;
+    let selectedEnglish = null;
+    let selectedHebrew = null;
+    let sortSelected = null;
+    let draggedSortKey = null;
+    let memoryFirst = null;
+    let memorySecond = null;
+    let memoryLock = false;
+    let currentQuiz = [];
+
+    function loadState(){
+      try{
+        const saved = JSON.parse(localStorage.getItem(storageKey));
+        if(saved && saved.known) return saved;
+      } catch(e){}
+      return {known:{}, matchComplete:false, sortComplete:false, memoryComplete:false, typingCorrect:{}, writeCorrect:{}, bestQuiz:null};
+    }
+    function saveState(){ localStorage.setItem(storageKey, JSON.stringify(state)); updateProgress(); }
+    function resetAllProgress(){
+      if(!confirm('Reset this study guide progress?')) return;
+      localStorage.removeItem(storageKey);
+      state = loadState();
+      buildAll();
+    }
+    function updateProgress(){
+      const knownCount = vocab.filter(v=>state.known[v.key]).length;
+      const typingCount = vocab.filter(v=>state.typingCorrect[v.key]).length;
+      const writingCount = vocab.filter(v=>state.writeCorrect[v.key]).length;
+      const gameBonus = [state.matchComplete,state.sortComplete,state.memoryComplete].filter(Boolean).length;
+      const quizBonus = state.bestQuiz ? 2 : 0;
+      const total = 8 + 8 + 8 + 3 + 2;
+      const earned = knownCount + typingCount + writingCount + gameBonus + quizBonus;
+      const pct = Math.round((earned / total) * 100);
+      document.getElementById('progressFill').style.width = pct + '%';
+      document.getElementById('progressText').textContent = `${pct}% complete · ${knownCount}/8 flashcards known · Best quiz: ${state.bestQuiz ?? 'not yet'}`;
+    }
+
+    function stripHebrewMarks(s){
+      return (s || '')
+        .normalize('NFKD')
+        .replace(/[\u0591-\u05C7]/g,'')
+        .replace(/[׳'`]/g,'')
+        .replace(/[.·•:;־\-–—_]/g,'')
+        .replace(/\s+/g,'')
+        .trim();
+    }
+    function normalizeText(s){
+      return (s || '').toLowerCase().replace(/[()\.']/g,'').replace(/\s+/g,' ').trim();
+    }
+    function isHebrewCorrect(input, item){
+      const a = stripHebrewMarks(input);
+      const target = stripHebrewMarks(item.hebrew);
+      const targetV = stripHebrewMarks(item.hebrewV);
+      const noEllipses = target.replace(/ב$/,'ב');
+      if(item.key === 'livesms'){
+        return ['גרב','גרב...', 'גרב־'].map(stripHebrewMarks).includes(a) || a === 'גרב';
+      }
+      return a === target || a === targetV || a === noEllipses;
+    }
+    function shuffle(arr){
+      const copy = [...arr];
+      for(let i=copy.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[copy[i],copy[j]]=[copy[j],copy[i]];}
+      return copy;
+    }
+    function byKey(key){ return vocab.find(v=>v.key===key); }
+
+    function setupTabs(){
+      document.querySelectorAll('.tab').forEach(btn=>{
+        btn.addEventListener('click',()=>{
+          document.querySelectorAll('.tab').forEach(b=>b.setAttribute('aria-selected','false'));
+          document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+          btn.setAttribute('aria-selected','true');
+          document.getElementById(btn.dataset.tab).classList.add('active');
+          if(btn.dataset.tab === 'quiz' && currentQuiz.length === 0) buildQuiz();
+        });
+      });
+    }
+
+    function buildVocabTable(){
+      const body = document.getElementById('vocabBody');
+      body.innerHTML = vocab.map(v=>`
+        <tr>
+          <td><strong>${v.english}</strong></td>
+          <td><div class="hebrew">${v.hebrewV}</div><div class="mini hebrew small">${v.hebrew}</div></td>
+          <td><span class="sound">${v.sound}</span><br><button class="ghost" style="margin-top:6px;padding:7px 10px;font-size:.9rem" onclick="speak('${v.key}')">Say it 🔊</button></td>
+          <td>${v.tip}</td>
+        </tr>`).join('');
+    }
+
+    function renderFlashcard(){
+      const item = vocab[cardIndex];
+      document.getElementById('flashIndex').textContent = `${cardIndex+1}/8`;
+      document.getElementById('flashMain').classList.toggle('hebrew', !cardFlipped);
+      document.getElementById('flashMain').textContent = cardFlipped ? item.english : item.hebrewV;
+      document.getElementById('flashSub').innerHTML = cardFlipped ? `<span class="hebrew small">${item.hebrew}</span> · ${item.sound}` : 'What does it mean?';
+      renderKnownDots();
+    }
+    function renderKnownDots(){
+      document.getElementById('knownDots').innerHTML = vocab.map((v,i)=>`<div class="dot ${state.known[v.key]?'good':''}" title="${v.english}">${state.known[v.key]?'✓':i+1}</div>`).join('');
+    }
+    function flipCard(){ cardFlipped = !cardFlipped; renderFlashcard(); }
+    function nextCard(){ cardIndex = (cardIndex + 1) % vocab.length; cardFlipped=false; renderFlashcard(); }
+    function prevCard(){ cardIndex = (cardIndex - 1 + vocab.length) % vocab.length; cardFlipped=false; renderFlashcard(); }
+    function markKnown(){ state.known[vocab[cardIndex].key]=true; saveState(); nextCard(); }
+    function speakCurrent(){ speak(vocab[cardIndex].key); }
+    function speak(key){
+      const item = byKey(key);
+      if(!('speechSynthesis' in window) || !item) return;
+      const utter = new SpeechSynthesisUtterance(item.hebrew.replace('...',''));
+      utter.lang = 'he-IL';
+      utter.rate = .82;
+      speechSynthesis.cancel();
+      speechSynthesis.speak(utter);
+    }
+
+    function buildMatchGame(){
+      selectedEnglish = null; selectedHebrew = null;
+      const english = shuffle(vocab);
+      const hebrew = shuffle(vocab);
+      document.getElementById('englishChoices').innerHTML = english.map(v=>`<button class="choice" data-side="english" data-key="${v.key}" onclick="selectMatch(this)">${v.english}</button>`).join('');
+      document.getElementById('hebrewChoices').innerHTML = hebrew.map(v=>`<button class="choice hebrew small" data-side="hebrew" data-key="${v.key}" onclick="selectMatch(this)">${v.hebrew}</button>`).join('');
+      document.getElementById('matchStatus').textContent = 'Make your first match.';
+    }
+    function selectMatch(el){
+      if(el.classList.contains('correct')) return;
+      const side = el.dataset.side;
+      document.querySelectorAll(`.choice[data-side="${side}"]`).forEach(c=>c.classList.remove('selected'));
+      el.classList.add('selected');
+      if(side==='english') selectedEnglish = el; else selectedHebrew = el;
+      if(selectedEnglish && selectedHebrew){
+        if(selectedEnglish.dataset.key === selectedHebrew.dataset.key){
+          selectedEnglish.classList.remove('selected'); selectedHebrew.classList.remove('selected');
+          selectedEnglish.classList.add('correct'); selectedHebrew.classList.add('correct');
+          document.getElementById('matchStatus').textContent = `Correct: ${byKey(selectedEnglish.dataset.key).english} = ${byKey(selectedEnglish.dataset.key).hebrew}`;
+          selectedEnglish = null; selectedHebrew = null;
+          const remaining = document.querySelectorAll('.choice:not(.correct)').length;
+          if(remaining===0){ state.matchComplete=true; saveState(); document.getElementById('matchStatus').textContent='Perfect match! All pairs complete. 🎉'; }
+        } else {
+          selectedEnglish.classList.add('wrong'); selectedHebrew.classList.add('wrong');
+          document.getElementById('matchStatus').textContent = 'Not a match yet. Try another pair.';
+          setTimeout(()=>{
+            selectedEnglish?.classList.remove('selected','wrong');
+            selectedHebrew?.classList.remove('selected','wrong');
+            selectedEnglish = null; selectedHebrew = null;
+          },450);
+        }
+      }
+    }
+
+    function nextTypingPrompt(){
+      typeIndex = Math.floor(Math.random()*vocab.length);
+      const item = vocab[typeIndex];
+      document.getElementById('typePrompt').textContent = item.english;
+      document.getElementById('typeHint').textContent = `Sound hint: ${item.sound}`;
+      document.getElementById('typeAnswer').value = '';
+      document.getElementById('typeFeedback').className='feedback';
+      document.getElementById('typeFeedback').textContent='';
+      document.getElementById('typeAnswer').focus();
+    }
+    function checkTyping(){
+      const item = vocab[typeIndex];
+      const val = document.getElementById('typeAnswer').value;
+      const fb = document.getElementById('typeFeedback');
+      if(isHebrewCorrect(val,item)){
+        fb.className='feedback good';
+        fb.innerHTML = `Correct! ${item.english} = <span class="hebrew small">${item.hebrewV}</span>`;
+        state.typingCorrect[item.key]=true; saveState();
+      } else {
+        fb.className='feedback bad';
+        fb.innerHTML = `Almost. Check the letters. Answer: <span class="hebrew small">${item.hebrew}</span>`;
+      }
+    }
+    function showTypingAnswer(){
+      const item = vocab[typeIndex];
+      document.getElementById('typeFeedback').className='feedback';
+      document.getElementById('typeFeedback').innerHTML = `Answer: <span class="hebrew small">${item.hebrewV}</span> · ${item.sound}`;
+    }
+
+    function buildWritePractice(){
+      const wrap = document.getElementById('writePractice');
+      wrap.innerHTML = vocab.map(v=>`
+        <div class="write-row">
+          <div><strong>${v.english}</strong><br><span class="sound">${v.sound}</span></div>
+          <input id="write-${v.key}" class="hebrew-input" type="text" placeholder="Copy/write: ${v.hebrew}" autocomplete="off" />
+          <div><button class="check-mini" onclick="checkWrite('${v.key}')">Check</button> <span id="writeStatus-${v.key}" class="status-chip ${state.writeCorrect[v.key]?'ok':'no'}">${state.writeCorrect[v.key]?'✓':'—'}</span></div>
+        </div>`).join('');
+    }
+    function checkWrite(key){
+      const item = byKey(key);
+      const input = document.getElementById(`write-${key}`).value;
+      const status = document.getElementById(`writeStatus-${key}`);
+      if(isHebrewCorrect(input,item)){
+        status.textContent='✓ correct'; status.className='status-chip ok'; state.writeCorrect[key]=true; saveState();
+      } else {
+        status.textContent=`try: ${item.hebrew}`; status.className='status-chip no';
+      }
+    }
+
+    function buildSortGame(){
+      sortSelected = null;
+      draggedSortKey = null;
+      activeSortDrag = null;
+      document.getElementById('sortBank').innerHTML = shuffle(vocab).map(v=>`
+        <button type="button" class="token" data-key="${v.key}"
+          aria-label="Drag Hebrew word ${v.hebrew} to the correct category">
+          <span class="hebrew small">${v.hebrew}</span>
+        </button>`).join('');
+
+      document.querySelectorAll('#sortBank .token').forEach(token=>{
+        token.addEventListener('pointerdown', startSortPointer);
+        token.addEventListener('keydown', event=>{
+          if(event.key === 'Enter' || event.key === ' '){
+            event.preventDefault();
+            pickSortToken(token);
+          }
+        });
+      });
+
+      document.querySelectorAll('.category').forEach(cat=>{
+        cat.classList.remove('active','drag-over','wrong-drop');
+        cat.querySelectorAll('.placed').forEach(p=>p.remove());
+        cat.onclick = () => placeSortToken(cat);
+      });
+      document.getElementById('sortStatus').textContent = 'Drag a Hebrew word into a category.';
+    }
+
+    let activeSortDrag = null;
+
+    function pickSortToken(el){
+      if(el.classList.contains('used')) return;
+      document.querySelectorAll('.token').forEach(t=>t.classList.remove('selected','wrong'));
+      sortSelected = el;
+      el.classList.add('selected');
+      document.querySelectorAll('.category').forEach(c=>c.classList.add('active'));
+      document.getElementById('sortStatus').textContent = `Now drag it, or tap a category for ${byKey(el.dataset.key).hebrew}.`;
+    }
+
+    function startSortPointer(event){
+      const token = event.currentTarget;
+      if(token.classList.contains('used')) return;
+      activeSortDrag = {
+        token,
+        key: token.dataset.key,
+        pointerId: event.pointerId,
+        startX: event.clientX,
+        startY: event.clientY,
+        dragging: false,
+        clone: null
+      };
+      token.setPointerCapture?.(event.pointerId);
+      token.addEventListener('pointermove', moveSortPointer);
+      token.addEventListener('pointerup', endSortPointer, {once:true});
+      token.addEventListener('pointercancel', cancelSortPointer, {once:true});
+    }
+
+    function moveSortPointer(event){
+      if(!activeSortDrag || event.pointerId !== activeSortDrag.pointerId) return;
+      const dx = event.clientX - activeSortDrag.startX;
+      const dy = event.clientY - activeSortDrag.startY;
+      const distance = Math.hypot(dx, dy);
+      if(!activeSortDrag.dragging && distance < 7) return;
+
+      if(!activeSortDrag.dragging){
+        activeSortDrag.dragging = true;
+        sortSelected = activeSortDrag.token;
+        draggedSortKey = activeSortDrag.key;
+        activeSortDrag.clone = activeSortDrag.token.cloneNode(true);
+        activeSortDrag.clone.classList.add('drag-clone');
+        activeSortDrag.clone.removeAttribute('id');
+        document.body.appendChild(activeSortDrag.clone);
+        document.body.classList.add('drag-disabled-select');
+        activeSortDrag.token.classList.add('dragging','selected');
+        document.querySelectorAll('.category').forEach(c=>c.classList.add('active'));
+        document.getElementById('sortStatus').textContent = `Drop ${byKey(activeSortDrag.key).hebrew} into the best category.`;
+      }
+
+      event.preventDefault();
+      positionSortClone(event.clientX, event.clientY);
+      const category = categoryAtPoint(event.clientX, event.clientY);
+      highlightSortCategory(category);
+    }
+
+    function endSortPointer(event){
+      const drag = activeSortDrag;
+      if(!drag || event.pointerId !== drag.pointerId) return;
+      drag.token.removeEventListener('pointermove', moveSortPointer);
+
+      if(drag.dragging){
+        event.preventDefault();
+        const category = categoryAtPoint(event.clientX, event.clientY);
+        cleanupSortPointer();
+        if(category){
+          placeSortKey(drag.key, category);
+        } else {
+          document.getElementById('sortStatus').textContent = 'Drop onto a category box.';
+        }
+      } else {
+        cleanupSortPointer(false);
+        pickSortToken(drag.token);
+      }
+    }
+
+    function cancelSortPointer(event){
+      if(activeSortDrag?.token){
+        activeSortDrag.token.removeEventListener('pointermove', moveSortPointer);
+      }
+      cleanupSortPointer();
+    }
+
+    function positionSortClone(x, y){
+      if(activeSortDrag?.clone){
+        activeSortDrag.clone.style.left = x + 'px';
+        activeSortDrag.clone.style.top = y + 'px';
+      }
+    }
+
+    function categoryAtPoint(x, y){
+      const previousPointer = activeSortDrag?.clone?.style.pointerEvents;
+      if(activeSortDrag?.clone) activeSortDrag.clone.style.pointerEvents = 'none';
+      const el = document.elementFromPoint(x, y);
+      if(activeSortDrag?.clone) activeSortDrag.clone.style.pointerEvents = previousPointer || 'none';
+      return el?.closest?.('.category') || null;
+    }
+
+    function highlightSortCategory(category){
+      document.querySelectorAll('.category').forEach(c=>c.classList.toggle('drag-over', c === category));
+    }
+
+    function cleanupSortPointer(clearActive=true){
+      if(activeSortDrag?.clone) activeSortDrag.clone.remove();
+      if(activeSortDrag?.token) activeSortDrag.token.classList.remove('dragging');
+      document.body.classList.remove('drag-disabled-select');
+      document.querySelectorAll('.category').forEach(c=>c.classList.remove('drag-over','wrong-drop'));
+      if(clearActive) activeSortDrag = null;
+      draggedSortKey = null;
+    }
+
+    function placeSortToken(cat){
+      if(!sortSelected || sortSelected.classList.contains('used')) return;
+      placeSortKey(sortSelected.dataset.key, cat);
+    }
+
+    function categoryHint(){
+      return 'Look at whether the word is a thing, a time word, or an action/phrase.';
+    }
+
+    function placeSortKey(key, cat){
+      if(!key) return;
+      const item = byKey(key);
+      const token = document.querySelector(`.token[data-key="${key}"]`);
+      if(!item || !token || token.classList.contains('used')) return;
+
+      if(item.category === cat.dataset.category){
+        const placed = document.createElement('span');
+        placed.className='placed';
+        placed.innerHTML = `<span class="hebrew small">${item.hebrew}</span>`;
+        cat.appendChild(placed);
+        token.classList.add('used');
+        token.classList.remove('selected','dragging','wrong');
+        token.disabled = true;
+        sortSelected = null;
+        draggedSortKey = null;
+        activeSortDrag = null;
+        document.querySelectorAll('.category').forEach(c=>c.classList.remove('active','drag-over','wrong-drop'));
+        const remaining = document.querySelectorAll('.token:not(.used)').length;
+        document.getElementById('sortStatus').textContent = remaining ? `Correct! ${remaining} card${remaining===1?'':'s'} left to sort.` : 'All sorted! 🎉';
+        if(remaining===0){ state.sortComplete=true; saveState(); }
+      } else {
+        token.classList.add('wrong');
+        cat.classList.add('wrong-drop');
+        document.getElementById('sortStatus').textContent = `Not that category. Hint: ${categoryHint()}`;
+        setTimeout(()=>{ token.classList.remove('wrong'); cat.classList.remove('wrong-drop'); },650);
+      }
+    }
+
+    function buildMemoryGame(){
+      memoryFirst=null;memorySecond=null;memoryLock=false;
+      const pairs = shuffle(vocab).slice(0,6).flatMap(v=>[
+        {id:v.key, kind:'h', text:v.hebrew, heb:true},
+        {id:v.key, kind:'e', text:v.english, heb:false}
+      ]);
+      const cards = shuffle(pairs);
+      document.getElementById('memoryGrid').innerHTML = cards.map((c,i)=>`<button class="memory-card" data-id="${c.id}" data-kind="${c.kind}" onclick="flipMemory(this)"><span class="back ${c.heb?'hebrew small':''}">${c.text}</span></button>`).join('');
+      document.getElementById('memoryStatus').textContent='Find the pairs.';
+    }
+    function flipMemory(el){
+      if(memoryLock || el.classList.contains('done') || el === memoryFirst) return;
+      el.classList.add('flipped');
+      if(!memoryFirst){ memoryFirst=el; return; }
+      memorySecond=el; memoryLock=true;
+      if(memoryFirst.dataset.id === memorySecond.dataset.id && memoryFirst.dataset.kind !== memorySecond.dataset.kind){
+        memoryFirst.classList.add('done'); memorySecond.classList.add('done');
+        memoryFirst.classList.remove('flipped'); memorySecond.classList.remove('flipped');
+        document.getElementById('memoryStatus').textContent = `Pair found: ${byKey(memoryFirst.dataset.id).english}`;
+        memoryFirst=null;memorySecond=null;memoryLock=false;
+        if(document.querySelectorAll('.memory-card:not(.done)').length===0){ state.memoryComplete=true; saveState(); document.getElementById('memoryStatus').textContent='Memory board complete! 🎉'; }
+      } else {
+        document.getElementById('memoryStatus').textContent='Not a pair. Watch them flip back.';
+        setTimeout(()=>{
+          memoryFirst.classList.remove('flipped'); memorySecond.classList.remove('flipped');
+          memoryFirst=null;memorySecond=null;memoryLock=false;
+        },850);
+      }
+    }
+
+    function buildQuiz(){
+      currentQuiz = [];
+      const mcMeanings = vocab.map(v=>({
+        type:'mc',
+        prompt:`What does ${v.hebrewV} mean?`,
+        hebrewPrompt:true,
+        options: shuffle(vocab.map(x=>x.english)).slice(0,4).includes(v.english) ? shuffle(vocab.map(x=>x.english)).slice(0,4) : null,
+        answer:v.english,
+        explain:`${v.hebrew} = ${v.english}`
+      })).map(q=>{
+        if(!q.options){
+          const others = shuffle(vocab.filter(x=>x.english!==q.answer).map(x=>x.english)).slice(0,3);
+          q.options = shuffle([q.answer,...others]);
+        } else if(!q.options.includes(q.answer)){
+          q.options[0]=q.answer; q.options=shuffle(q.options);
+        }
+        return q;
+      });
+      const typed = vocab.map(v=>({type:'typeHebrew', key:v.key, prompt:`Type the Hebrew for: ${v.english}`, answer:v.hebrew, explain:`Answer: ${v.hebrewV} (${v.sound})`}));
+      currentQuiz = [...mcMeanings, ...typed];
+      const container = document.getElementById('quizContainer');
+      container.innerHTML = currentQuiz.map((q,i)=>{
+        if(q.type==='mc'){
+          return `<div class="question" data-q="${i}"><h4>${i+1}. ${q.prompt}</h4><div class="options">${q.options.map((op,j)=>`<label class="option-label"><input type="radio" name="q${i}" value="${escapeHtml(op)}"> ${op}</label>`).join('')}</div><div id="result-${i}" class="result-line hidden"></div></div>`;
+        }
+        return `<div class="question" data-q="${i}"><h4>${i+1}. ${q.prompt}</h4><input class="hebrew-input quiz-input" id="q${i}" type="text" placeholder="Type Hebrew…" autocomplete="off"><div id="result-${i}" class="result-line hidden"></div></div>`;
+      }).join('');
+      document.getElementById('scoreBig').textContent='—';
+      document.getElementById('scoreLabel').textContent='Not submitted';
+      document.getElementById('quizSummary').classList.add('hidden');
+    }
+    function escapeHtml(s){ return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m])); }
+    function submitQuiz(){
+      if(currentQuiz.length===0) buildQuiz();
+      let score = 0;
+      currentQuiz.forEach((q,i)=>{
+        let ok=false, response='';
+        if(q.type==='mc'){
+          const selected = document.querySelector(`input[name="q${i}"]:checked`);
+          response = selected ? selected.value : '';
+          ok = response === q.answer;
+        } else {
+          response = document.getElementById(`q${i}`).value;
+          ok = isHebrewCorrect(response, byKey(q.key));
+        }
+        const result = document.getElementById(`result-${i}`);
+        result.classList.remove('hidden','correct','incorrect');
+        result.classList.add(ok?'correct':'incorrect');
+        result.innerHTML = ok ? `✓ Correct. ${q.explain}` : `✗ Check this one. ${q.explain}`;
+        if(ok) score++;
+      });
+      const pct = Math.round((score/currentQuiz.length)*100);
+      document.getElementById('scoreBig').textContent=`${pct}%`;
+      document.getElementById('scoreLabel').textContent=`${score}/${currentQuiz.length} correct`;
+      const summary = document.getElementById('quizSummary');
+      summary.classList.remove('hidden');
+      let message = pct>=90 ? 'Excellent. You are quiz-ready.' : pct>=75 ? 'Strong work. Review the missed words, then try once more.' : 'Keep practicing. Go back to Flashcards and Practice, then retake the quiz.';
+      summary.innerHTML = `<strong>Quiz Result:</strong> ${score}/${currentQuiz.length} correct (${pct}%). ${message}`;
+      if(!state.bestQuiz || pct > parseInt(state.bestQuiz)) state.bestQuiz = pct + '%';
+      saveState();
+      summary.scrollIntoView({behavior:'smooth',block:'center'});
+    }
+    function clearQuizInputs(){
+      document.querySelectorAll('#quizContainer input[type="radio"]').forEach(i=>i.checked=false);
+      document.querySelectorAll('#quizContainer input[type="text"]').forEach(i=>i.value='');
+      document.querySelectorAll('.result-line').forEach(r=>r.classList.add('hidden'));
+      document.getElementById('scoreBig').textContent='—';
+      document.getElementById('scoreLabel').textContent='Not submitted';
+      document.getElementById('quizSummary').classList.add('hidden');
+    }
+
+    function buildAll(){
+      buildVocabTable();
+      renderFlashcard();
+      buildMatchGame();
+      nextTypingPrompt();
+      buildWritePractice();
+      buildSortGame();
+      buildMemoryGame();
+      updateProgress();
+    }
+
+    document.getElementById('typeAnswer').addEventListener('keydown', e=>{ if(e.key==='Enter') checkTyping(); });
+    setupTabs();
+    buildAll();
+  </script>
+</body>
+</html>
