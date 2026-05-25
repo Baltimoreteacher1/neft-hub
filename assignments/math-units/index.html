@@ -5,33 +5,309 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Grade 6 Math Units 1–10 Hub</title>
   <style>
-    body{margin:0;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;color:white;background:linear-gradient(135deg,#020617,#0f172a 55%,#172554)}
-    main{width:min(1220px,calc(100% - 32px));margin:0 auto;padding:34px 0 60px}.back{color:#bfdbfe;font-weight:900;text-decoration:none}
-    .hero{margin:26px 0;padding:30px;border:1px solid rgba(255,255,255,.18);border-radius:30px;background:rgba(255,255,255,.1)}
-    h1{margin:0;font-size:clamp(2.2rem,6vw,5rem);line-height:.92;letter-spacing:-.06em}.hero p{max-width:860px;color:rgba(255,255,255,.82);line-height:1.6}
-    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}.unit{display:grid;gap:10px;min-height:230px;padding:20px;border-radius:24px;background:white;color:#0f172a}
-    .unit p{color:#475569}.tag{width:fit-content;border-radius:999px;padding:7px 10px;background:#dbeafe;color:#1e3a8a;font-weight:950;font-size:.78rem;text-transform:uppercase}
-    .links{display:grid;gap:8px;margin-top:auto}.links a{padding:10px 12px;border-radius:14px;background:#eff6ff;color:#1d4ed8;text-decoration:none;font-weight:900}.links a.missing{background:#f8fafc;color:#64748b}
-    .note{margin-top:18px;padding:16px;border-radius:20px;background:#fffbeb;color:#78350f;border:1px solid #fde68a;font-weight:800}
+    :root {
+      --ink:#0f172a;
+      --muted:#475569;
+      --line:#dbeafe;
+      --paper:#ffffff;
+      --soft:#eff6ff;
+      --soft2:#f8fafc;
+      --navy:#020617;
+      --blue:#2563eb;
+      --sky:#0ea5e9;
+      --teal:#0f766e;
+      --gold:#f59e0b;
+      --shadow:0 18px 45px rgba(15,23,42,.16);
+      --radius:24px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+      color:var(--ink);
+      background:
+        radial-gradient(circle at top left, rgba(14,165,233,.22), transparent 34rem),
+        radial-gradient(circle at bottom right, rgba(15,118,110,.18), transparent 30rem),
+        linear-gradient(135deg,#f8fafc,#eef6ff 58%,#e0f2fe);
+      min-height:100vh;
+    }
+    main{width:min(1220px,calc(100% - 32px));margin:0 auto;padding:28px 0 56px}
+    .back{display:inline-flex;align-items:center;gap:8px;color:#1d4ed8;font-weight:900;text-decoration:none;margin-bottom:18px}
+    .hero{
+      position:relative;
+      overflow:hidden;
+      border-radius:32px;
+      padding:34px;
+      background:linear-gradient(135deg,#0f172a,#1d4ed8 62%,#0f766e);
+      color:#fff;
+      box-shadow:var(--shadow);
+    }
+    .hero:after{
+      content:"";
+      position:absolute;
+      inset:auto -8rem -12rem auto;
+      width:26rem;
+      height:26rem;
+      background:rgba(255,255,255,.13);
+      border-radius:999px;
+    }
+    .eyebrow{margin:0 0 10px;font-weight:950;letter-spacing:.12em;text-transform:uppercase;color:#bfdbfe;font-size:.78rem}
+    h1{margin:0;font-size:clamp(2.35rem,6vw,5.1rem);line-height:.92;letter-spacing:-.06em;max-width:820px}
+    .hero p.lead{max-width:850px;color:rgba(255,255,255,.86);line-height:1.6;font-size:1.05rem;margin:18px 0 0}
+    .stats{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+    .stat{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.22);border-radius:999px;padding:10px 13px;font-weight:900}
+    .notice{
+      margin:18px 0 22px;
+      padding:16px 18px;
+      border:1px solid #fde68a;
+      border-radius:20px;
+      background:#fffbeb;
+      color:#78350f;
+      font-weight:800;
+      line-height:1.45;
+    }
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+    .unit-card{
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+      min-height:310px;
+      padding:22px;
+      border:1px solid rgba(37,99,235,.16);
+      border-radius:var(--radius);
+      background:rgba(255,255,255,.92);
+      box-shadow:0 12px 30px rgba(15,23,42,.08);
+    }
+    .unit-card__top{display:flex;justify-content:space-between;align-items:center;gap:10px}
+    .unit-badge{border-radius:999px;background:#dbeafe;color:#1e3a8a;padding:7px 10px;font-weight:950;text-transform:uppercase;font-size:.78rem}
+    .unit-count{border-radius:999px;background:#f1f5f9;color:#334155;padding:7px 10px;font-weight:900;font-size:.78rem}
+    h2{margin:0;font-size:1.38rem;letter-spacing:-.02em}
+    .unit-card p{margin:0;color:var(--muted);line-height:1.55}
+    .link-stack{display:grid;gap:8px;margin-top:auto}
+    .app-link{
+      display:grid;
+      gap:3px;
+      padding:11px 12px;
+      border-radius:15px;
+      background:linear-gradient(135deg,#eff6ff,#f8fafc);
+      border:1px solid #dbeafe;
+      color:#1d4ed8;
+      text-decoration:none;
+      font-weight:950;
+    }
+    .app-link:hover{transform:translateY(-1px);box-shadow:0 8px 20px rgba(37,99,235,.12)}
+    .app-link small{color:#64748b;font-weight:800;line-height:1.35}
+    .app-link--missing{background:#f8fafc;color:#64748b;border-style:dashed}
+    .footer-note{margin-top:22px;color:#475569;line-height:1.55;text-align:center;font-weight:700}
   </style>
 </head>
 <body>
   <main>
     <a class="back" href="/">← Back to App Library</a>
-    <section class="hero"><h1>Grade 6 Math Units 1–10</h1><p>Clean landing page for unit-based math apps. Existing apps are linked now; missing unit apps are marked so they can be connected later.</p></section>
-    <section class="grid">
-      <article class="unit"><span class="tag">Unit 1</span><h2>Ratios and Unit Rates</h2><p>Ratio language, equivalent ratios, rates, and comparisons.</p><div class="links"><a href="/apps/6-rp-1-game/">6.RP.1 Game →</a><a href="/apps/6-rp-a-2-interactive-study-guide/">6.RP.A.2 Study Guide →</a><a href="/apps/6-rp-a-3-study/">6.RP.A.3 Study →</a></div></article>
-      <article class="unit"><span class="tag">Unit 2</span><h2>Fractions and Division</h2><p>Fraction division and quotient reasoning.</p><div class="links"><a class="missing" href="#">Source app not connected yet</a></div></article>
-      <article class="unit"><span class="tag">Unit 3</span><h2>Rational Numbers</h2><p>Negative numbers, coordinate plane, and ordering.</p><div class="links"><a href="/apps/6-ns-c-study-practice/">6.NS.C Study Practice →</a><a href="/apps/6-ns-c-5-game/">6.NS.C.5 Game →</a><a href="/apps/6-ns-c-6-game/">6.NS.C.6 Game →</a></div></article>
-      <article class="unit"><span class="tag">Unit 4</span><h2>Decimal Operations</h2><p>Decimal operations, long division, and MCAP review.</p><div class="links"><a href="/apps/math-unit-4-study-studio/">Unit 4 Study Studio →</a><a href="/apps/decimal-operations-review/">Decimal Operations Review →</a><a href="/apps/long-division-mcap-review/">Long Division MCAP Review →</a></div></article>
-      <article class="unit"><span class="tag">Unit 5</span><h2>Geometry and Measurement</h2><p>Area, polygons, parallelograms, rhombuses, and volume.</p><div class="links"><a href="/apps/volume-rectangular-prisms/">Volume of Rectangular Prisms →</a><a href="/apps/interactive-area-mission/">Interactive Area Mission →</a><a href="/apps/grade-6-area-5-1-5-2/">Grade 6 Area 5.1–5.2 →</a></div></article>
-      <article class="unit"><span class="tag">Unit 6</span><h2>Expressions</h2><p>Expressions, properties, and equivalent forms.</p><div class="links"><a class="missing" href="#">Source app not connected yet</a></div></article>
-      <article class="unit"><span class="tag">Unit 7</span><h2>Equations and Inequalities</h2><p>Solving, checking, and interpreting solutions.</p><div class="links"><a class="missing" href="#">Source app not connected yet</a></div></article>
-      <article class="unit"><span class="tag">Unit 8</span><h2>Statistics</h2><p>Statistical questions, displays, center, spread, and data interpretation.</p><div class="links"><a href="/apps/data-detective-game/">Data Detective Game →</a><a href="/apps/6-sp-b-5-interactive-review/">6.SP.B.5 Interactive Review →</a></div></article>
-      <article class="unit"><span class="tag">Unit 9</span><h2>Variables and Relationships</h2><p>Independent/dependent variables, tables, equations, and graphs.</p><div class="links"><a href="/apps/6-ee-c-9-review-activities/">6.EE.C.9 Review Activities →</a><a href="/apps/6-ee-c-9-game/">6.EE.C.9 Game →</a><a href="/apps/variable-explorer/">Variable Explorer →</a></div></article>
-      <article class="unit"><span class="tag">Unit 10</span><h2>End-of-Year Review</h2><p>Mixed review, MCAP readiness, and spiral practice.</p><div class="links"><a class="missing" href="#">Source app not connected yet</a></div></article>
+    <section class="hero">
+      <p class="eyebrow">Neft Hub · Grade 6 Math</p>
+      <h1>Grade 6 Math Units 1–10</h1>
+      <p class="lead">All connected Grade 6 math apps are folded into their curriculum unit so students can launch the right practice without hunting through separate GitHub projects.</p>
+      <div class="stats" aria-label="Hub summary">
+        <span class="stat">10 units</span>
+        <span class="stat">74 connected math links</span>
+        <span class="stat">1 unit still needs a source app</span>
+      </div>
     </section>
-    <div class="note">Any app marked “Source app not connected yet” needs a source repo added before Cloudflare can deploy it as a live app.</div>
+
+    <div class="notice">
+      Duplicate integer-operation repos and empty source repos are intentionally not shown here. Unit 7 remains marked until a clear equations/inequalities source app is added.
+    </div>
+
+    <section class="grid" aria-label="Grade 6 Math unit launch cards">
+      
+      <article class="unit-card" id="unit-1">
+        <div class="unit-card__top">
+          <span class="unit-badge">Unit 1</span>
+          <span class="unit-count">6 apps</span>
+        </div>
+        <h2>Ratios and Unit Rates</h2>
+        <p>Ratio language, equivalent ratios, rates, unit rates, percent, and real-world comparisons.</p>
+        <div class="link-stack">
+          <a class="app-link" href="/apps/6-rp-1-review-learn/"><span>6.RP.1 Review Learn</span><small>6.RP.1, ratios, review</small></a>
+<a class="app-link" href="/apps/6-rp-1-game/"><span>6.RP.1 Game</span><small>6.RP.1, ratios, game</small></a>
+<a class="app-link" href="/apps/6-rp-a-2-interactive-study-guide/"><span>6.RP.A.2 Interactive Study Guide</span><small>6.RP.A.2, unit rates, study guide</small></a>
+<a class="app-link" href="/apps/6-rp-a-2-game/"><span>6.RP.A.2 Game</span><small>6.RP.A.2, unit rates, game</small></a>
+<a class="app-link" href="/apps/6-rp-a-3-study/"><span>6.RP.A.3 Study</span><small>6.RP.A.3, percent, ratio applications</small></a>
+<a class="app-link" href="/apps/6-rp-a-3-game/"><span>6.RP.A.3 Game</span><small>6.RP.A.3, ratios, game</small></a>
+        </div>
+      </article>
+
+      <article class="unit-card" id="unit-2">
+        <div class="unit-card__top">
+          <span class="unit-badge">Unit 2</span>
+          <span class="unit-count">2 apps</span>
+        </div>
+        <h2>Fractions and Division</h2>
+        <p>Fraction division, visual models, quotients, and real-world division situations.</p>
+        <div class="link-stack">
+          <a class="app-link" href="/apps/stem-camp-fraction-division-quest/"><span>STEM Camp Fraction Division Quest</span><small>6.NS.A.1, fraction division, models</small></a>
+<a class="app-link" href="/apps/6-ns-a-1-game/"><span>6.NS.A.1 Game</span><small>6.NS.A.1, division, fractions</small></a>
+        </div>
+      </article>
+
+      <article class="unit-card" id="unit-3">
+        <div class="unit-card__top">
+          <span class="unit-badge">Unit 3</span>
+          <span class="unit-count">9 apps</span>
+        </div>
+        <h2>Rational Numbers</h2>
+        <p>Integers, negative numbers, ordering, absolute value, coordinate plane, and rational-number reasoning.</p>
+        <div class="link-stack">
+          <a class="app-link" href="/apps/neft-coordinate-game/"><span>Neft Coordinate Game</span><small>coordinate plane, 6.NS.C, game</small></a>
+<a class="app-link" href="/apps/6-ns-c-study-practice/"><span>6.NS.C Study Practice</span><small>6.NS.C, rational numbers, practice</small></a>
+<a class="app-link" href="/apps/6-ns-c-integer-practice/"><span>6.NS.C Integer Practice</span><small>integers, rational numbers, 6.NS.C</small></a>
+<a class="app-link" href="/apps/6-ns-c-5-game/"><span>6.NS.C.5 Game</span><small>6.NS.C.5, negative numbers, game</small></a>
+<a class="app-link" href="/apps/6-ns-c-6-game/"><span>6.NS.C.6 Game</span><small>6.NS.C.6, coordinate plane, game</small></a>
+<a class="app-link" href="/apps/6-ns-c-8-game/"><span>6.NS.C.8 Game</span><small>6.NS.C.8, coordinate plane, distance</small></a>
+<a class="app-link" href="/apps/integer-wizards-battle-arena/"><span>Integer Wizards Battle Arena</span><small>integers, operations, game</small></a>
+<a class="app-link" href="/apps/integer-operations-review-suite/"><span>Integer Operations Review Suite</span><small>integers, operations, review</small></a>
+<a class="app-link" href="/apps/integer-coordinate-plane-arcade/"><span>Integer &amp; Coordinate Plane Arcade</span><small>integers, coordinate plane, review</small></a>
+        </div>
+      </article>
+
+      <article class="unit-card" id="unit-4">
+        <div class="unit-card__top">
+          <span class="unit-badge">Unit 4</span>
+          <span class="unit-count">8 apps</span>
+        </div>
+        <h2>Number System Operations</h2>
+        <p>Multi-digit division, decimal operations, factors, multiples, GCF, LCM, and MCAP computation review.</p>
+        <div class="link-stack">
+          <a class="app-link" href="/apps/math-unit-4-study-studio/"><span>Math Unit 4 Interactive Study Studio</span><small>Unit 4, study, review</small></a>
+<a class="app-link" href="/apps/decimal-operations-review/"><span>Decimal Operations Review</span><small>decimals, operations, review</small></a>
+<a class="app-link" href="/apps/long-division-mcap-review/"><span>Long Division MCAP Review</span><small>division, MCAP, review</small></a>
+<a class="app-link" href="/apps/6-ns-b-2-game/"><span>6.NS.B.2 Game</span><small>6.NS.B.2, division, game</small></a>
+<a class="app-link" href="/apps/6-ns-b-2-review-activities/"><span>6.NS.B.2 Review Activities</span><small>6.NS.B.2, division, review</small></a>
+<a class="app-link" href="/apps/6-ns-b-4-review/"><span>6.NS.B.4 Review</span><small>6.NS.B.4, GCF, LCM</small></a>
+<a class="app-link" href="/apps/6-ns-b-4-review-1/"><span>6.NS.B.4 Review 1</span><small>6.NS.B.4, factors, multiples</small></a>
+<a class="app-link" href="/apps/6-ns-b-4-game/"><span>6.NS.B.4 Game</span><small>6.NS.B.4, game, number system</small></a>
+        </div>
+      </article>
+
+      <article class="unit-card" id="unit-5">
+        <div class="unit-card__top">
+          <span class="unit-badge">Unit 5</span>
+          <span class="unit-count">12 apps</span>
+        </div>
+        <h2>Geometry and Measurement</h2>
+        <p>Area, polygons, triangles, trapezoids, parallelograms, rhombuses, and rectangular-prism volume.</p>
+        <div class="link-stack">
+          <a class="app-link" href="/apps/volume-rectangular-prisms/"><span>Volume of Rectangular Prisms</span><small>6.G, volume, rectangular prisms</small></a>
+<a class="app-link" href="/apps/rectangular-prism-story/"><span>Rectangular Prism Story</span><small>volume, rectangular prism, story</small></a>
+<a class="app-link" href="/apps/rectangular-prism-story-esl/"><span>Rectangular Prism Story ESL</span><small>ESOL, volume, rectangular prism</small></a>
+<a class="app-link" href="/apps/interactive-area-mission/"><span>Interactive Area Mission</span><small>area, geometry, mission</small></a>
+<a class="app-link" href="/apps/grade-6-area-5-1-5-2/"><span>Grade 6 Area 5.1–5.2</span><small>area, Grade 6, 5.1</small></a>
+<a class="app-link" href="/apps/grade-6-area-language-support/"><span>Grade 6 Area Language Support</span><small>ESOL, area, language supports</small></a>
+<a class="app-link" href="/apps/parallelogram-rhombus-game/"><span>Parallelogram and Rhombus Game</span><small>parallelogram, rhombus, area</small></a>
+<a class="app-link" href="/apps/trapezoid-activity-5-3/"><span>Trapezoid Activity 5.3</span><small>trapezoid, area, 5.3</small></a>
+<a class="app-link" href="/apps/trapezoid-review-5-3/"><span>Trapezoid Review 5.3</span><small>trapezoid, area, review</small></a>
+<a class="app-link" href="/apps/area-practice-5-1-5-3/"><span>Area Practice 5.1–5.3</span><small>area, 5.1, 5.3</small></a>
+<a class="app-link" href="/apps/area-gemini-5-5/"><span>Area Gemini 5.5</span><small>area, 5.5, geometry</small></a>
+<a class="app-link" href="/apps/square-triangle-area-5-5/"><span>Square and Triangle Area 5.5</span><small>area, triangles, squares</small></a>
+        </div>
+      </article>
+
+      <article class="unit-card" id="unit-6">
+        <div class="unit-card__top">
+          <span class="unit-badge">Unit 6</span>
+          <span class="unit-count">1 app</span>
+        </div>
+        <h2>Expressions</h2>
+        <p>Variables, expressions, properties, equivalent forms, and expression-writing language.</p>
+        <div class="link-stack">
+          <a class="app-link" href="/apps/6-ee-b-6-review/"><span>6.EE.B.6 Review</span><small>6.EE.B.6, variables, expressions</small></a>
+        </div>
+      </article>
+
+      <article class="unit-card" id="unit-7">
+        <div class="unit-card__top">
+          <span class="unit-badge">Unit 7</span>
+          <span class="unit-count">Missing source</span>
+        </div>
+        <h2>Equations and Inequalities</h2>
+        <p>Solving, checking, and interpreting equations and inequalities.</p>
+        <div class="link-stack">
+          <div class="app-link app-link--missing"><span>No source app connected yet</span><small>Add an equation/inequality source repo when ready.</small></div>
+        </div>
+      </article>
+
+      <article class="unit-card" id="unit-8">
+        <div class="unit-card__top">
+          <span class="unit-badge">Unit 8</span>
+          <span class="unit-count">6 apps</span>
+        </div>
+        <h2>Statistics</h2>
+        <p>Statistical questions, histograms, data displays, center, spread, and data interpretation.</p>
+        <div class="link-stack">
+          <a class="app-link" href="/apps/data-detective-game/"><span>Data Detective Game</span><small>statistics, 6.SP.B.5, data</small></a>
+<a class="app-link" href="/apps/6-sp-b-5-interactive-review/"><span>6.SP.B.5 Interactive Review</span><small>6.SP.B.5, statistics, review</small></a>
+<a class="app-link" href="/apps/6-sp-a-1-game/"><span>6.SP.A.1 Game</span><small>6.SP.A.1, statistical questions, game</small></a>
+<a class="app-link" href="/apps/6-sp-a-1-review-2/"><span>6.SP.A.1 Review 2</span><small>6.SP.A.1, statistics, review</small></a>
+<a class="app-link" href="/apps/6-sp-a-1-data-lab/"><span>6.SP.A.1 Data Lab</span><small>6.SP.A.1, data lab, statistics</small></a>
+<a class="app-link" href="/apps/histogram-graphic-novel-2-2/"><span>Histogram Graphic Novel 2.2</span><small>histograms, statistics, visual learning</small></a>
+        </div>
+      </article>
+
+      <article class="unit-card" id="unit-9">
+        <div class="unit-card__top">
+          <span class="unit-badge">Unit 9</span>
+          <span class="unit-count">25 apps</span>
+        </div>
+        <h2>Variables and Relationships</h2>
+        <p>Independent/dependent variables, tables, equations, graphs, functions, and real-world relationships.</p>
+        <div class="link-stack">
+          <a class="app-link" href="/apps/unit-9-1-6-ee-9/"><span>Unit 9.1 6.EE.9</span><small>6.EE.9, Unit 9, relationships</small></a>
+<a class="app-link" href="/apps/independent-dependent-variables/"><span>Independent and Dependent Variables</span><small>independent variables, dependent variables, 6.EE.9</small></a>
+<a class="app-link" href="/apps/cloudflare-pages-game-6-ee-9/"><span>Cloudflare Pages Game for 6.EE.9</span><small>6.EE.9, game, relationships</small></a>
+<a class="app-link" href="/apps/function-forge-6-ee-9/"><span>Function Forge 6.EE.9</span><small>6.EE.9, functions, tables</small></a>
+<a class="app-link" href="/apps/6-ee-9-practice/"><span>6.EE.9 Practice</span><small>6.EE.9, relationships, practice</small></a>
+<a class="app-link" href="/apps/6-ee-9-notes-practice/"><span>6.EE.9 Notes Practice</span><small>6.EE.9, notes, practice</small></a>
+<a class="app-link" href="/apps/6-ee-c-9-study/"><span>6.EE.C.9 Study</span><small>6.EE.C.9, study, variables</small></a>
+<a class="app-link" href="/apps/6-ee-c-9-game/"><span>6.EE.C.9 Game</span><small>6.EE.C.9, game, functions</small></a>
+<a class="app-link" href="/apps/6-ee-c-9-review-activities/"><span>6.EE.C.9 Review Activities</span><small>6.EE.C.9, variables, relationships</small></a>
+<a class="app-link" href="/apps/6-ee-c-9-google-version/"><span>6.EE.C.9 Google Version</span><small>6.EE.C.9, Google, relationships</small></a>
+<a class="app-link" href="/apps/6-ee-c-9-gifted-talented-version/"><span>6.EE.C.9 Gifted/Talented Version</span><small>6.EE.C.9, extension, gifted</small></a>
+<a class="app-link" href="/apps/9-1-9-2-study-for-quiz/"><span>9.1–9.2 Study for Quiz</span><small>Unit 9, quiz, study</small></a>
+<a class="app-link" href="/apps/9-3-review-practice/"><span>9.3 Review Practice</span><small>Unit 9, review, practice</small></a>
+<a class="app-link" href="/apps/6-ee-c-9-roblox-project/"><span>6.EE.C.9 Roblox Project</span><small>6.EE.C.9, project, Roblox</small></a>
+<a class="app-link" href="/apps/6-ee-c-9-pizza/"><span>6.EE.C.9 Pizza</span><small>6.EE.C.9, pizza, relationships</small></a>
+<a class="app-link" href="/apps/6-ee-c-9-shoes/"><span>6.EE.C.9 Shoes</span><small>6.EE.C.9, variables, relationships</small></a>
+<a class="app-link" href="/apps/6-ee-c-9-martian-game/"><span>6.EE.C.9 Martian Game</span><small>6.EE.C.9, game, relationships</small></a>
+<a class="app-link" href="/apps/6-ee-c-9-variable-velocity-game/"><span>6.EE.C.9 Variable Velocity Game</span><small>6.EE.C.9, variables, velocity</small></a>
+<a class="app-link" href="/apps/6-ee-c-9-after-test/"><span>6.EE.C.9 After Test</span><small>6.EE.C.9, after test, review</small></a>
+<a class="app-link" href="/apps/6-ee-c-9-after-test-2/"><span>6.EE.C.9 After Test 2</span><small>6.EE.C.9, after test, practice</small></a>
+<a class="app-link" href="/apps/6-ee-c-9-test-project/"><span>6.EE.C.9 Test Project</span><small>6.EE.C.9, project, test review</small></a>
+<a class="app-link" href="/apps/variable-explorer/"><span>Variable Explorer</span><small>variables, tables, relationships</small></a>
+<a class="app-link" href="/apps/variable-explorer-esol/"><span>Variable Explorer ESOL</span><small>ESOL, variables, 6.EE.C.9</small></a>
+<a class="app-link" href="/apps/variable-chart-practice/"><span>Variable Chart Practice</span><small>variables, charts, relationships</small></a>
+<a class="app-link" href="/apps/variable-comparison-game/"><span>Variable Comparison Game</span><small>variables, comparison, game</small></a>
+        </div>
+      </article>
+
+      <article class="unit-card" id="unit-10">
+        <div class="unit-card__top">
+          <span class="unit-badge">Unit 10</span>
+          <span class="unit-count">5 apps</span>
+        </div>
+        <h2>End-of-Year Review</h2>
+        <p>Mixed review, warmups, math explanation, spiral practice, and MCAP readiness.</p>
+        <div class="link-stack">
+          <a class="app-link" href="/apps/quiz-warmup-engine/"><span>Quiz Warmup Engine</span><small>warmup, quiz, review</small></a>
+<a class="app-link" href="/apps/math-talk-oracle/"><span>Math Talk Oracle</span><small>math talk, explanations, review</small></a>
+<a class="app-link" href="/apps/math-tutor/"><span>Math Tutor</span><small>tutor, practice, review</small></a>
+<a class="app-link" href="/apps/math-writing-help/"><span>Math Writing Help</span><small>math writing, explanations, support</small></a>
+<a class="app-link" href="/apps/math-writing/"><span>Math Writing</span><small>math writing, reasoning, review</small></a>
+        </div>
+      </article>
+    </section>
+
+    <p class="footer-note">This page is a local bundled hub inside Neft Hub. Each button opens the corresponding Cloudflare route under <strong>/apps/&lt;slug&gt;/</strong>.</p>
   </main>
 </body>
 </html>
