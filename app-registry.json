@@ -1,10 +1,29 @@
 {
   "site": {
-    "title": "Neft Teacher App Library",
-    "eyebrow": "Neft Teacher · One Cloudflare Pages Hub",
-    "description": "A single Cloudflare Pages deployment for interactive classroom apps, student practice tools, reading supports, and family learning resources."
+    "title": "Neft Hub",
+    "eyebrow": "Neft Hub · One Cloudflare Pages Home Base",
+    "description": "One simple hub for classroom apps, student practice tools, GitHub navigation, notebook and lesson-plan engines, Hebrew/family learning, and Cloudflare deployment links."
   },
   "apps": [
+    {
+      "title": "Neft Hub Control Center",
+      "slug": "neft-hub-control-center",
+      "repo": "./assignments/neft-hub-control-center",
+      "category": "Neft Hub · Control Center",
+      "group": "Start Here",
+      "groupOrder": 1,
+      "audience": "Teacher / Admin",
+      "description": "The single starting page for GitHub navigation, Cloudflare links, notebook and lesson-plan engines, student app folders, and cleanup workflow rules.",
+      "tags": [
+        "Neft Hub",
+        "dashboard",
+        "GitHub",
+        "Cloudflare",
+        "notebooks",
+        "lesson plans",
+        "workflow"
+      ]
+    },
     {
       "title": "Grade 6 Math Units 1–10 Hub",
       "slug": "grade-6-math-units",
@@ -14,13 +33,7 @@
       "groupOrder": 10,
       "audience": "Students",
       "description": "A cleaned-up unit-by-unit launch hub for Grade 6 math apps, with existing apps linked and missing unit slots clearly marked.",
-      "tags": [
-        "Grade 6",
-        "Units 1-10",
-        "math",
-        "MCAP",
-        "review"
-      ]
+      "tags": ["Grade 6", "Units 1-10", "math", "MCAP", "review"]
     },
     {
       "title": "Noam Hebrew Practice Hub",
@@ -31,19 +44,7 @@
       "groupOrder": 20,
       "audience": "Family / Student",
       "description": "The single organized home for Noam's Hebrew practice: Ki Teitzei trope and chanting, prayer reading with transliteration, Units 5.3–5.4 vocabulary, quiz practice, and study-guide review.",
-      "tags": [
-        "Hebrew",
-        "Noam",
-        "Bar Mitzvah",
-        "Ki Teitzei",
-        "prayer",
-        "reading",
-        "transliteration",
-        "trope",
-        "vocabulary",
-        "quiz",
-        "review"
-      ]
+      "tags": ["Hebrew", "Noam", "Bar Mitzvah", "Ki Teitzei", "prayer", "reading", "transliteration", "trope", "vocabulary", "quiz", "review"]
     },
     {
       "title": "Volume of Rectangular Prisms",
@@ -54,11 +55,7 @@
       "groupOrder": 50,
       "audience": "Students",
       "description": "Interactive volume practice for rectangular prisms with student-friendly visuals and practice routines.",
-      "tags": [
-        "6.G",
-        "volume",
-        "rectangular prisms"
-      ]
+      "tags": ["6.G", "volume", "rectangular prisms"]
     },
     {
       "title": "Interactive Area Mission",
@@ -69,11 +66,7 @@
       "groupOrder": 50,
       "audience": "Students",
       "description": "A visual area mission for polygons, formulas, and applied geometry practice.",
-      "tags": [
-        "area",
-        "geometry",
-        "mission"
-      ]
+      "tags": ["area", "geometry", "mission"]
     },
     {
       "title": "Grade 6 Area 5.1–5.2",
@@ -84,12 +77,7 @@
       "groupOrder": 50,
       "audience": "Students",
       "description": "Area lesson support and practice for Grade 6 Unit 5.1–5.2.",
-      "tags": [
-        "area",
-        "Grade 6",
-        "5.1",
-        "5.2"
-      ]
+      "tags": ["area", "Grade 6", "5.1", "5.2"]
     },
     {
       "title": "Grade 6 Area Language Support",
@@ -100,11 +88,7 @@
       "groupOrder": 50,
       "audience": "Students",
       "description": "Language-supported version of Grade 6 area practice for multilingual learners.",
-      "tags": [
-        "ESOL",
-        "area",
-        "language supports"
-      ]
+      "tags": ["ESOL", "area", "language supports"]
     },
     {
       "title": "Parallelogram and Rhombus Game",
@@ -115,11 +99,7 @@
       "groupOrder": 50,
       "audience": "Students",
       "description": "Interactive practice for parallelogram and rhombus area reasoning.",
-      "tags": [
-        "parallelogram",
-        "rhombus",
-        "area"
-      ]
+      "tags": ["parallelogram", "rhombus", "area"]
     },
     {
       "title": "6.EE.C.9 Review Activities",
@@ -130,11 +110,7 @@
       "groupOrder": 70,
       "audience": "Students",
       "description": "Review activities for independent/dependent variables and equation relationships.",
-      "tags": [
-        "6.EE.C.9",
-        "variables",
-        "relationships"
-      ]
+      "tags": ["6.EE.C.9", "variables", "relationships"]
     },
     {
       "title": "6.EE.C.9 Game",
@@ -145,11 +121,7 @@
       "groupOrder": 70,
       "audience": "Students",
       "description": "Game-based practice for 6.EE.C.9 function and relationship thinking.",
-      "tags": [
-        "6.EE.C.9",
-        "game",
-        "functions"
-      ]
+      "tags": ["6.EE.C.9", "game", "functions"]
     },
     {
       "title": "Variable Explorer ESOL",
@@ -160,11 +132,7 @@
       "groupOrder": 70,
       "audience": "Students",
       "description": "ESOL-accessible variable exploration and relationship practice.",
-      "tags": [
-        "ESOL",
-        "variables",
-        "6.EE.C.9"
-      ]
+      "tags": ["ESOL", "variables", "6.EE.C.9"]
     },
     {
       "title": "Variable Explorer",
@@ -175,11 +143,7 @@
       "groupOrder": 70,
       "audience": "Students",
       "description": "Interactive variable exploration for understanding input/output relationships.",
-      "tags": [
-        "variables",
-        "tables",
-        "relationships"
-      ]
+      "tags": ["variables", "tables", "relationships"]
     },
     {
       "title": "Data Detective Game",
@@ -190,11 +154,7 @@
       "groupOrder": 80,
       "audience": "Students",
       "description": "Statistics practice through a data detective game format.",
-      "tags": [
-        "statistics",
-        "6.SP.B.5",
-        "data"
-      ]
+      "tags": ["statistics", "6.SP.B.5", "data"]
     },
     {
       "title": "6.SP.B.5 Interactive Review",
@@ -205,11 +165,7 @@
       "groupOrder": 80,
       "audience": "Students",
       "description": "Interactive review for summarizing and describing distributions.",
-      "tags": [
-        "6.SP.B.5",
-        "statistics",
-        "review"
-      ]
+      "tags": ["6.SP.B.5", "statistics", "review"]
     },
     {
       "title": "Decimal Operations Review",
@@ -220,11 +176,7 @@
       "groupOrder": 40,
       "audience": "Students",
       "description": "Interactive decimal operations review and practice.",
-      "tags": [
-        "decimals",
-        "operations",
-        "review"
-      ]
+      "tags": ["decimals", "operations", "review"]
     },
     {
       "title": "Long Division MCAP Review",
@@ -235,11 +187,7 @@
       "groupOrder": 40,
       "audience": "Students",
       "description": "Long division review built for MCAP-style preparation.",
-      "tags": [
-        "division",
-        "MCAP",
-        "review"
-      ]
+      "tags": ["division", "MCAP", "review"]
     },
     {
       "title": "Math Unit 4 Interactive Study Studio",
@@ -250,11 +198,7 @@
       "groupOrder": 40,
       "audience": "Students",
       "description": "Interactive study studio for Grade 6 Unit 4 review.",
-      "tags": [
-        "Unit 4",
-        "study",
-        "review"
-      ]
+      "tags": ["Unit 4", "study", "review"]
     }
   ]
 }
