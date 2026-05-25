@@ -1,23 +1,4393 @@
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Ki Teitzei Bar Mitzvah Studio V4.2</title>
-<style>
-body{margin:0;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;background:linear-gradient(135deg,#07111f,#172554);color:#fff}.wrap{width:min(1100px,calc(100% - 24px));margin:auto;padding:24px 0 44px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.card{background:#fff;color:#0f172a;border-radius:24px;padding:20px;box-shadow:0 18px 46px rgba(2,6,23,.25)}.dark{background:rgba(15,23,42,.82);color:white;border:1px solid rgba(255,255,255,.18)}h1{font-size:clamp(2rem,5vw,4.5rem);line-height:.95;margin:0;letter-spacing:-.05em}h2,h3{margin:0 0 8px}.he{font-family:"SBL Hebrew","Noto Sans Hebrew","Ezra SIL","Times New Roman",serif;direction:rtl;unicode-bidi:isolate}.pill{display:inline-block;border-radius:999px;background:#dcfce7;color:#14532d;border:1px solid #86efac;padding:7px 11px;font-weight:900;font-size:.82rem;margin-bottom:10px}.gold{background:#fef3c7;color:#92400e;border-color:#fde68a}.support{color:#475569;line-height:1.55}.dark .support{color:rgba(255,255,255,.82)}audio{width:100%;margin-top:8px}.audio{border:1px solid #dbe4f0;border-radius:18px;padding:12px;margin-top:10px;background:#f8fafc}.line{font-size:clamp(2.2rem,6vw,5rem);line-height:1.35;text-align:center;background:#fff7ed;border:2px solid #fed7aa;border-radius:24px;padding:18px;color:#0f172a}.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-top:12px}.mini{border:1px solid #dbe4f0;border-radius:18px;background:#fff;padding:12px;text-align:center;color:#0f172a}.mini .he{font-size:2rem;display:block;font-weight:900}.full{grid-column:1/-1}@media(max-width:850px){.grid{grid-template-columns:1fr}.line{font-size:2.5rem}}
-</style>
-</head>
-<body>
-<div class="wrap">
-<section class="grid">
-<div class="card dark"><span class="pill">V4.2 Protected Trope Build</span><h1>Ki Teitzei Studio <span class="he">כִּי־תֵצֵא</span></h1><p class="support">Corrected GitHub version. The practice focus is sound, Hebrew tracking, visible trope, and short repeatable checks.</p></div>
-<div class="card"><h2>Practice Path</h2><p class="support">Listen. Point to the Hebrew. Echo one phrase. Study the trope card. Repeat.</p><span class="pill gold">Current source of truth</span></div>
-<div class="card"><span class="pill gold">Sound / Hearing</span><h2>Model Audio</h2><p class="support">Use the model audio controls for chanting practice.</p><div class="audio"><strong>Ki Teitzei Torah Aliyah 1</strong><audio controls preload="none" src="https://music.tinr.org/wp-content/uploads/2018/08/Ki-Teitzei-Torah-Aliyah-1.mp3"></audio></div><div class="audio"><strong>Ki Teitzei Torah Aliyah 2</strong><audio controls preload="none" src="https://music.tinr.org/wp-content/uploads/2018/08/Ki-Teitzei-Torah-Aliyah-2.mp3"></audio></div></div>
-<div class="card"><span class="pill">Hebrew Text / Tracking</span><h2>Follow the Words</h2><div class="line he">כִּֽי־תֵצֵ֥א</div><div class="cards"><div class="mini"><span class="he">כִּֽי־תֵצֵ֥א</span><strong>ki-teitzei</strong></div><div class="mini"><span class="he">לַמִּלְחָמָ֖ה</span><strong>la-mil-cha-mah</strong></div><div class="mini"><span class="he">אֹֽיְבֶ֑יךָ</span><strong>oy-vecha</strong></div></div></div>
-<div class="card full"><span class="pill gold">Trope Learning</span><h2>Trope Cards</h2><div class="cards"><div class="mini"><span class="he">◌֥</span><h3>Mercha</h3><p>Move forward</p></div><div class="mini"><span class="he">◌֖</span><h3>Tipcha</h3><p>Lean down</p></div><div class="mini"><span class="he">◌֑</span><h3>Etnahta</h3><p>Middle pause</p></div><div class="mini"><span class="he">◌֔</span><h3>Zakef Katon</h3><p>Small lift</p></div><div class="mini"><span class="he">׃</span><h3>Sof Pasuk</h3><p>Final stop</p></div></div></div>
-<div class="card full"><h2>Practice Check</h2><p class="support">Mark success when the reader can listen, track right-to-left, identify the trope move, and echo one phrase clearly.</p></div>
-</section>
-</div>
-</body>
-</html>
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Ki Teitzei — Bar Mitzvah Torah Reading Trainer</title>
+    <style>
+      :root {
+        --navy: #0f172a;
+        --blue: #2563eb;
+        --cyan: #06b6d4;
+        --teal: #14b8a6;
+        --green: #22c55e;
+        --gold: #f59e0b;
+        --orange: #f97316;
+        --red: #ef4444;
+        --purple: #7c3aed;
+        --cream: #fffbeb;
+        --paper: rgba(255, 255, 255, 0.95);
+        --glass: rgba(255, 255, 255, 0.12);
+        --line: rgba(255, 255, 255, 0.2);
+        --text: #111827;
+        --muted: #475569;
+        --shadow: 0 20px 60px rgba(2, 6, 23, 0.3);
+        --radius: 20px;
+        --heb:
+          "SBL Hebrew", "Noto Sans Hebrew", "Frank Ruhl Libre", "David Libre",
+          "Arial", sans-serif;
+        --ui:
+          Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+          "Segoe UI", sans-serif;
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        font-family: var(--ui);
+        color: #fff;
+        min-height: 100vh;
+        overflow-x: hidden;
+        background:
+          radial-gradient(
+            circle at 15% 15%,
+            rgba(34, 211, 238, 0.25),
+            transparent 28%
+          ),
+          radial-gradient(
+            circle at 80% 10%,
+            rgba(245, 158, 11, 0.22),
+            transparent 30%
+          ),
+          radial-gradient(
+            circle at 50% 85%,
+            rgba(124, 58, 237, 0.22),
+            transparent 32%
+          ),
+          linear-gradient(135deg, #020617 0%, #111827 46%, #1e1b4b 100%);
+      }
+
+      /* Star canvas */
+      #stars {
+        position: fixed;
+        inset: 0;
+        z-index: -2;
+        width: 100%;
+        height: 100%;
+      }
+      .bg-grid {
+        position: fixed;
+        inset: 0;
+        z-index: -1;
+        background-image:
+          linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+        background-size: 48px 48px;
+        mask-image: linear-gradient(to bottom, black, transparent 92%);
+        pointer-events: none;
+      }
+
+      /* Layout */
+      .app {
+        max-width: 1440px;
+        margin: 0 auto;
+        padding: 16px;
+      }
+
+      /* Header */
+      .topbar {
+        display: grid;
+        grid-template-columns: 1.3fr 0.7fr;
+        gap: 14px;
+        align-items: stretch;
+        margin-bottom: 12px;
+      }
+      @media (max-width: 860px) {
+        .topbar {
+          grid-template-columns: 1fr;
+        }
+      }
+      .hero {
+        background: linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.16),
+          rgba(255, 255, 255, 0.07)
+        );
+        border: 1px solid var(--line);
+        border-radius: 28px;
+        box-shadow: var(--shadow);
+        backdrop-filter: blur(16px);
+        padding: 22px;
+        position: relative;
+        overflow: hidden;
+      }
+      .hero::before {
+        content: "";
+        position: absolute;
+        width: 340px;
+        height: 340px;
+        background: radial-gradient(
+          circle,
+          rgba(34, 211, 238, 0.3),
+          transparent 65%
+        );
+        right: -120px;
+        top: -150px;
+        filter: blur(2px);
+      }
+      .hero h1 {
+        font-size: clamp(2rem, 4.5vw, 4.2rem);
+        line-height: 0.92;
+        letter-spacing: -0.06em;
+      }
+      .hero h1 .he-title {
+        display: block;
+        font-family: var(--heb);
+        direction: rtl;
+        letter-spacing: 0;
+        font-size: clamp(2rem, 4vw, 3.8rem);
+        color: #fef3c7;
+        text-shadow: 0 6px 32px rgba(245, 158, 11, 0.3);
+        margin-top: 6px;
+      }
+      .hero p {
+        color: rgba(255, 255, 255, 0.82);
+        max-width: 780px;
+        font-size: 1.02rem;
+        line-height: 1.5;
+        margin: 12px 0 0;
+      }
+
+      /* Profile card */
+      .profile {
+        background: rgba(255, 255, 255, 0.92);
+        color: var(--text);
+        border-radius: 28px;
+        box-shadow: var(--shadow);
+        padding: 18px;
+        display: grid;
+        gap: 10px;
+        align-content: center;
+        border: 1px solid rgba(255, 255, 255, 0.4);
+      }
+      .profile-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+      }
+      .stat {
+        border-radius: 18px;
+        background: linear-gradient(180deg, #fff, #f8fafc);
+        border: 1px solid #e2e8f0;
+        padding: 12px;
+        min-height: 76px;
+      }
+      .stat strong {
+        display: block;
+        font-size: 1.7rem;
+        letter-spacing: -0.04em;
+        color: var(--navy);
+      }
+      .stat span {
+        font-size: 0.75rem;
+        color: var(--muted);
+        text-transform: uppercase;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+      }
+      .progress-bar {
+        width: 100%;
+        height: 12px;
+        background: rgba(148, 163, 184, 0.25);
+        border-radius: 999px;
+        overflow: hidden;
+        border: 1px solid rgba(148, 163, 184, 0.4);
+      }
+      .progress-bar span {
+        display: block;
+        height: 100%;
+        width: 0%;
+        background: linear-gradient(90deg, #22c55e, #06b6d4, #2563eb);
+        border-radius: 999px;
+        transition: width 0.35s ease;
+      }
+
+      /* Inputs */
+      input,
+      select,
+      textarea {
+        font-family: inherit;
+        border: 2px solid #cbd5e1;
+        border-radius: 14px;
+        padding: 10px 12px;
+        font-size: 0.95rem;
+        outline: none;
+        background: #fff;
+        color: var(--text);
+      }
+      input:focus,
+      select:focus,
+      textarea:focus {
+        border-color: var(--blue);
+        box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.15);
+      }
+
+      /* Buttons */
+      .btn {
+        border: 0;
+        border-radius: 14px;
+        padding: 10px 14px;
+        font-weight: 800;
+        cursor: pointer;
+        background: linear-gradient(135deg, var(--blue), var(--cyan));
+        color: #fff;
+        box-shadow: 0 8px 24px rgba(37, 99, 235, 0.2);
+        transition:
+          transform 0.16s ease,
+          filter 0.16s ease;
+        font-size: 0.92rem;
+        min-height: 42px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+      }
+      .btn:hover {
+        transform: translateY(-2px);
+        filter: brightness(1.06);
+      }
+      .btn.sm {
+        padding: 7px 10px;
+        min-height: 34px;
+        border-radius: 11px;
+        font-size: 0.84rem;
+      }
+      .btn.gold {
+        background: linear-gradient(135deg, #f59e0b, #f97316);
+      }
+      .btn.green {
+        background: linear-gradient(135deg, #22c55e, #14b8a6);
+      }
+      .btn.red {
+        background: linear-gradient(135deg, #ef4444, #f97316);
+      }
+      .btn.gray {
+        background: linear-gradient(135deg, #64748b, #334155);
+      }
+      .btn.ghost {
+        background: transparent;
+        border: 2px solid rgba(255, 255, 255, 0.22);
+        color: #fff;
+        box-shadow: none;
+      }
+      .btn-row {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+
+      /* Navigation */
+      .nav-wrap {
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        padding: 8px 0 10px;
+        background: linear-gradient(
+          to bottom,
+          rgba(2, 6, 23, 0.92),
+          rgba(2, 6, 23, 0.5),
+          transparent
+        );
+        backdrop-filter: blur(8px);
+        margin-bottom: 10px;
+      }
+      .tabnav {
+        display: flex;
+        gap: 6px;
+        overflow-x: auto;
+        padding: 4px 2px 8px;
+        scrollbar-color: rgba(255, 255, 255, 0.25) transparent;
+      }
+      .tab {
+        flex: 0 0 auto;
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        background: rgba(255, 255, 255, 0.08);
+        color: rgba(255, 255, 255, 0.88);
+        padding: 10px 12px;
+        border-radius: 16px;
+        font-weight: 800;
+        cursor: pointer;
+        min-width: 100px;
+        transition: 0.18s ease;
+        font-size: 0.88rem;
+      }
+      .tab.active {
+        background: linear-gradient(
+          135deg,
+          rgba(34, 211, 238, 0.92),
+          rgba(37, 99, 235, 0.94)
+        );
+        box-shadow: 0 14px 36px rgba(14, 165, 233, 0.3);
+        color: #fff;
+        border-color: rgba(255, 255, 255, 0.5);
+        transform: translateY(-2px);
+      }
+      .tab .mini {
+        display: block;
+        font-size: 0.7rem;
+        opacity: 0.75;
+        font-weight: 700;
+        margin-top: 2px;
+      }
+
+      /* Screens */
+      .screen {
+        display: none;
+        background: rgba(255, 255, 255, 0.09);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 28px;
+        box-shadow: var(--shadow);
+        backdrop-filter: blur(16px);
+        padding: clamp(14px, 3vw, 24px);
+        min-height: 500px;
+        animation: fadeIn 0.25s ease;
+      }
+      .screen.active {
+        display: block;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(6px);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+
+      /* Panels */
+      .panel {
+        background: var(--paper);
+        color: var(--text);
+        border-radius: var(--radius);
+        border: 1px solid rgba(255, 255, 255, 0.6);
+        box-shadow: 0 10px 36px rgba(2, 6, 23, 0.18);
+        padding: 18px;
+        position: relative;
+        overflow: hidden;
+      }
+      .panel.dark {
+        background: linear-gradient(
+          135deg,
+          rgba(15, 23, 42, 0.95),
+          rgba(30, 41, 59, 0.92)
+        );
+        color: #fff;
+        border-color: rgba(255, 255, 255, 0.16);
+      }
+      .panel h2 {
+        margin: 0 0 8px;
+        font-size: clamp(1.5rem, 2.8vw, 2.2rem);
+        letter-spacing: -0.04em;
+      }
+      .panel h3 {
+        margin: 0 0 6px;
+        font-size: clamp(1.15rem, 2.2vw, 1.6rem);
+        letter-spacing: -0.03em;
+      }
+
+      /* Grid helpers */
+      .grid {
+        display: grid;
+        gap: 14px;
+      }
+      .grid.two {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .grid.three {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+      @media (max-width: 860px) {
+        .grid.two,
+        .grid.three {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      /* Pills */
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        padding: 6px 10px;
+        border-radius: 999px;
+        font-size: 0.78rem;
+        font-weight: 800;
+        background: #e0f2fe;
+        color: #075985;
+        white-space: nowrap;
+        border: 1px solid #bae6fd;
+      }
+      .pill.gold {
+        background: #fef3c7;
+        color: #92400e;
+        border-color: #fde68a;
+      }
+      .pill.green {
+        background: #dcfce7;
+        color: #166534;
+        border-color: #bbf7d0;
+      }
+      .pill.red {
+        background: #fee2e2;
+        color: #991b1b;
+        border-color: #fecaca;
+      }
+      .pill.purple {
+        background: #ede9fe;
+        color: #5b21b6;
+        border-color: #ddd6fe;
+      }
+
+      /* Divider */
+      .divider {
+        height: 1px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(148, 163, 184, 0.4),
+          transparent
+        );
+        margin: 14px 0;
+      }
+
+      /* Hebrew text */
+      .heb {
+        font-family: var(--heb);
+        direction: rtl;
+        unicode-bidi: isolate;
+      }
+      .big-heb {
+        font-family: var(--heb);
+        direction: rtl;
+        unicode-bidi: isolate;
+        font-size: clamp(2.6rem, 7vw, 5.5rem);
+        line-height: 1.1;
+        text-align: center;
+        color: #0f172a;
+        font-weight: 900;
+        margin: 6px 0 10px;
+      }
+      .mid-heb {
+        font-family: var(--heb);
+        direction: rtl;
+        unicode-bidi: isolate;
+        font-size: clamp(1.8rem, 3.8vw, 2.8rem);
+        line-height: 1.15;
+        text-align: center;
+        color: #0f172a;
+        font-weight: 900;
+      }
+      .sm-heb {
+        font-family: var(--heb);
+        direction: rtl;
+        unicode-bidi: isolate;
+        font-size: 1.4rem;
+        line-height: 1.3;
+        font-weight: 800;
+        color: #0f172a;
+      }
+
+      /* Feedback boxes */
+      .fb {
+        margin-top: 10px;
+        padding: 12px 14px;
+        border-radius: 16px;
+        font-weight: 800;
+        line-height: 1.4;
+        font-size: 0.92rem;
+      }
+      .fb.good {
+        background: #dcfce7;
+        color: #14532d;
+        border: 1px solid #86efac;
+        display: block;
+      }
+      .fb.bad {
+        background: #fee2e2;
+        color: #7f1d1d;
+        border: 1px solid #fca5a5;
+        display: block;
+      }
+      .fb.info {
+        background: #dbeafe;
+        color: #1e3a8a;
+        border: 1px solid #93c5fd;
+        display: block;
+      }
+      .fb.warn {
+        background: #fef3c7;
+        color: #92400e;
+        border: 1px solid #fde68a;
+        display: block;
+      }
+      .fb:empty {
+        display: none;
+      }
+
+      /* Support text */
+      .muted {
+        color: #475569;
+        line-height: 1.5;
+        font-size: 0.92rem;
+      }
+
+      /* Toast */
+      .toast {
+        position: fixed;
+        bottom: 24px;
+        left: 50%;
+        transform: translateX(-50%) translateY(120px);
+        background: linear-gradient(135deg, #0f172a, #1e40af);
+        color: #fff;
+        padding: 14px 22px;
+        border-radius: 18px;
+        font-weight: 800;
+        box-shadow: 0 16px 48px rgba(2, 6, 23, 0.4);
+        z-index: 100;
+        transition: transform 0.3s ease;
+        font-size: 0.92rem;
+      }
+      .toast.show {
+        transform: translateX(-50%) translateY(0);
+      }
+
+      /* =========== MISSION MAP =========== */
+      .map-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+        gap: 10px;
+        margin-top: 12px;
+      }
+      .map-node {
+        border: 0;
+        border-radius: 20px;
+        padding: 14px;
+        cursor: pointer;
+        text-align: center;
+        background: linear-gradient(180deg, #fff, #f8fafc);
+        border: 1px solid #e2e8f0;
+        transition: 0.18s ease;
+        min-height: 130px;
+        position: relative;
+      }
+      .map-node:hover:not(:disabled) {
+        transform: translateY(-3px);
+        box-shadow: 0 14px 36px rgba(15, 23, 42, 0.15);
+      }
+      .map-node:disabled {
+        opacity: 0.5;
+        filter: grayscale(0.6);
+        cursor: not-allowed;
+      }
+      .map-node.done {
+        border-color: #22c55e;
+        background: linear-gradient(180deg, #dcfce7, #f0fdf4);
+      }
+      .map-node .icon {
+        font-size: 2rem;
+        display: block;
+        margin-bottom: 6px;
+      }
+      .map-node strong {
+        display: block;
+        font-size: 0.92rem;
+        color: #0f172a;
+      }
+      .map-node .desc {
+        font-size: 0.8rem;
+        color: #475569;
+        margin-top: 4px;
+      }
+
+      /* =========== TIMELINE =========== */
+      .timeline {
+        display: grid;
+        gap: 10px;
+        margin-top: 8px;
+      }
+      .tl-item {
+        display: grid;
+        grid-template-columns: 36px 1fr auto;
+        gap: 10px;
+        align-items: center;
+      }
+      .tl-dot {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--blue), var(--cyan));
+        color: #fff;
+        display: grid;
+        place-items: center;
+        font-weight: 900;
+        font-size: 0.9rem;
+        flex-shrink: 0;
+      }
+
+      /* =========== VOCAB TABLE =========== */
+      .vtable {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.9rem;
+        margin-top: 10px;
+      }
+      .vtable th {
+        background: #f1f5f9;
+        color: #334155;
+        text-transform: uppercase;
+        font-size: 0.72rem;
+        letter-spacing: 0.08em;
+        padding: 10px;
+        text-align: left;
+        border-bottom: 2px solid #e2e8f0;
+        font-weight: 900;
+      }
+      .vtable td {
+        padding: 10px;
+        border-bottom: 1px solid #f1f5f9;
+        vertical-align: middle;
+      }
+      .vtable .he {
+        font-family: var(--heb);
+        direction: rtl;
+        font-size: 1.35rem;
+        font-weight: 800;
+        color: #0f172a;
+      }
+      .vtable tr:hover {
+        background: #f8fafc;
+      }
+
+      /* =========== ARCADE STAGE =========== */
+      .stage {
+        min-height: 320px;
+        display: grid;
+        place-items: center;
+        background:
+          radial-gradient(
+            circle at 20% 20%,
+            rgba(37, 99, 235, 0.1),
+            transparent 26%
+          ),
+          radial-gradient(
+            circle at 82% 70%,
+            rgba(20, 184, 166, 0.12),
+            transparent 30%
+          ),
+          linear-gradient(180deg, #fff, #f8fafc);
+        border-radius: 24px;
+        border: 1px solid #dbeafe;
+        padding: 18px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      /* Answer grid */
+      .ans-grid {
+        display: grid;
+        gap: 10px;
+        width: min(100%, 800px);
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .ans {
+        border: 2px solid #cbd5e1;
+        background: #fff;
+        color: var(--text);
+        border-radius: 18px;
+        padding: 14px;
+        font-weight: 800;
+        cursor: pointer;
+        text-align: center;
+        min-height: 64px;
+        display: grid;
+        place-items: center;
+        transition: 0.15s ease;
+        font-size: 1rem;
+      }
+      .ans.he {
+        font-family: var(--heb);
+        direction: rtl;
+        font-size: 1.65rem;
+      }
+      .ans:hover {
+        transform: translateY(-2px);
+        border-color: var(--blue);
+        box-shadow: 0 8px 24px rgba(37, 99, 235, 0.1);
+      }
+      .ans.correct {
+        border-color: #22c55e;
+        background: #dcfce7;
+        color: #166534;
+        animation: pop 0.35s ease;
+      }
+      .ans.wrong {
+        border-color: #ef4444;
+        background: #fee2e2;
+        color: #991b1b;
+        animation: shake 0.3s ease;
+      }
+      @keyframes pop {
+        0% {
+          transform: scale(1);
+        }
+        45% {
+          transform: scale(1.04);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+      @keyframes shake {
+        0%,
+        100% {
+          transform: translateX(0);
+        }
+        25% {
+          transform: translateX(-5px);
+        }
+        75% {
+          transform: translateX(5px);
+        }
+      }
+
+      /* Chunk / drop zone */
+      .chunk-row,
+      .drop-row {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin: 10px 0;
+        min-height: 54px;
+      }
+      .chunk {
+        border: 2px solid #cbd5e1;
+        border-radius: 16px;
+        background: #fff;
+        padding: 10px 14px;
+        color: #0f172a;
+        font-family: var(--heb);
+        direction: rtl;
+        font-size: 1.65rem;
+        font-weight: 900;
+        cursor: pointer;
+        user-select: none;
+        box-shadow: 0 6px 18px rgba(15, 23, 42, 0.06);
+        transition: 0.14s ease;
+      }
+      .chunk:hover {
+        transform: translateY(-2px);
+        border-color: #2563eb;
+      }
+      .chunk.selected {
+        opacity: 0.4;
+        transform: scale(0.96);
+      }
+      .drop-zone {
+        min-width: 100px;
+        min-height: 52px;
+        border: 2px dashed #94a3b8;
+        border-radius: 16px;
+        background: #f8fafc;
+        color: #94a3b8;
+        display: grid;
+        place-items: center;
+        padding: 6px 10px;
+        font-weight: 800;
+      }
+      .drop-zone.filled {
+        border-style: solid;
+        border-color: #06b6d4;
+        background: #ecfeff;
+        color: #0f172a;
+        font-family: var(--heb);
+        direction: rtl;
+        font-size: 1.5rem;
+      }
+
+      /* =========== SPEED CONTROL =========== */
+      .speed-ctl {
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: 16px;
+        padding: 12px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+      .speed-ctl label {
+        font-weight: 800;
+        font-size: 0.82rem;
+        color: #334155;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .speed-ctl input[type="range"] {
+        flex: 1;
+        min-width: 120px;
+        accent-color: var(--blue);
+      }
+
+      /* =========== CHANT COACH (main trope practice) =========== */
+      .cc-shell {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+      }
+      @media (max-width: 960px) {
+        .cc-shell {
+          grid-template-columns: 1fr;
+        }
+      }
+      .cc-panel {
+        background: var(--paper);
+        color: var(--text);
+        border-radius: var(--radius);
+        border: 1px solid rgba(255, 255, 255, 0.6);
+        box-shadow: 0 10px 36px rgba(2, 6, 23, 0.18);
+        padding: 18px;
+      }
+
+      /* Audio tracks */
+      .track-card {
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: 16px;
+        padding: 14px;
+        margin-bottom: 10px;
+      }
+      .track-card.active {
+        border-color: var(--blue);
+        background: #eff6ff;
+        box-shadow: 0 4px 16px rgba(37, 99, 235, 0.12);
+      }
+      .track-card h4 {
+        margin: 0 0 4px;
+        font-size: 0.95rem;
+        color: #0f172a;
+      }
+      .track-card audio {
+        width: 100%;
+        margin: 6px 0;
+      }
+      .track-card .src {
+        font-size: 0.72rem;
+        color: #94a3b8;
+        margin-top: 4px;
+      }
+
+      /* Loop readout */
+      .loop-readout {
+        display: flex;
+        gap: 14px;
+        font-size: 0.82rem;
+        color: #475569;
+        font-weight: 700;
+        margin-top: 6px;
+      }
+
+      /* NT word grid (Chant Coach right panel) */
+      .nt-verse {
+        margin-bottom: 14px;
+      }
+      .nt-ref {
+        font-size: 0.78rem;
+        font-weight: 800;
+        color: #64748b;
+        margin-bottom: 6px;
+        direction: rtl;
+        text-align: right;
+      }
+      .nt-words {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        direction: rtl;
+        justify-content: flex-start;
+      }
+      .nt-word {
+        border: 0;
+        border-radius: 14px;
+        padding: 8px 12px;
+        cursor: pointer;
+        background: #fff;
+        border: 2px solid #e2e8f0;
+        transition: 0.14s ease;
+        text-align: center;
+        min-width: 60px;
+      }
+      .nt-word .wh {
+        font-family: var(--heb);
+        font-size: 1.3rem;
+        font-weight: 800;
+        color: #0f172a;
+        display: block;
+        direction: rtl;
+      }
+      .nt-word .wn {
+        font-size: 0.68rem;
+        color: #94a3b8;
+        display: block;
+      }
+      .nt-word:hover {
+        border-color: var(--blue);
+        transform: translateY(-1px);
+      }
+      .nt-word.selected {
+        border-color: var(--blue);
+        background: #eff6ff;
+        box-shadow: 0 4px 12px rgba(37, 99, 235, 0.1);
+      }
+      .nt-word.active {
+        border-color: var(--gold);
+        background: #fef3c7;
+      }
+      .nt-word.read {
+        border-color: #22c55e;
+        background: #f0fdf4;
+      }
+      .nt-bigline {
+        font-family: var(--heb);
+        direction: rtl;
+        font-size: clamp(1.8rem, 4vw, 3rem);
+        font-weight: 900;
+        color: #0f172a;
+        text-align: center;
+        padding: 14px 8px;
+        background: #f8fafc;
+        border-radius: 16px;
+        border: 1px solid #e2e8f0;
+        margin: 10px 0;
+        line-height: 1.3;
+      }
+      .nt-meter {
+        width: 100%;
+        height: 10px;
+        background: rgba(148, 163, 184, 0.2);
+        border-radius: 999px;
+        overflow: hidden;
+        margin: 8px 0;
+      }
+      .nt-meter span {
+        display: block;
+        height: 100%;
+        width: 0%;
+        background: linear-gradient(90deg, #22c55e, #06b6d4);
+        border-radius: 999px;
+        transition: width 0.3s ease;
+      }
+      .nt-hidden .nt-words,
+      .nt-hidden .nt-bigline {
+        filter: blur(18px);
+        user-select: none;
+      }
+
+      /* Reading tools cards */
+      .rt-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 10px;
+        margin-top: 12px;
+      }
+      .rt-card {
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: 16px;
+        padding: 14px;
+        text-align: center;
+      }
+      .rt-card h4 {
+        margin: 0 0 4px;
+        font-size: 0.88rem;
+        color: #0f172a;
+      }
+      .rt-card p {
+        font-size: 0.82rem;
+        color: #475569;
+        margin: 0 0 8px;
+      }
+
+      /* =========== TROPE LEARNING =========== */
+      .tl-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        gap: 10px;
+        margin-top: 12px;
+      }
+      .tl-card {
+        background: #fff;
+        border: 2px solid #e2e8f0;
+        border-radius: 18px;
+        padding: 16px;
+        text-align: center;
+        transition: 0.14s ease;
+        cursor: pointer;
+      }
+      .tl-card:hover {
+        border-color: var(--blue);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(37, 99, 235, 0.1);
+      }
+      .tl-card.active {
+        border-color: var(--gold);
+        background: #fffbeb;
+      }
+      .tl-mark {
+        font-size: 2.8rem;
+        font-family: var(--heb);
+        color: #0f172a;
+        margin-bottom: 4px;
+      }
+      .tl-card h4 {
+        margin: 0 0 2px;
+        font-size: 1rem;
+        color: #0f172a;
+      }
+      .tl-hename {
+        font-family: var(--heb);
+        direction: rtl;
+        font-size: 1.1rem;
+        color: #475569;
+      }
+      .tl-action {
+        font-size: 0.85rem;
+        font-weight: 800;
+        color: var(--blue);
+        margin: 4px 0;
+      }
+      .tl-cue {
+        font-size: 0.82rem;
+        color: #64748b;
+        margin: 4px 0;
+      }
+      .tl-sample {
+        font-family: var(--heb);
+        direction: rtl;
+        font-size: 1.2rem;
+        font-weight: 800;
+        color: #0f172a;
+        background: #f8fafc;
+        border-radius: 10px;
+        padding: 4px 10px;
+        display: inline-block;
+        margin: 4px 0;
+      }
+
+      /* Trope practice line */
+      .tl-line {
+        font-family: var(--heb);
+        direction: rtl;
+        font-size: clamp(1.6rem, 4vw, 2.6rem);
+        font-weight: 900;
+        color: #0f172a;
+        text-align: center;
+        padding: 14px;
+        background: #f8fafc;
+        border-radius: 16px;
+        border: 1px solid #e2e8f0;
+        margin: 10px 0;
+      }
+      .tl-word-strip {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        justify-content: center;
+        margin: 10px 0;
+      }
+      .tl-word {
+        border: 2px solid #e2e8f0;
+        border-radius: 14px;
+        padding: 10px 14px;
+        cursor: pointer;
+        text-align: center;
+        background: #fff;
+        transition: 0.14s ease;
+      }
+      .tl-word:hover {
+        border-color: var(--blue);
+        transform: translateY(-2px);
+      }
+      .tl-word.active {
+        border-color: var(--gold);
+        background: #fef3c7;
+      }
+      .tl-word .whe {
+        font-family: var(--heb);
+        direction: rtl;
+        font-size: 1.4rem;
+        font-weight: 800;
+        color: #0f172a;
+        display: block;
+      }
+      .tl-word .wlbl {
+        font-size: 0.75rem;
+        color: #475569;
+        font-weight: 700;
+        display: block;
+      }
+      .tl-check-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+        max-width: 500px;
+        margin: 10px auto;
+      }
+      .tl-choice {
+        border: 2px solid #e2e8f0;
+        border-radius: 14px;
+        padding: 12px;
+        cursor: pointer;
+        background: #fff;
+        font-weight: 800;
+        font-size: 0.9rem;
+        text-align: center;
+        transition: 0.14s ease;
+      }
+      .tl-choice:hover {
+        border-color: var(--blue);
+        transform: translateY(-1px);
+      }
+      .tl-choice.correct {
+        border-color: #22c55e;
+        background: #dcfce7;
+      }
+      .tl-choice.wrong {
+        border-color: #ef4444;
+        background: #fee2e2;
+      }
+
+      /* Inline audio panel */
+      .audio-panel {
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: 16px;
+        padding: 14px;
+        margin: 10px 0;
+      }
+      .audio-panel audio {
+        width: 100%;
+        margin: 6px 0;
+      }
+
+      /* =========== READING DRILL =========== */
+      .rd-text {
+        font-family: var(--heb);
+        direction: rtl;
+        font-size: clamp(2.2rem, 6vw, 4rem);
+        font-weight: 900;
+        color: #0f172a;
+        text-align: center;
+        padding: 16px;
+        margin: 10px 0;
+        background: #f8fafc;
+        border-radius: 18px;
+        border: 1px solid #e2e8f0;
+      }
+      .rd-strip {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        justify-content: center;
+        margin: 10px 0;
+      }
+      .rd-word {
+        border: 2px solid #e2e8f0;
+        border-radius: 14px;
+        padding: 10px 16px;
+        cursor: pointer;
+        text-align: center;
+        background: #fff;
+        transition: 0.14s ease;
+      }
+      .rd-word:hover {
+        border-color: var(--blue);
+        transform: translateY(-2px);
+      }
+      .rd-word.active {
+        border-color: var(--gold);
+        background: #fef3c7;
+      }
+      .rd-word.done {
+        border-color: #22c55e;
+        background: #f0fdf4;
+      }
+      .rd-word .rh {
+        font-family: var(--heb);
+        direction: rtl;
+        font-size: 1.5rem;
+        font-weight: 800;
+        color: #0f172a;
+        display: block;
+      }
+      .rd-word .rl {
+        font-size: 0.72rem;
+        color: #94a3b8;
+        font-weight: 700;
+        display: block;
+      }
+      .rd-hidden .rd-text {
+        filter: blur(16px);
+        user-select: none;
+      }
+      .rd-choice-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+        max-width: 600px;
+        margin: 10px auto;
+      }
+      .rd-choice {
+        border: 2px solid #e2e8f0;
+        border-radius: 14px;
+        padding: 14px;
+        cursor: pointer;
+        background: #fff;
+        font-family: var(--heb);
+        direction: rtl;
+        font-size: 1.5rem;
+        font-weight: 800;
+        text-align: center;
+        transition: 0.14s ease;
+      }
+      .rd-choice:hover {
+        border-color: var(--blue);
+      }
+      .rd-choice.correct {
+        border-color: #22c55e;
+        background: #dcfce7;
+      }
+      .rd-choice.wrong {
+        border-color: #ef4444;
+        background: #fee2e2;
+      }
+
+      /* =========== READ ALOUD LAB =========== */
+      .mic-orb {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #2563eb, #06b6d4);
+        display: grid;
+        place-items: center;
+        margin: 12px auto;
+        cursor: pointer;
+        font-size: 2rem;
+        box-shadow: 0 8px 30px rgba(37, 99, 235, 0.25);
+        transition: 0.2s ease;
+      }
+      .mic-orb:hover {
+        transform: scale(1.08);
+      }
+      .mic-orb.listening {
+        animation: pulse 1.2s ease infinite;
+      }
+      @keyframes pulse {
+        0%,
+        100% {
+          box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.3);
+        }
+        50% {
+          box-shadow: 0 0 0 18px rgba(37, 99, 235, 0);
+        }
+      }
+
+      /* =========== BOSS =========== */
+      .boss-arena {
+        background: linear-gradient(
+          135deg,
+          rgba(15, 23, 42, 0.96),
+          rgba(30, 10, 60, 0.94)
+        );
+        color: #fff;
+        border-radius: 28px;
+        padding: 24px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+      }
+      .boss-svg {
+        display: block;
+        margin: 10px auto;
+        width: 180px;
+        height: 180px;
+      }
+      .healthbar {
+        width: min(100%, 500px);
+        height: 18px;
+        background: rgba(255, 255, 255, 0.15);
+        border-radius: 999px;
+        overflow: hidden;
+        margin: 10px auto;
+        border: 1px solid rgba(255, 255, 255, 0.25);
+      }
+      .healthbar span {
+        display: block;
+        height: 100%;
+        width: 100%;
+        background: linear-gradient(90deg, #ef4444, #f59e0b);
+        border-radius: 999px;
+        transition: width 0.4s ease;
+      }
+      .laser {
+        position: absolute;
+        height: 3px;
+        width: 100%;
+        background: linear-gradient(90deg, transparent, #ef4444, transparent);
+        animation: laserSweep 4s linear infinite;
+        opacity: 0.4;
+      }
+      @keyframes laserSweep {
+        0% {
+          transform: translateX(-100%);
+        }
+        100% {
+          transform: translateX(100%);
+        }
+      }
+
+      /* =========== BADGES =========== */
+      .badge-wall {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 8px;
+      }
+      .badge {
+        border-radius: 14px;
+        padding: 10px;
+        min-width: 80px;
+        text-align: center;
+        background: #f1f5f9;
+        border: 1px solid #e2e8f0;
+        font-size: 0.78rem;
+        font-weight: 700;
+        color: #475569;
+      }
+      .badge.earned {
+        background: linear-gradient(135deg, #fef3c7, #fde68a);
+        border-color: #f59e0b;
+        color: #92400e;
+      }
+      .badge .bi {
+        font-size: 1.6rem;
+        display: block;
+        margin-bottom: 2px;
+      }
+
+      /* =========== TEACHER NOTE =========== */
+      .teacher-note {
+        background: #fffbeb;
+        border: 1px solid #fde68a;
+        border-radius: 14px;
+        padding: 12px;
+        font-size: 0.88rem;
+        color: #92400e;
+        font-weight: 700;
+        line-height: 1.4;
+      }
+
+      /* =========== CONFETTI =========== */
+      .confetti-particle {
+        position: fixed;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        z-index: 200;
+        pointer-events: none;
+      }
+
+      /* =========== RECORDING DOT =========== */
+      .rec-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: #ef4444;
+        display: inline-block;
+        animation: blink 1s ease infinite;
+        margin-right: 6px;
+        vertical-align: middle;
+      }
+      @keyframes blink {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.3;
+        }
+      }
+
+      /* =========== PRINT =========== */
+      .printable {
+        display: none;
+      }
+      @media print {
+        .app,
+        .toast,
+        .nav-wrap,
+        #stars,
+        .bg-grid {
+          display: none !important;
+        }
+        .printable {
+          display: block;
+          color: #000;
+          padding: 20px;
+        }
+        .printable table {
+          width: 100%;
+          border-collapse: collapse;
+        }
+        .printable th,
+        .printable td {
+          border: 1px solid #000;
+          padding: 8px;
+          text-align: left;
+        }
+      }
+
+      /* =========== MINI PHRASE CARD =========== */
+      .phrase-card {
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: 14px;
+        padding: 12px;
+        margin-bottom: 8px;
+      }
+      .phrase-card .ph {
+        font-family: var(--heb);
+        direction: rtl;
+        font-size: 1.3rem;
+        font-weight: 800;
+        color: #0f172a;
+      }
+      .phrase-card .pe {
+        font-size: 0.88rem;
+        color: #475569;
+        margin-top: 2px;
+      }
+
+      /* =========== MISSION CARD =========== */
+      .mission-card {
+        padding: 16px;
+        border-radius: 20px;
+        background: linear-gradient(180deg, #fff, #f8fafc);
+        border: 1px solid #e2e8f0;
+        cursor: pointer;
+        transition: 0.18s ease;
+        min-height: 140px;
+        position: relative;
+      }
+      .mission-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 14px 36px rgba(15, 23, 42, 0.14);
+      }
+      .mission-card .icon {
+        font-size: 2rem;
+        margin-bottom: 6px;
+        display: block;
+      }
+      .mission-card h4 {
+        margin: 0 0 4px;
+        font-size: 1rem;
+        color: #0f172a;
+      }
+      .mission-card p {
+        margin: 0;
+        color: #475569;
+        font-size: 0.88rem;
+        line-height: 1.4;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="stars" width="2400" height="1478" style="width: 1200px; height: 739px;"></canvas>
+    <div class="bg-grid"></div>
+
+    <div class="app">
+      <header class="topbar">
+        <section class="hero">
+          <div class="pill gold">Bar Mitzvah Torah Reading Trainer</div>
+          <h1>Ki Teitzei<span class="he-title">כִּי־תֵצֵא</span></h1>
+          <p>
+            Read Hebrew words and phrases from Parashat Ki Teitzei accurately.
+            Learn trope marks. Practice chanting with real audio. Build
+            confidence to read Torah.
+          </p>
+          <div class="btn-row" style="margin-top: 14px">
+            <button class="btn gold" onclick="go('start')">Start</button>
+            <button class="btn green" onclick="dailyDrill()">
+              5-Min Drill
+            </button>
+            <button class="btn gray" onclick="window.print()">
+              Print Sheet
+            </button>
+          </div>
+        </section>
+        <aside class="profile">
+          <div class="btn-row">
+            <input id="playerName" placeholder="Player name" aria-label="Player name" style="">
+            <button class="btn sm" onclick="saveName()">Save</button>
+          </div>
+          <div class="profile-grid">
+            <div class="stat">
+              <span>XP</span><strong id="xpStat">0</strong>
+            </div>
+            <div class="stat">
+              <span>Level</span><strong id="levelStat">1</strong>
+            </div>
+            <div class="stat">
+              <span>Accuracy</span><strong id="accStat">0%</strong>
+            </div>
+            <div class="stat">
+              <span>Streak</span><strong id="streakStat">0</strong>
+            </div>
+          </div>
+          <div class="progress-bar"><span id="globalProgress" style="width: 0%;"></span></div>
+          <p class="muted" style="margin: 6px 0 0">
+            <strong id="rankName">Rookie Reader</strong>
+          </p>
+        </aside>
+      </header>
+
+      <nav class="nav-wrap" aria-label="Tabs">
+        <div class="tabnav" id="tabnav">
+          <button class="tab active" data-tab="start">
+            Start<span class="mini">quest map</span>
+          </button>
+          <button class="tab" data-tab="vocab">
+            Vocabulary<span class="mini">learn words</span>
+          </button>
+          <button class="tab" data-tab="drill">
+            Reading Drill<span class="mini">hear + echo</span>
+          </button>
+          <button class="tab" data-tab="read">
+            Read Aloud<span class="mini">voice check</span>
+          </button>
+          <button class="tab" data-tab="trope">
+            Trope Learn<span class="mini">marks + cues</span>
+          </button>
+          <button class="tab" data-tab="chant">
+            Chant Coach<span class="mini">real audio</span>
+          </button>
+          <button class="tab" data-tab="runner">
+            Pasuk Runner<span class="mini">phrase order</span>
+          </button>
+          <button class="tab" data-tab="mitzvah">
+            Mitzvah Quest<span class="mini">themes</span>
+          </button>
+          <button class="tab" data-tab="boss">
+            Boss Battle<span class="mini">mixed review</span>
+          </button>
+          <button class="tab" data-tab="progress">
+            Progress<span class="mini">report</span>
+          </button>
+        </div>
+      </nav>
+
+      <main>
+        <!-- ====== START ====== -->
+        <section id="start" class="screen active">
+          <div class="grid two">
+            <div class="panel">
+              <h2>Mission Map</h2>
+              <p class="muted">
+                The goal: read Hebrew words and phrases accurately, connect them
+                to meaning, and chant with trope. Complete each station to build
+                skill.
+              </p>
+              <div class="map-grid" id="missionMap"><button class="map-node done" onclick="go('vocab')">
+      <span class="icon">⚡</span><strong>Vocabulary</strong>
+      <div class="desc">Learn key words</div></button><button class="map-node " onclick="go('drill')">
+      <span class="icon">🎯</span><strong>Reading Drill</strong>
+      <div class="desc">Hear, echo, read</div></button><button class="map-node " disabled="" onclick="go('read')">
+      <span class="icon">🔒</span><strong>Read Aloud</strong>
+      <div class="desc">Unlock at 30 XP</div></button><button class="map-node " disabled="" onclick="go('trope')">
+      <span class="icon">🔒</span><strong>Trope Learn</strong>
+      <div class="desc">Unlock at 30 XP</div></button><button class="map-node " disabled="" onclick="go('chant')">
+      <span class="icon">🔒</span><strong>Chant Coach</strong>
+      <div class="desc">Unlock at 40 XP</div></button><button class="map-node " disabled="" onclick="go('runner')">
+      <span class="icon">🔒</span><strong>Pasuk Runner</strong>
+      <div class="desc">Unlock at 50 XP</div></button><button class="map-node " disabled="" onclick="go('mitzvah')">
+      <span class="icon">🔒</span><strong>Mitzvah Quest</strong>
+      <div class="desc">Unlock at 60 XP</div></button><button class="map-node " disabled="" onclick="go('boss')">
+      <span class="icon">🔒</span><strong>Boss Battle</strong>
+      <div class="desc">Unlock at 150 XP</div></button></div>
+            </div>
+            <div class="panel dark">
+              <h2>How This Works</h2>
+              <div class="timeline">
+                <div class="tl-item">
+                  <div class="tl-dot">1</div>
+                  <div>
+                    <strong>Learn vocabulary.</strong><br><span style="opacity: 0.8">Read key words with niqqud, roots, and meaning.</span>
+                  </div>
+                  <span class="pill">Vocab</span>
+                </div>
+                <div class="tl-item">
+                  <div class="tl-dot">2</div>
+                  <div>
+                    <strong>Reading drill.</strong><br><span style="opacity: 0.8">Hear, echo, chunk, and read Hebrew without help.</span>
+                  </div>
+                  <span class="pill green">Drill</span>
+                </div>
+                <div class="tl-item">
+                  <div class="tl-dot">3</div>
+                  <div>
+                    <strong>Learn trope marks.</strong><br><span style="opacity: 0.8">See each mark, hear what the voice does, practice.</span>
+                  </div>
+                  <span class="pill purple">Trope</span>
+                </div>
+                <div class="tl-item">
+                  <div class="tl-dot">4</div>
+                  <div>
+                    <strong>Chant with real audio.</strong><br><span style="opacity: 0.8">Loop a real Torah recording, echo, record, compare.</span>
+                  </div>
+                  <span class="pill gold">Chant</span>
+                </div>
+                <div class="tl-item">
+                  <div class="tl-dot">5</div>
+                  <div>
+                    <strong>Boss battle.</strong><br><span style="opacity: 0.8">Mixed review of reading, meaning, and trope.</span>
+                  </div>
+                  <span class="pill red">Boss</span>
+                </div>
+              </div>
+              <div class="teacher-note" style="margin-top: 12px">
+                <strong>Best routine:</strong> 5 min vocab, 5 min drill, 10 min
+                chant coach with real audio. Aim for 85%+ accuracy before moving
+                up.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ====== VOCABULARY ====== -->
+        <section id="vocab" class="screen">
+          <div class="panel">
+            <div class="btn-row" style="
+                justify-content: space-between;
+                flex-wrap: wrap;
+                margin-bottom: 10px;
+              ">
+              <h2>Hebrew Vocabulary</h2>
+              <div class="btn-row">
+                <select id="vocabLevel" onchange="renderVocab()">
+                  <option value="1">Level 1: Core Words</option>
+                  <option value="2">Level 2: Action Words</option>
+                  <option value="3">Level 3: Phrases</option>
+                  <option value="4">Level 4: Challenge</option>
+                </select>
+                <button class="btn sm green" onclick="speakVocabLevel()">
+                  Hear Level
+                </button>
+              </div>
+            </div>
+            <p class="muted">
+              Read each word right-to-left. Tap "Practice" to open a mini
+              reading lab. Typed check ignores vowels.
+            </p>
+            <div id="vocabTableWrap"><table class="vtable"><thead><tr><th></th><th>Hebrew</th><th>Chunks</th><th>Meaning</th><th>Root</th><th></th></tr></thead>
+  <tbody><tr><td>🚶</td><td class="he">כִּי־תֵצֵא</td><td class="he" style="font-size:1.15rem">כִּי | תֵצֵא</td>
+  <td>when you go out</td><td><strong>י-צ-א</strong><br><span class="muted">The parashah begins with 'when you go out.'</span></td>
+  <td><button class="btn sm" onclick="openFocus(0)">Practice</button></td></tr><tr><td>🤝</td><td class="he">אָחִיךָ</td><td class="he" style="font-size:1.15rem">אָ | חִי | ךָ</td>
+  <td>your brother / fellow person</td><td><strong>א-ח</strong><br><span class="muted">Points to responsibility for another person.</span></td>
+  <td><button class="btn sm" onclick="openFocus(1)">Practice</button></td></tr><tr><td>🪺</td><td class="he">קַן צִפּוֹר</td><td class="he" style="font-size:1.15rem">קַן | צִפּוֹר</td>
+  <td>a bird's nest</td><td><strong>צ-פ-ר</strong><br><span class="muted">Connected to kindness toward animals.</span></td>
+  <td><button class="btn sm" onclick="openFocus(2)">Practice</button></td></tr><tr><td>🏠</td><td class="he">מַעֲקֶה</td><td class="he" style="font-size:1.15rem">מַ | עֲ | קֶה</td>
+  <td>a guardrail / fence</td><td><strong>ע-ק</strong><br><span class="muted">A safety mitzvah: prevent danger before it happens.</span></td>
+  <td><button class="btn sm" onclick="openFocus(3)">Practice</button></td></tr><tr><td>🧵</td><td class="he">צִיצִת</td><td class="he" style="font-size:1.15rem">צִי | צִת</td>
+  <td>tzitzit / fringes</td><td><strong>צ-ו-ץ</strong><br><span class="muted">A visible reminder connected to mitzvot.</span></td>
+  <td><button class="btn sm" onclick="openFocus(4)">Practice</button></td></tr></tbody></table></div>
+          </div>
+          <div class="grid two" style="margin-top: 14px">
+            <div class="panel" id="focusPractice"><h3>Focus Practice</h3><span class="pill gold">🚶 when you go out</span>
+  <div class="big-heb" style="margin:12px 0">כִּי־תֵצֵא</div>
+  <p class="muted" style="text-align:center"><strong>Chunks:</strong> <span class="sm-heb">כִּי | תֵצֵא</span></p>
+  <div class="btn-row" style="justify-content:center"><button class="btn sm green" onclick="speakText('כִּי־תֵצֵא')">Hear It</button>
+  <button class="btn sm gray" onclick="$('focusFb').className='fb info';$('focusFb').innerHTML='&lt;strong&gt;Tip:&lt;/strong&gt; The parashah begins with \'when you go out.\''">Tip</button></div>
+  <div class="divider"></div>
+  <label style="font-weight:700"><strong>Type without vowels:</strong></label>
+  <div class="btn-row"><input id="typeWord" placeholder="כיתצא"><button class="btn gold" onclick="checkType(0)">Check</button></div>
+  <div id="focusFb" class="fb"></div></div>
+            <div class="panel">
+              <h3>Reading Strategy</h3>
+              <div class="timeline">
+                <div class="tl-item">
+                  <div class="tl-dot" style="font-family: var(--heb)">א</div>
+                  <div>
+                    <strong>Find the root.</strong><br><span class="muted">Example: ש-ל-ח appears in שַׁלֵּחַ / תְּשַׁלַּח.</span>
+                  </div>
+                </div>
+                <div class="tl-item">
+                  <div class="tl-dot" style="font-family: var(--heb)">ב</div>
+                  <div>
+                    <strong>Cover and reveal.</strong><br><span class="muted">Read chunk by chunk, then the full word.</span>
+                  </div>
+                </div>
+                <div class="tl-item">
+                  <div class="tl-dot" style="font-family: var(--heb)">ג</div>
+                  <div>
+                    <strong>Connect to meaning.</strong><br><span class="muted">Say the Hebrew, then English.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ====== READING DRILL ====== -->
+        <section id="drill" class="screen">
+          <div id="drillRoot"><div class="panel"><div class="btn-row" style="justify-content:space-between;flex-wrap:wrap;margin-bottom:8px">
+  <h2>Reading Drill</h2><div class="btn-row">
+  <button class="btn sm " onclick="rdMode='word';rdCur=null;renderDrill()">Words</button>
+  <button class="btn sm gray" onclick="rdMode='phrase';rdCur=null;renderDrill()">Phrases</button>
+  <button class="btn sm gray" onclick="rdMode='mixed';rdCur=null;renderDrill()">Mixed</button></div></div>
+  <div class="speed-ctl"><label>Speed <span data-sr="">72%</span></label>
+  <input type="range" min=".45" max="1" step=".05" value="0.72" oninput="setSpeechRate(this.value)" style=""></div>
+  <div class="rd-text">כִּי־תֵצֵא</div>
+  <div class="rd-strip"><button class="rd-word" data-i="0" onclick="rdPart(0)"><span class="rh">כִּי</span><span class="rl">chunk 1</span></button><button class="rd-word" data-i="1" onclick="rdPart(1)"><span class="rh">תֵצֵא</span><span class="rl">chunk 2</span></button></div>
+  <div class="btn-row" style="justify-content:center">
+  <button class="btn green" onclick="rdFull()">Hear Full</button>
+  <button class="btn gold" onclick="rdChunks()">Play Chunks</button>
+  <button class="btn gray" onclick="rdHidden=!rdHidden;renderDrill()">Hide/Reveal</button>
+  <button class="btn sm" onclick="rdListen()">Listening Check</button>
+  <button class="btn sm gray" onclick="rdCur=null;renderDrill()">New</button>
+  <button class="btn sm green" onclick="award(16,true,'drill','Read it');addBadge('drill');toast('Done!');rdCur=null;renderDrill()">I Read It</button></div>
+  <div id="rdCheckBox"></div><div id="rdFb" class="fb info">Press "Play Chunks." Echo each chunk, then read the full Hebrew.</div></div>
+  <div class="grid two" style="margin-top:14px"><div class="panel"><h3>Simple Routine</h3>
+  <div class="timeline"><div class="tl-item"><div class="tl-dot">1</div><div><strong>Hear</strong> at slow speed</div></div>
+  <div class="tl-item"><div class="tl-dot">2</div><div><strong>Echo</strong> the exact Hebrew</div></div>
+  <div class="tl-item"><div class="tl-dot">3</div><div><strong>Point</strong> to each chunk while reading</div></div>
+  <div class="tl-item"><div class="tl-dot">4</div><div><strong>Read</strong> without audio help</div></div></div></div>
+  <div class="panel"><h3>Reading Tips</h3><p class="muted">Always start right-to-left. Find the root letters. Break into chunks. Don't guess from English — read the Hebrew.</p>
+  <div class="teacher-note" style="margin-top:8px"><strong>Parent check:</strong> Can he read it without mumbling? Does he start from the correct side? Can he say the meaning after?</div></div></div></div>
+        </section>
+
+        <!-- ====== READ ALOUD ====== -->
+        <section id="read" class="screen">
+          <div class="panel">
+            <div class="btn-row" style="
+                justify-content: space-between;
+                flex-wrap: wrap;
+                margin-bottom: 8px;
+              ">
+              <h2>Read Aloud Lab</h2>
+              <div class="btn-row">
+                <select id="readLevel" onchange="newRead()">
+                  <option value="word">Words</option>
+                  <option value="phrase">Phrases</option>
+                  <option value="pasuk">Pasuk Chunks</option>
+                </select>
+                <button class="btn sm gold" onclick="newRead()">
+                  New Prompt
+                </button>
+              </div>
+            </div>
+            <div class="stage">
+              <div style="width: 100%">
+                <div class="pill gold">Read this aloud</div>
+                <div id="readPrompt" class="big-heb">תְּשִׁיבֵם</div>
+                <div id="readMeaning" class="muted" style="text-align: center"><strong>Meaning:</strong> you shall return them<br><strong>Chunks:</strong> <span class="sm-heb">תְּ | שִׁי | בֵם</span></div>
+                <div class="btn-row" style="justify-content: center; margin-top: 10px">
+                  <button class="btn sm green" onclick="speakText(curRead.text)">
+                    Hear It
+                  </button>
+                  <button class="btn sm gray" onclick="showReadProof()">
+                    No Mic? Prove It
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div style="text-align: center; margin-top: 12px">
+              <h3>Voice Check</h3>
+              <div class="mic-orb" id="micOrb" onclick="startListening()">
+                🎙
+              </div>
+              <p class="muted">
+                Tap the microphone, read clearly, then the app compares your
+                Hebrew to the target.
+              </p>
+              <div id="speechResult" class="fb info">Tap the mic and read.</div>
+            </div>
+            <div id="readProofBox" style="margin-top: 14px"></div>
+          </div>
+        </section>
+
+        <!-- ====== TROPE LEARN ====== -->
+        <section id="trope" class="screen">
+          <div id="tropeLearnRoot"><div class="panel"><h2>Trope Learning</h2>
+  <p class="muted" style="margin-bottom:10px">Learn what each trope mark tells your voice to do. See the mark, hear a real chanting sample, practice the action. Then go to Chant Coach for full practice.</p>
+  <div class="speed-ctl" style="margin-bottom:12px"><label>Sample Speed <span data-tr="">65%</span></label>
+  <input type="range" min=".45" max="1" step=".05" value="0.65" oninput="tropeRate=Number(this.value);localStorage.setItem('kt_tropeRate',String(tropeRate));document.querySelectorAll('[data-tr]').forEach(e=&gt;e.textContent=Math.round(tropeRate*100)+'%')" style=""></div>
+  <div class="audio-panel"><div id="tlSampleTitle"><strong>Sample player:</strong> Press "Hear Sample" on any card below.</div>
+  <audio id="tlSampleAudio" controls="" preload="none"></audio></div>
+  <div class="tl-grid" id="tlCards"><div class="tl-card" id="tlC_mercha">
+  <div class="tl-mark">◌֥</div>
+  <h4>Mercha</h4><div class="tl-hename">מֵרְכָא</div>
+  <div class="tl-action">➡️ Connect forward</div>
+  <div class="tl-sample">תֵצֵ֥א</div>
+  <div class="tl-cue">Carry the word forward into the next word.</div>
+  <div class="btn-row" style="justify-content:center;margin-top:6px">
+  <button class="btn sm green" onclick="tlPlayReal('mercha')">Hear Sample</button>
+  <button class="btn sm gold" onclick="tlPlayReal('mercha',true)">Slow</button>
+  <button class="btn sm gray" onclick="playTrope(['mercha'])">Tone Guide</button></div>
+  <div style="font-size:.72rem;color:#94a3b8;margin-top:4px">Source: Mercha-Tipcha-Etnahta</div></div><div class="tl-card" id="tlC_tipcha">
+  <div class="tl-mark">◌֖</div>
+  <h4>Tipcha</h4><div class="tl-hename">טִפְּחָא</div>
+  <div class="tl-action">↘️ Lean down</div>
+  <div class="tl-sample">לַמִּלְחָמָ֖ה</div>
+  <div class="tl-cue">Lean down toward the next stopping point.</div>
+  <div class="btn-row" style="justify-content:center;margin-top:6px">
+  <button class="btn sm green" onclick="tlPlayReal('tipcha')">Hear Sample</button>
+  <button class="btn sm gold" onclick="tlPlayReal('tipcha',true)">Slow</button>
+  <button class="btn sm gray" onclick="playTrope(['tipcha'])">Tone Guide</button></div>
+  <div style="font-size:.72rem;color:#94a3b8;margin-top:4px">Source: Tipcha-Etnahta</div></div><div class="tl-card" id="tlC_etnahta">
+  <div class="tl-mark">◌֑</div>
+  <h4>Etnahta</h4><div class="tl-hename">אֶתְנַחְתָּא</div>
+  <div class="tl-action">⏸️ Middle pause</div>
+  <div class="tl-sample">אֹֽיְבֶ֑יךָ</div>
+  <div class="tl-cue">A major pause in the middle of the pasuk, like a semicolon.</div>
+  <div class="btn-row" style="justify-content:center;margin-top:6px">
+  <button class="btn sm green" onclick="tlPlayReal('etnahta')">Hear Sample</button>
+  <button class="btn sm gold" onclick="tlPlayReal('etnahta',true)">Slow</button>
+  <button class="btn sm gray" onclick="playTrope(['etnahta'])">Tone Guide</button></div>
+  <div style="font-size:.72rem;color:#94a3b8;margin-top:4px">Source: Mercha-Tipcha-Munach-Etnahta</div></div><div class="tl-card" id="tlC_sofpasuk">
+  <div class="tl-mark">׃</div>
+  <h4>Sof Pasuk</h4><div class="tl-hename">סוֹף פָּסוּק</div>
+  <div class="tl-action">🏁 Final stop</div>
+  <div class="tl-sample">שִׁבְיֽוֹ׃</div>
+  <div class="tl-cue">Finish the verse. Land clearly.</div>
+  <div class="btn-row" style="justify-content:center;margin-top:6px">
+  <button class="btn sm green" onclick="tlPlayReal('sofpasuk')">Hear Sample</button>
+  <button class="btn sm gold" onclick="tlPlayReal('sofpasuk',true)">Slow</button>
+  <button class="btn sm gray" onclick="playTrope(['sofpasuk'])">Tone Guide</button></div>
+  <div style="font-size:.72rem;color:#94a3b8;margin-top:4px">Source: Mercha-Tipcha-Sof Pasuk</div></div><div class="tl-card" id="tlC_munach">
+  <div class="tl-mark">◌֣</div>
+  <h4>Munach</h4><div class="tl-hename">מֻנָּח</div>
+  <div class="tl-action">— Resting connector</div>
+  <div class="tl-sample">מַשַּׁ֣את</div>
+  <div class="tl-cue">A settled note that prepares the next trope.</div>
+  <div class="btn-row" style="justify-content:center;margin-top:6px">
+  <button class="btn sm green" onclick="tlPlayReal('munach')">Hear Sample</button>
+  <button class="btn sm gold" onclick="tlPlayReal('munach',true)">Slow</button>
+  <button class="btn sm gray" onclick="playTrope(['munach'])">Tone Guide</button></div>
+  <div style="font-size:.72rem;color:#94a3b8;margin-top:4px">Source: Munach-Katon</div></div><div class="tl-card" id="tlC_zakefkaton">
+  <div class="tl-mark">◌֔</div>
+  <h4>Zakef Katon</h4><div class="tl-hename">זָקֵף קָטֹן</div>
+  <div class="tl-action">⬆️ Small stop</div>
+  <div class="tl-sample">ב֔וֹ</div>
+  <div class="tl-cue">A smaller pause than etnahta. Lift, then stop.</div>
+  <div class="btn-row" style="justify-content:center;margin-top:6px">
+  <button class="btn sm green" onclick="tlPlayReal('zakefkaton')">Hear Sample</button>
+  <button class="btn sm gold" onclick="tlPlayReal('zakefkaton',true)">Slow</button>
+  <button class="btn sm gray" onclick="playTrope(['zakefkaton'])">Tone Guide</button></div>
+  <div style="font-size:.72rem;color:#94a3b8;margin-top:4px">Source: Pashta-Munach-Katon</div></div><div class="tl-card" id="tlC_darga">
+  <div class="tl-mark">◌֧</div>
+  <h4>Darga</h4><div class="tl-hename">דַּרְגָּא</div>
+  <div class="tl-action">🪜 Step upward</div>
+  <div class="tl-sample">אֵלֶ֧יךָ</div>
+  <div class="tl-cue">Step upward into the following word.</div>
+  <div class="btn-row" style="justify-content:center;margin-top:6px">
+  <button class="btn sm green" onclick="tlPlayReal('darga')">Hear Sample</button>
+  <button class="btn sm gold" onclick="tlPlayReal('darga',true)">Slow</button>
+  <button class="btn sm gray" onclick="playTrope(['darga'])">Tone Guide</button></div>
+  <div style="font-size:.72rem;color:#94a3b8;margin-top:4px">Source: Darga</div></div><div class="tl-card" id="tlC_tevir">
+  <div class="tl-mark">◌֛</div>
+  <h4>Tevir</h4><div class="tl-hename">תְּבִיר</div>
+  <div class="tl-action">🔻 Small break</div>
+  <div class="tl-sample">אֵלֶ֛יךָ</div>
+  <div class="tl-cue">A small break. Let the sound dip.</div>
+  <div class="btn-row" style="justify-content:center;margin-top:6px">
+  <button class="btn sm green" onclick="tlPlayReal('tevir')">Hear Sample</button>
+  <button class="btn sm gold" onclick="tlPlayReal('tevir',true)">Slow</button>
+  <button class="btn sm gray" onclick="playTrope(['tevir'])">Tone Guide</button></div>
+  <div style="font-size:.72rem;color:#94a3b8;margin-top:4px">Source: Tevir</div></div><div class="tl-card" id="tlC_gershayim">
+  <div class="tl-mark">◌֞</div>
+  <h4>Gershayim</h4><div class="tl-hename">גֵּרְשַׁיִם</div>
+  <div class="tl-action">⤴️ Lift and release</div>
+  <div class="tl-sample">כִּֽי</div>
+  <div class="tl-cue">A bright upper mark. Lift, then release.</div>
+  <div class="btn-row" style="justify-content:center;margin-top:6px">
+  <button class="btn sm green" onclick="tlPlayReal('gershayim')">Hear Sample</button>
+  <button class="btn sm gold" onclick="tlPlayReal('gershayim',true)">Slow</button>
+  <button class="btn sm gray" onclick="playTrope(['gershayim'])">Tone Guide</button></div>
+  <div style="font-size:.72rem;color:#94a3b8;margin-top:4px">Source: Gershayim sample</div></div></div></div>
+
+  <div class="panel" style="margin-top:14px"><div class="btn-row" style="justify-content:space-between;flex-wrap:wrap;margin-bottom:8px">
+  <h3 id="tlLineTitle">Opening Half-Pasuk</h3>
+  <div class="btn-row"><button class="btn sm" onclick="tlLine=0;renderTropeLearn()">Opening</button><button class="btn sm gray" onclick="tlLine=1;renderTropeLearn()">End</button><button class="btn sm gray" onclick="tlLine=2;renderTropeLearn()">Lost</button><button class="btn sm gray" onclick="tlLine=3;renderTropeLearn()">Bird's</button><button class="btn sm gray" onclick="tlLine=4;renderTropeLearn()">Safety</button>
+  <button class="btn sm green" onclick="tlPlayLine()">Hear Line Samples</button></div></div>
+  <div class="tl-line" id="tlPracLine">כִּֽי־תֵצֵ֥א לַמִּלְחָמָ֖ה עַל־אֹֽיְבֶ֑יךָ</div>
+  <div class="tl-word-strip" id="tlWordStrip"><button class="tl-word" data-i="0" onclick="tlFocusWord(0)"><span class="whe">כִּֽי־תֵצֵ֥א</span><span class="wlbl">➡️ Mercha: Connect forward</span></button><button class="tl-word" data-i="1" onclick="tlFocusWord(1)"><span class="whe">לַמִּלְחָמָ֖ה</span><span class="wlbl">↘️ Tipcha: Lean down</span></button><button class="tl-word" data-i="2" onclick="tlFocusWord(2)"><span class="whe">עַל־אֹֽיְבֶ֑יךָ</span><span class="wlbl">⏸️ Etnahta: Middle pause</span></button></div>
+  <div id="tlFb" class="fb info">Tap a word to hear its trope sample and see the action.</div></div>
+
+  <div class="panel" style="margin-top:14px"><div class="btn-row" style="justify-content:space-between;flex-wrap:wrap;margin-bottom:8px">
+  <h3>Trope Quick Check</h3><button class="btn gold" onclick="tlStartCheck()">New Check</button></div>
+  <p class="muted">Look at the mark and choose the voice action.</p><div id="tlCheckBox"></div></div></div>
+        </section>
+
+        <!-- ====== CHANT COACH ====== -->
+        <section id="chant" class="screen">
+          <div id="chantRoot"><div class="cc-shell">
+  <div class="cc-panel"><h2>1. Listen</h2><span class="pill green">Audio controls</span>
+  <p class="muted" style="margin:6px 0">Play real Ki Teitzei chanting audio. Slow it down, loop one phrase, echo it.</p>
+  <div id="ccTracks"><div class="track-card active" id="ccTk_t1"><h4>Ki Teitzei — First Aliyah</h4>
+  <audio id="ccA_t1" controls="" preload="metadata" src="https://music.tinr.org/wp-content/uploads/2018/08/Ki-Teitzei-Torah-Aliyah-1.mp3" onplay="ccSetActive('t1')"></audio>
+  <div class="btn-row"><button class="btn sm green" onclick="ccSetActive('t1');ccPlay()">Play</button>
+  <button class="btn sm" onclick="ccSetActive('t1');ccRate(.65)">65%</button>
+  <button class="btn sm" onclick="ccSetActive('t1');ccRate(.8)">80%</button></div>
+  <div class="src" style="font-size:.72rem;color:#94a3b8">Temple Israel of New Rochelle</div></div><div class="track-card" id="ccTk_t2"><h4>Ki Teitzei — Second Aliyah</h4>
+  <audio id="ccA_t2" controls="" preload="metadata" src="https://music.tinr.org/wp-content/uploads/2018/08/Ki-Teitzei-Torah-Aliyah-2.mp3" onplay="ccSetActive('t2')"></audio>
+  <div class="btn-row"><button class="btn sm green" onclick="ccSetActive('t2');ccPlay()">Play</button>
+  <button class="btn sm" onclick="ccSetActive('t2');ccRate(.65)">65%</button>
+  <button class="btn sm" onclick="ccSetActive('t2');ccRate(.8)">80%</button></div>
+  <div class="src" style="font-size:.72rem;color:#94a3b8">Temple Israel of New Rochelle</div></div><div class="track-card" id="ccTk_t3"><h4>Ki Teitzei — Third Aliyah</h4>
+  <audio id="ccA_t3" controls="" preload="metadata" src="https://music.tinr.org/wp-content/uploads/2018/08/Ki-Teitzei-Torah-Aliyah-3.mp3" onplay="ccSetActive('t3')"></audio>
+  <div class="btn-row"><button class="btn sm green" onclick="ccSetActive('t3');ccPlay()">Play</button>
+  <button class="btn sm" onclick="ccSetActive('t3');ccRate(.65)">65%</button>
+  <button class="btn sm" onclick="ccSetActive('t3');ccRate(.8)">80%</button></div>
+  <div class="src" style="font-size:.72rem;color:#94a3b8">Temple Israel of New Rochelle</div></div><div class="track-card" id="ccTk_t4"><h4>Ki Teitzei — Fourth Aliyah</h4>
+  <audio id="ccA_t4" controls="" preload="metadata" src="https://music.tinr.org/wp-content/uploads/2018/08/Ki-Teitzei-Torah-Aliyah-4.mp3" onplay="ccSetActive('t4')"></audio>
+  <div class="btn-row"><button class="btn sm green" onclick="ccSetActive('t4');ccPlay()">Play</button>
+  <button class="btn sm" onclick="ccSetActive('t4');ccRate(.65)">65%</button>
+  <button class="btn sm" onclick="ccSetActive('t4');ccRate(.8)">80%</button></div>
+  <div class="src" style="font-size:.72rem;color:#94a3b8">Temple Israel of New Rochelle</div></div></div>
+
+  <div style="margin-top:12px"><h3>Loop Practice</h3><span class="pill gold">most useful</span>
+  <p class="muted" style="margin:4px 0">Play audio, pause at phrase start, Set Loop Start, play to end, Set Loop End, Play Loop. Echo until automatic.</p>
+  <div class="btn-row"><button class="btn green" onclick="ccPlay()">Play</button><button class="btn gray" onclick="ccPause()">Pause</button>
+  <button class="btn gold" onclick="ccSetLS()">Loop Start</button><button class="btn gold" onclick="ccSetLE()">Loop End</button>
+  <button class="btn green" onclick="ccPlayLoop()">Play Loop</button><button class="btn gray" onclick="ccClearLoop()">Clear Loop</button></div>
+  <div class="btn-row" style="margin-top:6px"><button class="btn sm" onclick="ccRate(.55)">55%</button><button class="btn sm" onclick="ccRate(.65)">65%</button>
+  <button class="btn sm" onclick="ccRate(.8)">80%</button><button class="btn sm" onclick="ccRate(1)">Normal</button></div>
+  <div class="speed-ctl" style="margin-top:6px"><label>Speed <span id="ccSpeedLbl">100%</span></label>
+  <input type="range" min=".5" max="1" step=".05" value="1" oninput="ccRate(Number(this.value))" style=""></div>
+  <div class="loop-readout" id="ccLoopR"><span>Start: 0.0s</span><span>End: not set</span></div>
+  <div id="ccAudioFb" class="fb info">Choose a track, then follow along on the right.</div></div>
+
+  <div style="margin-top:12px"><h3>Upload Recording</h3><span class="pill">optional</span>
+  <p class="muted" style="margin:4px 0">Upload the exact recording from your tutor/teacher for the best match.</p>
+  <input type="file" accept="audio/*" onchange="ccUpload(event)" style=""><audio id="ccUploadAudio" controls=""></audio></div>
+
+  <div style="margin-top:12px"><h3>Record + Compare</h3><span class="pill green">practice</span>
+  <p class="muted" style="margin:4px 0">After practicing, record yourself and compare to the model.</p>
+  <div class="btn-row"><button class="btn green" onclick="ccStartRec()">Record Me</button><button class="btn red" onclick="ccStopRec()">Stop</button>
+  <button class="btn gray" onclick="ccPlayRec()">Play Recording</button></div>
+  <audio id="ccStudentAudio" controls=""></audio><div id="ccRecFb" class="fb info">Record after practicing the loop.</div></div>
+
+  <div style="margin-top:12px"><h3>Practice Steps</h3>
+  <div class="timeline"><div class="tl-item"><div class="tl-dot">1</div><div><strong>Listen</strong> — track with finger only</div></div>
+  <div class="tl-item"><div class="tl-dot">2</div><div><strong>Hum</strong> — melody without words</div></div>
+  <div class="tl-item"><div class="tl-dot">3</div><div><strong>Echo</strong> — repeat after the recording</div></div>
+  <div class="tl-item"><div class="tl-dot">4</div><div><strong>Whisper + Point</strong> — whisper while pointing</div></div>
+  <div class="tl-item"><div class="tl-dot">5</div><div><strong>Full Voice</strong> — chant with the model</div></div>
+  <div class="tl-item"><div class="tl-dot">6</div><div><strong>Record</strong> — compare to model</div></div></div></div></div>
+
+  <div class="cc-panel" id="ccRight"><h2>2. Read + Follow</h2><span class="pill green">Hebrew text</span>
+  <p class="muted" style="margin:6px 0">Point to each word while listening. Click words to select. Use Point + Read to track your progress.</p>
+  <div class="btn-row"><select id="ccTextMode" onchange="ccRenderText()"><option value="builtin">Built-in: Deut. 24:10-13</option><option value="custom">Custom text</option></select>
+  <button class="btn green" onclick="ccStartPointRead()">Point + Read</button>
+  <button class="btn gray" onclick="ccPrevWord()">Prev</button><button class="btn gold" onclick="ccNextWord()">Next</button>
+  <button class="btn gray" onclick="ccReset()">Reset</button></div>
+  <div id="ccCustomBox" style="display:none;margin-top:8px"><strong>Paste Hebrew text:</strong>
+  <textarea id="ccCustomHeb" dir="rtl" rows="3" placeholder="Paste Hebrew with trope marks..." style=""></textarea>
+  <button class="btn gold" onclick="ccLoadCustom()">Load</button></div>
+  <div class="nt-bigline" id="ccBigLine">כִּֽי־תַשֶּׁ֥ה בְרֵֽעֲךָ֖ מַשַּׁ֣את מְא֑וּמָה</div>
+  <div id="ccHebArea" class="nt-words" style="margin-top:10px"><div class="nt-verse"><div class="nt-ref">דברים כ״ד:י׳ / Deut. 24:10</div><div class="nt-words"><button class="nt-word selected" onclick="ccSelWord(0)" data-i="0"><span class="wh">כִּֽי־תַשֶּׁ֥ה</span><span class="wn">1</span></button><button class="nt-word" onclick="ccSelWord(1)" data-i="1"><span class="wh">בְרֵֽעֲךָ֖</span><span class="wn">2</span></button><button class="nt-word" onclick="ccSelWord(2)" data-i="2"><span class="wh">מַשַּׁ֣את</span><span class="wn">3</span></button><button class="nt-word" onclick="ccSelWord(3)" data-i="3"><span class="wh">מְא֑וּמָה</span><span class="wn">4</span></button><button class="nt-word" onclick="ccSelWord(4)" data-i="4"><span class="wh">לֹא־תָבֹ֥א</span><span class="wn">5</span></button><button class="nt-word" onclick="ccSelWord(5)" data-i="5"><span class="wh">אֶל־בֵּית֖וֹ</span><span class="wn">6</span></button><button class="nt-word" onclick="ccSelWord(6)" data-i="6"><span class="wh">לַעֲבֹ֥ט</span><span class="wn">7</span></button><button class="nt-word" onclick="ccSelWord(7)" data-i="7"><span class="wh">עֲבֹטֽוֹ׃</span><span class="wn">8</span></button></div></div><div class="nt-verse"><div class="nt-ref">דברים כ״ד:י״א / Deut. 24:11</div><div class="nt-words"><button class="nt-word" onclick="ccSelWord(8)" data-i="8"><span class="wh">בַּח֖וּץ</span><span class="wn">9</span></button><button class="nt-word" onclick="ccSelWord(9)" data-i="9"><span class="wh">תַּעֲמֹ֑ד</span><span class="wn">10</span></button><button class="nt-word" onclick="ccSelWord(10)" data-i="10"><span class="wh">וְהָאִ֗ישׁ</span><span class="wn">11</span></button><button class="nt-word" onclick="ccSelWord(11)" data-i="11"><span class="wh">אֲשֶׁ֤ר</span><span class="wn">12</span></button><button class="nt-word" onclick="ccSelWord(12)" data-i="12"><span class="wh">אַתָּה֙</span><span class="wn">13</span></button><button class="nt-word" onclick="ccSelWord(13)" data-i="13"><span class="wh">נֹשֶׁ֣ה</span><span class="wn">14</span></button><button class="nt-word" onclick="ccSelWord(14)" data-i="14"><span class="wh">ב֔וֹ</span><span class="wn">15</span></button><button class="nt-word" onclick="ccSelWord(15)" data-i="15"><span class="wh">יוֹצִ֥יא</span><span class="wn">16</span></button><button class="nt-word" onclick="ccSelWord(16)" data-i="16"><span class="wh">אֵלֶ֛יךָ</span><span class="wn">17</span></button><button class="nt-word" onclick="ccSelWord(17)" data-i="17"><span class="wh">אֶֽת־הַעֲב֖וֹט</span><span class="wn">18</span></button><button class="nt-word" onclick="ccSelWord(18)" data-i="18"><span class="wh">הַחֽוּצָה׃</span><span class="wn">19</span></button></div></div><div class="nt-verse"><div class="nt-ref">דברים כ״ד:י״ב / Deut. 24:12</div><div class="nt-words"><button class="nt-word" onclick="ccSelWord(19)" data-i="19"><span class="wh">וְאִם־אִ֥ישׁ</span><span class="wn">20</span></button><button class="nt-word" onclick="ccSelWord(20)" data-i="20"><span class="wh">עָנִ֖י</span><span class="wn">21</span></button><button class="nt-word" onclick="ccSelWord(21)" data-i="21"><span class="wh">ה֑וּא</span><span class="wn">22</span></button><button class="nt-word" onclick="ccSelWord(22)" data-i="22"><span class="wh">לֹ֥א</span><span class="wn">23</span></button><button class="nt-word" onclick="ccSelWord(23)" data-i="23"><span class="wh">תִשְׁכַּ֖ב</span><span class="wn">24</span></button><button class="nt-word" onclick="ccSelWord(24)" data-i="24"><span class="wh">בַּעֲבֹטֽוֹ׃</span><span class="wn">25</span></button></div></div><div class="nt-verse"><div class="nt-ref">דברים כ״ד:י״ג / Deut. 24:13</div><div class="nt-words"><button class="nt-word" onclick="ccSelWord(25)" data-i="25"><span class="wh">הָשֵׁב֩</span><span class="wn">26</span></button><button class="nt-word" onclick="ccSelWord(26)" data-i="26"><span class="wh">תָּשִׁ֨יב</span><span class="wn">27</span></button><button class="nt-word" onclick="ccSelWord(27)" data-i="27"><span class="wh">ל֤וֹ</span><span class="wn">28</span></button><button class="nt-word" onclick="ccSelWord(28)" data-i="28"><span class="wh">אֶֽת־הַעֲבוֹט֙</span><span class="wn">29</span></button><button class="nt-word" onclick="ccSelWord(29)" data-i="29"><span class="wh">כְּב֣וֹא</span><span class="wn">30</span></button><button class="nt-word" onclick="ccSelWord(30)" data-i="30"><span class="wh">הַשֶּׁ֔מֶשׁ</span><span class="wn">31</span></button><button class="nt-word" onclick="ccSelWord(31)" data-i="31"><span class="wh">וְשָׁכַ֥ב</span><span class="wn">32</span></button><button class="nt-word" onclick="ccSelWord(32)" data-i="32"><span class="wh">בְּשַׂלְמָת֖וֹ</span><span class="wn">33</span></button><button class="nt-word" onclick="ccSelWord(33)" data-i="33"><span class="wh">וּבֵֽרְכֶ֑ךָּ</span><span class="wn">34</span></button><button class="nt-word" onclick="ccSelWord(34)" data-i="34"><span class="wh">וּלְךָ֙</span><span class="wn">35</span></button><button class="nt-word" onclick="ccSelWord(35)" data-i="35"><span class="wh">תִּהְיֶ֣ה</span><span class="wn">36</span></button><button class="nt-word" onclick="ccSelWord(36)" data-i="36"><span class="wh">צְדָקָ֔ה</span><span class="wn">37</span></button><button class="nt-word" onclick="ccSelWord(37)" data-i="37"><span class="wh">לִפְנֵ֖י</span><span class="wn">38</span></button><button class="nt-word" onclick="ccSelWord(38)" data-i="38"><span class="wh">יְהֹוָ֥ה</span><span class="wn">39</span></button><button class="nt-word" onclick="ccSelWord(39)" data-i="39"><span class="wh">אֱלֹהֶֽיךָ׃</span><span class="wn">40</span></button></div></div></div>
+  <div class="nt-meter"><span id="ccMeter" style="width: 0%;"></span></div>
+  <div id="ccReadFb" class="fb info">Click each word in order while reading aloud.</div>
+  <div class="rt-grid">
+  <div class="rt-card"><h4>Tap With Audio</h4><p>Play audio, tap Next each time you hear the next word.</p><button class="btn sm green" onclick="ccStartTap()">Start</button></div>
+  <div class="rt-card"><h4>Loop This Spot</h4><p>After tapping, click a word and loop that section.</p><button class="btn sm gold" onclick="ccLoopSpot()">Loop</button></div>
+  <div class="rt-card"><h4>Hide + Chant</h4><p>Hide text, chant from memory, reveal to check.</p><button class="btn sm gray" onclick="ccToggleHide()">Hide/Reveal</button></div>
+  <div class="rt-card"><h4>Pass Check</h4><p>3 clean readings with clear Hebrew.</p><button class="btn sm green" onclick="ccPass()">I Read It 3x</button></div></div></div></div></div>
+        </section>
+
+        <!-- ====== PASUK RUNNER ====== -->
+        <section id="runner" class="screen">
+          <div class="grid two">
+            <div class="panel">
+              <div class="btn-row" style="
+                  justify-content: space-between;
+                  flex-wrap: wrap;
+                  margin-bottom: 8px;
+                ">
+                <h2>Pasuk Runner</h2>
+                <div class="btn-row">
+                  <select id="runnerLevel">
+                    <option value="1">Level 1: Short phrases</option>
+                    <option value="2">Level 2: Longer chunks</option>
+                    <option value="3">Level 3: Challenge</option>
+                  </select>
+                  <button class="btn sm gold" onclick="newRunner()">
+                    New Run
+                  </button>
+                </div>
+              </div>
+              <div class="stage">
+                <div style="width: 100%">
+                  <div class="pill green">
+                    Build the phrase in correct order
+                  </div>
+                  <p id="runnerHint" class="muted" style="text-align: center"><strong>Meaning:</strong> You shall surely return them to your fellow person.<br><strong>Source:</strong> Devarim 22:1</p>
+                  <div class="drop-row" id="runnerDrop"><div class="drop-zone" data-i="0">1</div><div class="drop-zone" data-i="1">2</div><div class="drop-zone" data-i="2">3</div></div>
+                  <div class="chunk-row" id="runnerChunks"><button class="chunk" onclick="pickRunner('הָשֵׁב',this)">הָשֵׁב</button><button class="chunk" onclick="pickRunner('תְּשִׁיבֵם',this)">תְּשִׁיבֵם</button><button class="chunk" onclick="pickRunner('לְאָחִיךָ',this)">לְאָחִיךָ</button></div>
+                  <div class="btn-row" style="justify-content: center">
+                    <button class="btn green" onclick="checkRunner()">
+                      Check Order
+                    </button>
+                    <button class="btn gray" onclick="clearRunner()">
+                      Clear
+                    </button>
+                    <button class="btn sm" onclick="speakText(curRunner.full)">
+                      Hear Phrase
+                    </button>
+                  </div>
+                  <div id="runnerFb" class="fb"></div>
+                </div>
+              </div>
+            </div>
+            <div class="panel dark">
+              <h2>Phrase Bank</h2>
+              <p style="opacity: 0.8; margin-bottom: 8px">
+                Short anchor phrases from Ki Teitzei for practice.
+              </p>
+              <div id="phraseBank"><div class="phrase-card"><div class="ph">הָשֵׁב תְּשִׁיבֵם לְאָחִיךָ</div><div class="pe">You shall surely return them to your fellow person. — Devarim 22:1</div></div><div class="phrase-card"><div class="ph">קַן צִפּוֹר</div><div class="pe">a bird's nest — Devarim 22:6</div></div><div class="phrase-card"><div class="ph">אֶבֶן שְׁלֵמָה</div><div class="pe">an honest/complete weight — Devarim 25:15</div></div><div class="phrase-card"><div class="ph">שַׁלֵּחַ תְּשַׁלַּח אֶת הָאֵם</div><div class="pe">You shall surely send away the mother. — Devarim 22:7</div></div><div class="phrase-card"><div class="ph">וְעָשִׂיתָ מַעֲקֶה לְגַגֶּךָ</div><div class="pe">You shall make a guardrail for your roof. — Devarim 22:8</div></div><div class="phrase-card"><div class="ph">בְּיוֹמוֹ תִתֵּן שְׂכָרוֹ</div><div class="pe">On that day, give his wages. — Devarim 24:15</div></div><div class="phrase-card"><div class="ph">לְמַעַן יִיטַב לָךְ וְהַאֲרַכְתָּ יָמִים</div><div class="pe">So that it will be good for you and you will lengthen days. — Devarim 22:7</div></div><div class="phrase-card"><div class="ph">זָכוֹר אֵת אֲשֶׁר עָשָׂה לְךָ עֲמָלֵק</div><div class="pe">Remember what Amalek did to you. — Devarim 25:17</div></div></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ====== MITZVAH QUEST ====== -->
+        <section id="mitzvah" class="screen">
+          <div class="panel">
+            <h2>Mitzvah Quest</h2>
+            <p class="muted" style="margin-bottom: 10px">
+              Choose the correct Hebrew, match it to the big idea, then answer a
+              real-life connection.
+            </p>
+            <div class="grid three" id="mitzvahCards"><div class="mission-card" onclick="openMission('lost')">
+  <span class="icon">🔎</span><h4>Return Lost Objects</h4><p class="sm-heb" style="font-size:1.2rem">הָשֵׁב תְּשִׁיבֵם</p><p>You shall surely return them.</p></div><div class="mission-card" onclick="openMission('birds')">
+  <span class="icon">🕊️</span><h4>Kindness to Animals</h4><p class="sm-heb" style="font-size:1.2rem">שַׁלֵּחַ תְּשַׁלַּח</p><p>You shall surely send away.</p></div><div class="mission-card" onclick="openMission('safety')">
+  <span class="icon">🏠</span><h4>Build a Guardrail</h4><p class="sm-heb" style="font-size:1.2rem">וְעָשִׂיתָ מַעֲקֶה</p><p>You shall make a guardrail.</p></div><div class="mission-card" onclick="openMission('workers')">
+  <span class="icon">💰</span><h4>Pay Fairly</h4><p class="sm-heb" style="font-size:1.2rem">בְּיוֹמוֹ תִתֵּן שְׂכָרוֹ</p><p>Pay wages on that day.</p></div><div class="mission-card" onclick="openMission('honesty')">
+  <span class="icon">⚖️</span><h4>Honest Weights</h4><p class="sm-heb" style="font-size:1.2rem">אֶבֶן שְׁלֵמָה</p><p>A complete/honest weight.</p></div><div class="mission-card" onclick="openMission('memory')">
+  <span class="icon">🧠</span><h4>Remember Amalek</h4><p class="sm-heb" style="font-size:1.2rem">זָכוֹר</p><p>Remember.</p></div></div>
+          </div>
+          <div class="panel" style="margin-top: 14px" id="mitzvahStage">
+            <h3>Choose a mission above</h3>
+            <p class="muted">
+              Each mission has a reading check, meaning check, and application
+              check.
+            </p>
+          </div>
+        </section>
+
+        <!-- ====== BOSS BATTLE ====== -->
+        <section id="boss" class="screen">
+          <div class="boss-arena">
+            <div class="laser" style="top: 50px"></div>
+            <div class="laser" style="top: 220px; animation-delay: 1.2s"></div>
+            <h2>Final Boss: The Amalek Memory Glitch</h2>
+            <span class="pill red" id="bossStatus">locked (0/3 stations)</span>
+            <svg class="boss-svg" viewBox="0 0 220 220" role="img" aria-label="Boss">
+              <defs>
+                <linearGradient id="g1" x1="0" x2="1">
+                  <stop offset="0" stop-color="#ef4444"></stop>
+                  <stop offset="1" stop-color="#f59e0b"></stop>
+                </linearGradient>
+              </defs>
+              <path d="M40 95 C25 55 65 18 110 32 C155 18 195 55 180 95 C205 118 184 178 135 176 C127 197 93 197 85 176 C36 178 15 118 40 95Z" fill="url(#g1)" stroke="#fff" stroke-opacity=".4" stroke-width="5"></path>
+              <circle cx="78" cy="101" r="16" fill="#0f172a"></circle>
+              <circle cx="142" cy="101" r="16" fill="#0f172a"></circle>
+              <circle cx="83" cy="96" r="5" fill="#fff"></circle>
+              <circle cx="147" cy="96" r="5" fill="#fff"></circle>
+              <path d="M78 143 Q110 161 142 143" fill="none" stroke="#0f172a" stroke-width="10" stroke-linecap="round"></path>
+            </svg>
+            <div class="healthbar"><span id="bossHP"></span></div>
+            <div id="bossStage" class="panel" style="margin-top: 12px; min-height: 160px">
+              <p class="muted">
+                Complete at least 3 stations to unlock the boss battle.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- ====== PROGRESS ====== -->
+        <section id="progress" class="screen">
+          <div class="grid two">
+            <div class="panel">
+              <h2>Progress Dashboard</h2>
+              <div class="profile-grid">
+                <div class="stat">
+                  <span>Total XP</span><strong id="dashXP">0</strong>
+                </div>
+                <div class="stat">
+                  <span>Correct</span><strong id="dashCorrect">0</strong>
+                </div>
+                <div class="stat">
+                  <span>Attempts</span><strong id="dashAttempts">0</strong>
+                </div>
+                <div class="stat">
+                  <span>Badges</span><strong id="dashBadges">1</strong>
+                </div>
+              </div>
+              <div class="divider"></div>
+              <h3>Badges</h3>
+              <div class="badge-wall" id="badgeWall"><div class="badge " "=""><span class="bi">🎯</span>Drill Ace</div><div class="badge " "=""><span class="bi">🎙️</span>Voice Verifier</div><div class="badge " "=""><span class="bi">🎵</span>Trope Navigator</div><div class="badge " "=""><span class="bi">📖</span>Chant Ready</div><div class="badge " "=""><span class="bi">🏃</span>Pasuk Runner</div><div class="badge " "=""><span class="bi">🛡️</span>Mitzvah Master</div><div class="badge " "=""><span class="bi">👑</span>Boss Champion</div><div class="badge " "=""><span class="bi">🔥</span>Streak Builder</div><div class="badge " "=""><span class="bi">💎</span>Accuracy Gem</div><div class="badge " "=""><span class="bi">📅</span>Daily Drill</div></div>
+            </div>
+            <div class="panel">
+              <h2>Teacher/Parent View</h2>
+              <div class="teacher-note">
+                <strong>Listen for:</strong> right-to-left direction, correct
+                first sound, not guessing from English, ability to explain
+                meaning after reading.
+              </div>
+              <div class="divider"></div>
+              <h3>Recommended Plan</h3>
+              <div class="timeline">
+                <div class="tl-item">
+                  <div class="tl-dot">5</div>
+                  <div><strong>5 min:</strong> Vocabulary + Hear It</div>
+                  <span class="pill">warm-up</span>
+                </div>
+                <div class="tl-item">
+                  <div class="tl-dot">5</div>
+                  <div><strong>5 min:</strong> Reading Drill until 8/10</div>
+                  <span class="pill green">accuracy</span>
+                </div>
+                <div class="tl-item">
+                  <div class="tl-dot">10</div>
+                  <div>
+                    <strong>10 min:</strong> Chant Coach with real audio
+                  </div>
+                  <span class="pill gold">chanting</span>
+                </div>
+                <div class="tl-item">
+                  <div class="tl-dot">5</div>
+                  <div><strong>5 min:</strong> Explain one mitzvah</div>
+                  <span class="pill purple">meaning</span>
+                </div>
+              </div>
+              <div class="btn-row" style="margin-top: 14px">
+                <button class="btn red" onclick="resetProgress()">
+                  Reset Progress
+                </button>
+                <button class="btn gray" onclick="exportProgress()">
+                  Copy Summary
+                </button>
+              </div>
+              <textarea id="progressExport" rows="4" style="width: 100%; margin-top: 10px;" placeholder="Progress summary appears here."></textarea>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <div class="printable">
+      <h1>Ki Teitzei Bar Mitzvah Progress Sheet</h1>
+      <p>
+        Student: ____________________________ Date: ____________________________
+      </p>
+      <table border="1" cellpadding="10" cellspacing="0" style="border-collapse: collapse; width: 100%">
+        <tbody><tr>
+          <th>Skill</th>
+          <th>Evidence</th>
+          <th>Notes</th>
+        </tr>
+        <tr>
+          <td>Reads core words accurately</td>
+          <td>Score: ____ / 10</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Reads phrases accurately</td>
+          <td>Pasuk Runner: ____ / 5</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Identifies trope marks</td>
+          <td>Trope quiz: ____ / 8</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Chants with correct melody</td>
+          <td>3 clean repetitions: Yes / Not yet</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Explains meaning</td>
+          <td>Can explain 3 mitzvot: Yes / Not yet</td>
+          <td></td>
+        </tr>
+      </tbody></table>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+      "use strict";
+
+      /* ===== DATA ===== */
+      const STORE = "kiTeitzeiV2";
+      let speechRate = Number(localStorage.getItem("kt_speechRate") || 0.72);
+      let tropeRate = Number(localStorage.getItem("kt_tropeRate") || 0.75);
+
+      const vocab = [
+        {
+          level: 1,
+          he: "כִּי־תֵצֵא",
+          plain: "כי תצא",
+          en: "when you go out",
+          chunk: "כִּי | תֵצֵא",
+          visual: "🚶",
+          root: "י-צ-א",
+          tip: "The parashah begins with 'when you go out.'",
+        },
+        {
+          level: 1,
+          he: "אָחִיךָ",
+          plain: "אחיך",
+          en: "your brother / fellow person",
+          chunk: "אָ | חִי | ךָ",
+          visual: "🤝",
+          root: "א-ח",
+          tip: "Points to responsibility for another person.",
+        },
+        {
+          level: 1,
+          he: "קַן צִפּוֹר",
+          plain: "קן צפור",
+          en: "a bird's nest",
+          chunk: "קַן | צִפּוֹר",
+          visual: "🪺",
+          root: "צ-פ-ר",
+          tip: "Connected to kindness toward animals.",
+        },
+        {
+          level: 1,
+          he: "מַעֲקֶה",
+          plain: "מעקה",
+          en: "a guardrail / fence",
+          chunk: "מַ | עֲ | קֶה",
+          visual: "🏠",
+          root: "ע-ק",
+          tip: "A safety mitzvah: prevent danger before it happens.",
+        },
+        {
+          level: 1,
+          he: "צִיצִת",
+          plain: "ציצת",
+          en: "tzitzit / fringes",
+          chunk: "צִי | צִת",
+          visual: "🧵",
+          root: "צ-ו-ץ",
+          tip: "A visible reminder connected to mitzvot.",
+        },
+        {
+          level: 2,
+          he: "הָשֵׁב",
+          plain: "השב",
+          en: "return!",
+          chunk: "הָ | שֵׁב",
+          visual: "↩️",
+          root: "ש-ו-ב",
+          tip: "From the root meaning return.",
+        },
+        {
+          level: 2,
+          he: "תְּשִׁיבֵם",
+          plain: "תשיבם",
+          en: "you shall return them",
+          chunk: "תְּ | שִׁי | בֵם",
+          visual: "📦",
+          root: "ש-ו-ב",
+          tip: "Same return root as הָשֵׁב.",
+        },
+        {
+          level: 2,
+          he: "שַׁלֵּחַ",
+          plain: "שלח",
+          en: "send away",
+          chunk: "שַׁ | לֵּחַ",
+          visual: "🕊️",
+          root: "ש-ל-ח",
+          tip: "Action word in the bird's nest mitzvah.",
+        },
+        {
+          level: 2,
+          he: "תְּשַׁלַּח",
+          plain: "תשלח",
+          en: "you shall surely send away",
+          chunk: "תְּ | שַׁ | לַּח",
+          visual: "🕊️",
+          root: "ש-ל-ח",
+          tip: "Repeated form intensifies the command.",
+        },
+        {
+          level: 2,
+          he: "וְעָשִׂיתָ",
+          plain: "ועשית",
+          en: "and you shall make",
+          chunk: "וְ | עָ | שִׂי | תָ",
+          visual: "🛠️",
+          root: "ע-ש-ה",
+          tip: "Important action word: make/do.",
+        },
+        {
+          level: 3,
+          he: "הָשֵׁב תְּשִׁיבֵם",
+          plain: "השב תשיבם",
+          en: "you shall surely return them",
+          chunk: "הָשֵׁב | תְּשִׁיבֵם",
+          visual: "🔁",
+          root: "ש-ו-ב",
+          tip: "A doubled phrase for responsibility.",
+        },
+        {
+          level: 3,
+          he: "שַׁלֵּחַ תְּשַׁלַּח",
+          plain: "שלח תשלח",
+          en: "you shall surely send away",
+          chunk: "שַׁלֵּחַ | תְּשַׁלַּח",
+          visual: "🕊️",
+          root: "ש-ל-ח",
+          tip: "A doubled phrase in the bird's nest mitzvah.",
+        },
+        {
+          level: 3,
+          he: "לְמַעַן יִיטַב לָךְ",
+          plain: "למען ייטב לך",
+          en: "so that it will be good for you",
+          chunk: "לְמַעַן | יִיטַב | לָךְ",
+          visual: "🌱",
+          root: "י-ט-ב",
+          tip: "A reason/outcome phrase.",
+        },
+        {
+          level: 3,
+          he: "בְּיוֹמוֹ תִתֵּן שְׂכָרוֹ",
+          plain: "ביומו תתן שכרו",
+          en: "pay his wages on that day",
+          chunk: "בְּיוֹמוֹ | תִתֵּן | שְׂכָרוֹ",
+          visual: "💰",
+          root: "נ-ת-ן",
+          tip: "Connected to dignity and fairness for workers.",
+        },
+        {
+          level: 3,
+          he: "אֶבֶן שְׁלֵמָה",
+          plain: "אבן שלמה",
+          en: "a complete / honest weight",
+          chunk: "אֶבֶן | שְׁלֵמָה",
+          visual: "⚖️",
+          root: "ש-ל-ם",
+          tip: "Connected to honesty in business.",
+        },
+        {
+          level: 4,
+          he: "וְעָשִׂיתָ מַעֲקֶה לְגַגֶּךָ",
+          plain: "ועשית מעקה לגגך",
+          en: "you shall make a guardrail for your roof",
+          chunk: "וְעָשִׂיתָ | מַעֲקֶה | לְגַגֶּךָ",
+          visual: "🏗️",
+          root: "ע-ש-ה",
+          tip: "Safety before harm.",
+        },
+        {
+          level: 4,
+          he: "זָכוֹר אֵת אֲשֶׁר עָשָׂה לְךָ עֲמָלֵק",
+          plain: "זכור את אשר עשה לך עמלק",
+          en: "remember what Amalek did to you",
+          chunk: "זָכוֹר | אֵת אֲשֶׁר | עָשָׂה לְךָ | עֲמָלֵק",
+          visual: "🧠",
+          root: "ז-כ-ר",
+          tip: "A memory command at the end of the parashah.",
+        },
+        {
+          level: 4,
+          he: "לֹא תִרְאֶה וְהִתְעַלַּמְתָּ",
+          plain: "לא תראה והתעלמת",
+          en: "do not see it and ignore it",
+          chunk: "לֹא תִרְאֶה | וְהִתְעַלַּמְתָּ",
+          visual: "👀",
+          root: "ע-ל-ם",
+          tip: "Do not ignore someone else's loss or need.",
+        },
+      ];
+
+      const phrases = [
+        {
+          level: 1,
+          full: "הָשֵׁב תְּשִׁיבֵם לְאָחִיךָ",
+          parts: ["הָשֵׁב", "תְּשִׁיבֵם", "לְאָחִיךָ"],
+          en: "You shall surely return them to your fellow person.",
+          ref: "Devarim 22:1",
+        },
+        {
+          level: 1,
+          full: "קַן צִפּוֹר",
+          parts: ["קַן", "צִפּוֹר"],
+          en: "a bird's nest",
+          ref: "Devarim 22:6",
+        },
+        {
+          level: 1,
+          full: "אֶבֶן שְׁלֵמָה",
+          parts: ["אֶבֶן", "שְׁלֵמָה"],
+          en: "an honest/complete weight",
+          ref: "Devarim 25:15",
+        },
+        {
+          level: 2,
+          full: "שַׁלֵּחַ תְּשַׁלַּח אֶת הָאֵם",
+          parts: ["שַׁלֵּחַ", "תְּשַׁלַּח", "אֶת", "הָאֵם"],
+          en: "You shall surely send away the mother.",
+          ref: "Devarim 22:7",
+        },
+        {
+          level: 2,
+          full: "וְעָשִׂיתָ מַעֲקֶה לְגַגֶּךָ",
+          parts: ["וְעָשִׂיתָ", "מַעֲקֶה", "לְגַגֶּךָ"],
+          en: "You shall make a guardrail for your roof.",
+          ref: "Devarim 22:8",
+        },
+        {
+          level: 2,
+          full: "בְּיוֹמוֹ תִתֵּן שְׂכָרוֹ",
+          parts: ["בְּיוֹמוֹ", "תִתֵּן", "שְׂכָרוֹ"],
+          en: "On that day, give his wages.",
+          ref: "Devarim 24:15",
+        },
+        {
+          level: 3,
+          full: "לְמַעַן יִיטַב לָךְ וְהַאֲרַכְתָּ יָמִים",
+          parts: ["לְמַעַן", "יִיטַב לָךְ", "וְהַאֲרַכְתָּ", "יָמִים"],
+          en: "So that it will be good for you and you will lengthen days.",
+          ref: "Devarim 22:7",
+        },
+        {
+          level: 3,
+          full: "זָכוֹר אֵת אֲשֶׁר עָשָׂה לְךָ עֲמָלֵק",
+          parts: ["זָכוֹר", "אֵת אֲשֶׁר", "עָשָׂה לְךָ", "עֲמָלֵק"],
+          en: "Remember what Amalek did to you.",
+          ref: "Devarim 25:17",
+        },
+      ];
+
+      const tropeMarks = [
+        {
+          id: "mercha",
+          mark: "֥",
+          name: "Mercha",
+          he: "מֵרְכָא",
+          action: "Connect forward",
+          emoji: "➡️",
+          cue: "Carry the word forward into the next word.",
+          pitches: [392, 440],
+          sample: "תֵצֵ֥א",
+          realUrl:
+            "https://www.agudas.xyz/wp-content/uploads/torah%20trop/TT03.mp3",
+          realLabel: "Mercha-Tipcha-Etnahta",
+        },
+        {
+          id: "tipcha",
+          mark: "֖",
+          name: "Tipcha",
+          he: "טִפְּחָא",
+          action: "Lean down",
+          emoji: "↘️",
+          cue: "Lean down toward the next stopping point.",
+          pitches: [440, 392],
+          sample: "לַמִּלְחָמָ֖ה",
+          realUrl:
+            "https://www.agudas.xyz/wp-content/uploads/torah%20trop/TT01.mp3",
+          realLabel: "Tipcha-Etnahta",
+        },
+        {
+          id: "etnahta",
+          mark: "֑",
+          name: "Etnahta",
+          he: "אֶתְנַחְתָּא",
+          action: "Middle pause",
+          emoji: "⏸️",
+          cue: "A major pause in the middle of the pasuk, like a semicolon.",
+          pitches: [440, 392, 330],
+          sample: "אֹֽיְבֶ֑יךָ",
+          realUrl:
+            "https://www.agudas.xyz/wp-content/uploads/torah%20trop/TT04.mp3",
+          realLabel: "Mercha-Tipcha-Munach-Etnahta",
+        },
+        {
+          id: "sofpasuk",
+          mark: "׃",
+          name: "Sof Pasuk",
+          he: "סוֹף פָּסוּק",
+          action: "Final stop",
+          emoji: "🏁",
+          cue: "Finish the verse. Land clearly.",
+          pitches: [392, 349, 294],
+          sample: "שִׁבְיֽוֹ׃",
+          realUrl:
+            "https://www.agudas.xyz/wp-content/uploads/torah%20trop/TT06.mp3",
+          realLabel: "Mercha-Tipcha-Sof Pasuk",
+        },
+        {
+          id: "munach",
+          mark: "֣",
+          name: "Munach",
+          he: "מֻנָּח",
+          action: "Resting connector",
+          emoji: "—",
+          cue: "A settled note that prepares the next trope.",
+          pitches: [392, 392, 415],
+          sample: "מַשַּׁ֣את",
+          realUrl:
+            "https://www.agudas.xyz/wp-content/uploads/torah%20trop/TT09.mp3",
+          realLabel: "Munach-Katon",
+        },
+        {
+          id: "zakefkaton",
+          mark: "֔",
+          name: "Zakef Katon",
+          he: "זָקֵף קָטֹן",
+          action: "Small stop",
+          emoji: "⬆️",
+          cue: "A smaller pause than etnahta. Lift, then stop.",
+          pitches: [392, 466, 392],
+          sample: "ב֔וֹ",
+          realUrl:
+            "https://www.agudas.xyz/wp-content/uploads/torah%20trop/TT10.mp3",
+          realLabel: "Pashta-Munach-Katon",
+        },
+        {
+          id: "darga",
+          mark: "֧",
+          name: "Darga",
+          he: "דַּרְגָּא",
+          action: "Step upward",
+          emoji: "🪜",
+          cue: "Step upward into the following word.",
+          pitches: [392, 415, 466],
+          sample: "אֵלֶ֧יךָ",
+          realUrl:
+            "https://www.agudas.xyz/wp-content/uploads/torah%20trop/TT24.mp3",
+          realLabel: "Darga",
+        },
+        {
+          id: "tevir",
+          mark: "֛",
+          name: "Tevir",
+          he: "תְּבִיר",
+          action: "Small break",
+          emoji: "🔻",
+          cue: "A small break. Let the sound dip.",
+          pitches: [466, 392, 370],
+          sample: "אֵלֶ֛יךָ",
+          realUrl:
+            "https://www.agudas.xyz/wp-content/uploads/torah%20trop/TT25.mp3",
+          realLabel: "Tevir",
+        },
+        {
+          id: "gershayim",
+          mark: "֞",
+          name: "Gershayim",
+          he: "גֵּרְשַׁיִם",
+          action: "Lift and release",
+          emoji: "⤴️",
+          cue: "A bright upper mark. Lift, then release.",
+          pitches: [440, 494, 440],
+          sample: "כִּֽי",
+          realUrl:
+            "https://www.agudas.xyz/wp-content/uploads/torah%20trop/TT03.mp3",
+          realLabel: "Gershayim sample",
+        },
+      ];
+
+      const tropeLines = [
+        {
+          title: "Opening Half-Pasuk",
+          ref: "Devarim 21:10",
+          text: "כִּֽי־תֵצֵ֥א לַמִּלְחָמָ֖ה עַל־אֹֽיְבֶ֑יךָ",
+          meaning: "When you go out to war against your enemies",
+          words: [
+            { he: "כִּֽי־תֵצֵ֥א", markId: "mercha" },
+            { he: "לַמִּלְחָמָ֖ה", markId: "tipcha" },
+            { he: "עַל־אֹֽיְבֶ֑יךָ", markId: "etnahta" },
+          ],
+        },
+        {
+          title: "End Cadence",
+          ref: "Devarim 21:10",
+          text: "וְשָׁבִ֥יתָ שִׁבְיֽוֹ׃",
+          meaning: "and you take captives",
+          words: [
+            { he: "וְשָׁבִ֥יתָ", markId: "mercha" },
+            { he: "שִׁבְיֽוֹ׃", markId: "sofpasuk" },
+          ],
+        },
+        {
+          title: "Lost Object Practice",
+          ref: "Ki Teitzei theme",
+          text: "הָשֵׁב֥ תְּשִׁיבֵ֖ם לְאָחִ֑יךָ",
+          meaning: "You shall surely return them to your fellow person.",
+          words: [
+            { he: "הָשֵׁב֥", markId: "mercha" },
+            { he: "תְּשִׁיבֵ֖ם", markId: "tipcha" },
+            { he: "לְאָחִ֑יךָ", markId: "etnahta" },
+          ],
+        },
+        {
+          title: "Bird's Nest Practice",
+          ref: "Ki Teitzei theme",
+          text: "שַׁלֵּ֥חַ תְּשַׁלַּ֖ח אֶת־הָאֵ֑ם",
+          meaning: "You shall surely send away the mother bird.",
+          words: [
+            { he: "שַׁלֵּ֥חַ", markId: "mercha" },
+            { he: "תְּשַׁלַּ֖ח", markId: "tipcha" },
+            { he: "אֶת־הָאֵ֑ם", markId: "etnahta" },
+          ],
+        },
+        {
+          title: "Safety Practice",
+          ref: "Ki Teitzei theme",
+          text: "וְעָשִׂ֥יתָ מַעֲקֶ֖ה לְגַגֶּ֑ךָ",
+          meaning: "You shall make a guardrail for your roof.",
+          words: [
+            { he: "וְעָשִׂ֥יתָ", markId: "mercha" },
+            { he: "מַעֲקֶ֖ה", markId: "tipcha" },
+            { he: "לְגַגֶּ֑ךָ", markId: "etnahta" },
+          ],
+        },
+      ];
+
+      const chantTracks = [
+        {
+          id: "t1",
+          title: "Ki Teitzei — First Aliyah",
+          url: "https://music.tinr.org/wp-content/uploads/2018/08/Ki-Teitzei-Torah-Aliyah-1.mp3",
+          src: "Temple Israel of New Rochelle",
+        },
+        {
+          id: "t2",
+          title: "Ki Teitzei — Second Aliyah",
+          url: "https://music.tinr.org/wp-content/uploads/2018/08/Ki-Teitzei-Torah-Aliyah-2.mp3",
+          src: "Temple Israel of New Rochelle",
+        },
+        {
+          id: "t3",
+          title: "Ki Teitzei — Third Aliyah",
+          url: "https://music.tinr.org/wp-content/uploads/2018/08/Ki-Teitzei-Torah-Aliyah-3.mp3",
+          src: "Temple Israel of New Rochelle",
+        },
+        {
+          id: "t4",
+          title: "Ki Teitzei — Fourth Aliyah",
+          url: "https://music.tinr.org/wp-content/uploads/2018/08/Ki-Teitzei-Torah-Aliyah-4.mp3",
+          src: "Temple Israel of New Rochelle",
+        },
+      ];
+
+      const chantVerses = [
+        {
+          ref: "דברים כ״ד:י׳ / Deut. 24:10",
+          he: "כִּֽי־תַשֶּׁ֥ה בְרֵֽעֲךָ֖ מַשַּׁ֣את מְא֑וּמָה לֹא־תָבֹ֥א אֶל־בֵּית֖וֹ לַעֲבֹ֥ט עֲבֹטֽוֹ׃",
+        },
+        {
+          ref: "דברים כ״ד:י״א / Deut. 24:11",
+          he: "בַּח֖וּץ תַּעֲמֹ֑ד וְהָאִ֗ישׁ אֲשֶׁ֤ר אַתָּה֙ נֹשֶׁ֣ה ב֔וֹ יוֹצִ֥יא אֵלֶ֛יךָ אֶֽת־הַעֲב֖וֹט הַחֽוּצָה׃",
+        },
+        {
+          ref: "דברים כ״ד:י״ב / Deut. 24:12",
+          he: "וְאִם־אִ֥ישׁ עָנִ֖י ה֑וּא לֹ֥א תִשְׁכַּ֖ב בַּעֲבֹטֽוֹ׃",
+        },
+        {
+          ref: "דברים כ״ד:י״ג / Deut. 24:13",
+          he: "הָשֵׁב֩ תָּשִׁ֨יב ל֤וֹ אֶֽת־הַעֲבוֹט֙ כְּב֣וֹא הַשֶּׁ֔מֶשׁ וְשָׁכַ֥ב בְּשַׂלְמָת֖וֹ וּבֵֽרְכֶ֑ךָּ וּלְךָ֙ תִּהְיֶ֣ה צְדָקָ֔ה לִפְנֵ֖י יְהֹוָ֥ה אֱלֹהֶֽיךָ׃",
+        },
+      ];
+
+      const mitzvot = [
+        {
+          id: "lost",
+          icon: "🔎",
+          title: "Return Lost Objects",
+          he: "הָשֵׁב תְּשִׁיבֵם",
+          meaning: "You shall surely return them.",
+          big: "Responsibility for what belongs to someone else.",
+          prompt:
+            "Your classmate leaves a hoodie in the gym. What should you do?",
+        },
+        {
+          id: "birds",
+          icon: "🕊️",
+          title: "Kindness to Animals",
+          he: "שַׁלֵּחַ תְּשַׁלַּח",
+          meaning: "You shall surely send away.",
+          big: "Even when people use the natural world, Torah teaches restraint and compassion.",
+          prompt: "How can someone show care for animals or nature today?",
+        },
+        {
+          id: "safety",
+          icon: "🏠",
+          title: "Build a Guardrail",
+          he: "וְעָשִׂיתָ מַעֲקֶה",
+          meaning: "You shall make a guardrail.",
+          big: "Prevent danger before anyone gets hurt.",
+          prompt: 'What is a modern "guardrail" rule at school or home?',
+        },
+        {
+          id: "workers",
+          icon: "💰",
+          title: "Pay Fairly",
+          he: "בְּיוֹמוֹ תִתֵּן שְׂכָרוֹ",
+          meaning: "Pay wages on that day.",
+          big: "People who work deserve dignity and fairness.",
+          prompt: "Why does paying someone on time matter?",
+        },
+        {
+          id: "honesty",
+          icon: "⚖️",
+          title: "Honest Weights",
+          he: "אֶבֶן שְׁלֵמָה",
+          meaning: "A complete/honest weight.",
+          big: "Business and measurements should be honest.",
+          prompt:
+            "What does honesty look like when selling, trading, or reporting scores?",
+        },
+        {
+          id: "memory",
+          icon: "🧠",
+          title: "Remember Amalek",
+          he: "זָכוֹר",
+          meaning: "Remember.",
+          big: "Memory can become a responsibility to protect the vulnerable.",
+          prompt: "Why do communities remember hard moments from the past?",
+        },
+      ];
+
+      const badges = [
+        {
+          id: "vocab",
+          icon: "⚡",
+          name: "Vocab Reader",
+          desc: "Practiced vocabulary",
+        },
+        {
+          id: "drill",
+          icon: "🎯",
+          name: "Drill Ace",
+          desc: "Completed reading drill",
+        },
+        {
+          id: "voice",
+          icon: "🎙️",
+          name: "Voice Verifier",
+          desc: "Completed read-aloud",
+        },
+        {
+          id: "trope",
+          icon: "🎵",
+          name: "Trope Navigator",
+          desc: "Learned trope marks",
+        },
+        {
+          id: "chant",
+          icon: "📖",
+          name: "Chant Ready",
+          desc: "Practiced chanting",
+        },
+        {
+          id: "runner",
+          icon: "🏃",
+          name: "Pasuk Runner",
+          desc: "Built phrases",
+        },
+        {
+          id: "mitzvah",
+          icon: "🛡️",
+          name: "Mitzvah Master",
+          desc: "Completed a mission",
+        },
+        {
+          id: "boss",
+          icon: "👑",
+          name: "Boss Champion",
+          desc: "Beat the final boss",
+        },
+        {
+          id: "streak",
+          icon: "🔥",
+          name: "Streak Builder",
+          desc: "Reached 5 streak",
+        },
+        {
+          id: "accuracy",
+          icon: "💎",
+          name: "Accuracy Gem",
+          desc: "85%+ accuracy",
+        },
+        {
+          id: "daily",
+          icon: "📅",
+          name: "Daily Drill",
+          desc: "Completed a drill",
+        },
+      ];
+
+      const rdItems = [
+        { type: "word", text: "כִּי־תֵצֵא", parts: ["כִּי", "תֵצֵא"] },
+        { type: "word", text: "הָשֵׁב", parts: ["הָ", "שֵׁב"] },
+        { type: "word", text: "תְּשִׁיבֵם", parts: ["תְּ", "שִׁי", "בֵם"] },
+        { type: "word", text: "שַׁלֵּחַ", parts: ["שַׁ", "לֵּחַ"] },
+        { type: "word", text: "תְּשַׁלַּח", parts: ["תְּ", "שַׁ", "לַּח"] },
+        { type: "word", text: "מַעֲקֶה", parts: ["מַ", "עֲ", "קֶה"] },
+        { type: "word", text: "וְעָשִׂיתָ", parts: ["וְ", "עָ", "שִׂי", "תָ"] },
+        {
+          type: "phrase",
+          text: "הָשֵׁב תְּשִׁיבֵם",
+          parts: ["הָשֵׁב", "תְּשִׁיבֵם"],
+        },
+        {
+          type: "phrase",
+          text: "שַׁלֵּחַ תְּשַׁלַּח",
+          parts: ["שַׁלֵּחַ", "תְּשַׁלַּח"],
+        },
+        {
+          type: "phrase",
+          text: "וְעָשִׂיתָ מַעֲקֶה",
+          parts: ["וְעָשִׂיתָ", "מַעֲקֶה"],
+        },
+        {
+          type: "phrase",
+          text: "בְּיוֹמוֹ תִתֵּן שְׂכָרוֹ",
+          parts: ["בְּיוֹמוֹ", "תִתֵּן", "שְׂכָרוֹ"],
+        },
+        {
+          type: "phrase",
+          text: "זָכוֹר אֵת אֲשֶׁר עָשָׂה",
+          parts: ["זָכוֹר", "אֵת אֲשֶׁר", "עָשָׂה"],
+        },
+      ];
+
+      /* ===== STATE ===== */
+      let state = loadState();
+      let curRead = {},
+        curRunner = null,
+        curWordQ = null,
+        wordRound = [],
+        wordIdx = 0;
+      let bossQs = [],
+        bossIdx = 0,
+        bossHP = 100;
+
+      function defaultState() {
+        return {
+          name: "",
+          xp: 0,
+          attempts: 0,
+          correct: 0,
+          streak: 0,
+          bestStreak: 0,
+          badges: {},
+          completed: {},
+          logs: [],
+        };
+      }
+      function loadState() {
+        try {
+          const r = localStorage.getItem(STORE);
+          return r ? { ...defaultState(), ...JSON.parse(r) } : defaultState();
+        } catch (e) {
+          return defaultState();
+        }
+      }
+      function saveState() {
+        localStorage.setItem(STORE, JSON.stringify(state));
+        renderStats();
+      }
+
+      /* ===== UTILS ===== */
+      function norm(t) {
+        return String(t || "")
+          .replace(/[֑-ׇ]/g, "")
+          .replace(/[־\-־]/g, " ")
+          .replace(/[^֐-׿\s]/g, "")
+          .replace(/\s+/g, " ")
+          .trim();
+      }
+      function shuffle(a) {
+        const b = [...a];
+        for (let i = b.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [b[i], b[j]] = [b[j], b[i]];
+        }
+        return b;
+      }
+      function sample(a, n = 1) {
+        return shuffle(a).slice(0, n);
+      }
+      function $(id) {
+        return document.getElementById(id);
+      }
+      function esc(s) {
+        return String(s).replace(/'/g, "\\'").replace(/"/g, "&quot;");
+      }
+      function toast(m) {
+        const el = $("toast");
+        el.innerHTML = m;
+        el.classList.add("show");
+        setTimeout(() => el.classList.remove("show"), 3000);
+      }
+      function tropeById(id) {
+        return tropeMarks.find((t) => t.id === id) || tropeMarks[0];
+      }
+
+      function award(pts, ok, skill, note) {
+        state.attempts++;
+        if (ok) {
+          state.correct++;
+          state.streak++;
+          state.bestStreak = Math.max(state.bestStreak, state.streak);
+          const bonus = state.streak > 0 && state.streak % 5 === 0 ? 10 : 0;
+          state.xp += pts + bonus;
+          if (bonus) {
+            addBadge("streak");
+            toast("Streak bonus! +10 XP");
+          }
+        } else state.streak = 0;
+        if (skill)
+          state.completed[skill] = (state.completed[skill] || 0) + (ok ? 1 : 0);
+        state.logs.unshift({
+          time: new Date().toLocaleString(),
+          correct: ok,
+          skill: skill || "practice",
+          note: note || "",
+        });
+        state.logs = state.logs.slice(0, 30);
+        if (accuracy() >= 85 && state.attempts >= 10) addBadge("accuracy");
+        saveState();
+      }
+      function accuracy() {
+        return state.attempts
+          ? Math.round((state.correct / state.attempts) * 100)
+          : 0;
+      }
+      function addBadge(id) {
+        if (!state.badges[id]) {
+          state.badges[id] = true;
+          setTimeout(() => {
+            toast(
+              "Badge earned: " + (badges.find((b) => b.id === id)?.name || id),
+            );
+            confetti(30);
+          }, 100);
+        }
+      }
+      function confetti(n) {
+        for (let i = 0; i < n; i++) {
+          const d = document.createElement("div");
+          d.className = "confetti-particle";
+          d.style.cssText = `left:${Math.random() * 100}vw;top:-10px;background:hsl(${Math.random() * 360},90%,55%);`;
+          document.body.appendChild(d);
+          const x = (Math.random() - 0.5) * 200,
+            y = Math.random() * 600 + 300;
+          d.animate(
+            [
+              { transform: "translate(0,0) rotate(0deg)", opacity: 1 },
+              {
+                transform: `translate(${x}px,${y}px) rotate(${Math.random() * 720}deg)`,
+                opacity: 0,
+              },
+            ],
+            {
+              duration: 1200 + Math.random() * 800,
+              easing: "cubic-bezier(.2,.8,.3,1)",
+            },
+          );
+          setTimeout(() => d.remove(), 2200);
+        }
+      }
+
+      /* ===== SPEECH ===== */
+      function speakText(text) {
+        if (!("speechSynthesis" in window))
+          return toast("Speech not available.");
+        speechSynthesis.cancel();
+        const u = new SpeechSynthesisUtterance(text);
+        u.lang = "he-IL";
+        u.rate = speechRate;
+        u.pitch = 1;
+        const v = speechSynthesis
+          .getVoices()
+          .find((v) => /he|Hebrew|עברית/i.test(v.lang + " " + v.name));
+        if (v) u.voice = v;
+        speechSynthesis.speak(u);
+      }
+      function setSpeechRate(v) {
+        speechRate = Number(v);
+        localStorage.setItem("kt_speechRate", String(speechRate));
+        document
+          .querySelectorAll("[data-sr]")
+          .forEach(
+            (el) => (el.textContent = Math.round(speechRate * 100) + "%"),
+          );
+      }
+
+      /* ===== TROPE AUDIO ===== */
+      function playTrope(markIds, slow = false) {
+        try {
+          const AC = window.AudioContext || window.webkitAudioContext;
+          if (!AC) return;
+          const ctx = new AC();
+          const ids = Array.isArray(markIds) ? markIds : [markIds];
+          let t = ctx.currentTime + 0.05;
+          ids.forEach((id) => {
+            const m = tropeById(id);
+            const dur = slow ? 0.38 : 0.24;
+            m.pitches.forEach((f) => {
+              const o = ctx.createOscillator(),
+                g = ctx.createGain();
+              o.type = "sine";
+              o.frequency.setValueAtTime(f, t);
+              g.gain.setValueAtTime(0.0001, t);
+              g.gain.exponentialRampToValueAtTime(0.11, t + 0.03);
+              g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+              o.connect(g);
+              g.connect(ctx.destination);
+              o.start(t);
+              o.stop(t + dur + 0.02);
+              t += dur;
+            });
+            t += 0.08;
+          });
+          setTimeout(
+            () => ctx.close(),
+            Math.max(1e3, (t - ctx.currentTime + 0.3) * 1e3),
+          );
+        } catch (e) {}
+      }
+
+      /* ===== TABS ===== */
+      function go(tab) {
+        document
+          .querySelectorAll(".screen")
+          .forEach((s) => s.classList.remove("active"));
+        document
+          .querySelectorAll(".tab")
+          .forEach((b) => b.classList.toggle("active", b.dataset.tab === tab));
+        $(tab).classList.add("active");
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        if (tab === "vocab") renderVocab();
+        if (tab === "drill") renderDrill();
+        if (tab === "read") newRead();
+        if (tab === "trope") renderTropeLearn();
+        if (tab === "chant") renderChantCoach();
+        if (tab === "runner") newRunner();
+        if (tab === "mitzvah") renderMitzvah();
+        if (tab === "progress") renderStats();
+        if (tab === "boss") updateBoss();
+      }
+
+      /* ===== STATS ===== */
+      function rankName() {
+        if (state.xp >= 500) return "Torah Champion";
+        if (state.xp >= 350) return "Hebrew Quest Master";
+        if (state.xp >= 220) return "Fluent Reader";
+        if (state.xp >= 110) return "Word Warrior";
+        return "Rookie Reader";
+      }
+      function renderStats() {
+        $("playerName").value = state.name || "";
+        $("xpStat").textContent = state.xp;
+        $("levelStat").textContent = Math.max(
+          1,
+          Math.floor(state.xp / 100) + 1,
+        );
+        $("accStat").textContent = accuracy() + "%";
+        $("streakStat").textContent = state.streak;
+        $("rankName").textContent = rankName();
+        $("globalProgress").style.width =
+          Math.min(100, (state.xp / 500) * 100) + "%";
+        ["dashXP", "dashCorrect", "dashAttempts", "dashBadges"].forEach(
+          (id) => {
+            const el = $(id);
+            if (el)
+              el.textContent =
+                id === "dashBadges"
+                  ? Object.keys(state.badges).length
+                  : state[id.replace("dash", "").toLowerCase()] || 0;
+          },
+        );
+        $("dashXP") && ($("dashXP").textContent = state.xp);
+        $("dashCorrect") && ($("dashCorrect").textContent = state.correct);
+        $("dashAttempts") && ($("dashAttempts").textContent = state.attempts);
+        $("dashBadges") &&
+          ($("dashBadges").textContent = Object.keys(state.badges).length);
+        renderBadges();
+        renderMap();
+        updateBoss();
+      }
+      function saveName() {
+        state.name = $("playerName").value.trim();
+        saveState();
+        toast("Saved.");
+      }
+
+      function renderBadges() {
+        const w = $("badgeWall");
+        if (!w) return;
+        w.innerHTML = badges
+          .map(
+            (b) =>
+              `<div class="badge ${state.badges[b.id] ? "earned" : ""}""><span class="bi">${b.icon}</span>${b.name}</div>`,
+          )
+          .join("");
+      }
+
+      function renderMap() {
+        const m = $("missionMap");
+        if (!m) return;
+        const nodes = [
+          {
+            id: "vocab",
+            icon: "⚡",
+            title: "Vocabulary",
+            desc: "Learn key words",
+            tab: "vocab",
+            req: 0,
+          },
+          {
+            id: "drill",
+            icon: "🎯",
+            title: "Reading Drill",
+            desc: "Hear, echo, read",
+            tab: "drill",
+            req: 0,
+          },
+          {
+            id: "voice",
+            icon: "🎙️",
+            title: "Read Aloud",
+            desc: "Voice check",
+            tab: "read",
+            req: 30,
+          },
+          {
+            id: "trope",
+            icon: "🎵",
+            title: "Trope Learn",
+            desc: "Mark recognition",
+            tab: "trope",
+            req: 30,
+          },
+          {
+            id: "chant",
+            icon: "📖",
+            title: "Chant Coach",
+            desc: "Real audio practice",
+            tab: "chant",
+            req: 40,
+          },
+          {
+            id: "runner",
+            icon: "🏃",
+            title: "Pasuk Runner",
+            desc: "Build phrases",
+            tab: "runner",
+            req: 50,
+          },
+          {
+            id: "mitzvah",
+            icon: "🛡️",
+            title: "Mitzvah Quest",
+            desc: "Theme missions",
+            tab: "mitzvah",
+            req: 60,
+          },
+          {
+            id: "boss",
+            icon: "👑",
+            title: "Boss Battle",
+            desc: "Mixed review",
+            tab: "boss",
+            req: 150,
+          },
+        ];
+        m.innerHTML = nodes
+          .map((n) => {
+            const locked = state.xp < n.req;
+            const done = state.badges[n.id];
+            return `<button class="map-node ${done ? "done" : ""}" ${locked ? "disabled" : ""} onclick="go('${n.tab}')">
+      <span class="icon">${locked ? "🔒" : n.icon}</span><strong>${n.title}</strong>
+      <div class="desc">${locked ? "Unlock at " + n.req + " XP" : n.desc}</div></button>`;
+          })
+          .join("");
+      }
+
+      /* ===== VOCABULARY ===== */
+      function renderVocab() {
+        const lv = Number($("vocabLevel")?.value || 1);
+        const items = vocab.filter((v) => v.level === lv);
+        $("vocabTableWrap").innerHTML =
+          `<table class="vtable"><thead><tr><th></th><th>Hebrew</th><th>Chunks</th><th>Meaning</th><th>Root</th><th></th></tr></thead>
+  <tbody>${items
+    .map(
+      (
+        w,
+      ) => `<tr><td>${w.visual}</td><td class="he">${w.he}</td><td class="he" style="font-size:1.15rem">${w.chunk}</td>
+  <td>${w.en}</td><td><strong>${w.root || "—"}</strong><br><span class="muted">${w.tip}</span></td>
+  <td><button class="btn sm" onclick="openFocus(${vocab.indexOf(w)})">Practice</button></td></tr>`,
+    )
+    .join("")}</tbody></table>`;
+        addBadge("vocab");
+        saveState();
+      }
+      function speakVocabLevel() {
+        const lv = Number($("vocabLevel")?.value || 1);
+        speakText(
+          vocab
+            .filter((v) => v.level === lv)
+            .map((v) => v.he)
+            .join(". "),
+        );
+      }
+      function openFocus(i) {
+        const w = vocab[i];
+        $("focusPractice").innerHTML =
+          `<h3>Focus Practice</h3><span class="pill gold">${w.visual} ${w.en}</span>
+  <div class="big-heb" style="margin:12px 0">${w.he}</div>
+  <p class="muted" style="text-align:center"><strong>Chunks:</strong> <span class="sm-heb">${w.chunk}</span></p>
+  <div class="btn-row" style="justify-content:center"><button class="btn sm green" onclick="speakText('${esc(w.he)}')">Hear It</button>
+  <button class="btn sm gray" onclick="$('focusFb').className='fb info';$('focusFb').innerHTML='<strong>Tip:</strong> ${esc(w.tip)}'">Tip</button></div>
+  <div class="divider"></div>
+  <label style="font-weight:700"><strong>Type without vowels:</strong></label>
+  <div class="btn-row"><input id="typeWord" placeholder="${norm(w.he)}"><button class="btn gold" onclick="checkType(${i})">Check</button></div>
+  <div id="focusFb" class="fb"></div>`;
+      }
+      function checkType(i) {
+        const w = vocab[i];
+        const v = norm($("typeWord").value);
+        const t = norm(w.he);
+        const ok = v === t || v === norm(w.plain);
+        const fb = $("focusFb");
+        fb.className = "fb " + (ok ? "good" : "bad");
+        fb.innerHTML = ok
+          ? `Correct: <span class="sm-heb">${w.he}</span>`
+          : `Target: <span class="sm-heb">${t}</span>. Try chunking first.`;
+        award(ok ? 14 : 0, ok, "vocab", "Typed " + w.he);
+      }
+
+      /* ===== READING DRILL ===== */
+      let rdCur = null,
+        rdMode = "word",
+        rdHidden = false,
+        rdCheckTarget = null;
+      function rdPool() {
+        if (rdMode === "word") return rdItems.filter((x) => x.type === "word");
+        if (rdMode === "phrase")
+          return rdItems.filter((x) => x.type === "phrase");
+        return rdItems;
+      }
+      function renderDrill() {
+        const root = $("drillRoot");
+        if (!root) return;
+        if (!rdCur) rdCur = sample(rdPool(), 1)[0];
+        const parts = rdCur.parts;
+        root.classList.toggle("rd-hidden", rdHidden);
+        root.innerHTML = `<div class="panel"><div class="btn-row" style="justify-content:space-between;flex-wrap:wrap;margin-bottom:8px">
+  <h2>Reading Drill</h2><div class="btn-row">
+  <button class="btn sm ${rdMode === "word" ? "" : "gray"}" onclick="rdMode='word';rdCur=null;renderDrill()">Words</button>
+  <button class="btn sm ${rdMode === "phrase" ? "" : "gray"}" onclick="rdMode='phrase';rdCur=null;renderDrill()">Phrases</button>
+  <button class="btn sm ${rdMode === "mixed" ? "" : "gray"}" onclick="rdMode='mixed';rdCur=null;renderDrill()">Mixed</button></div></div>
+  <div class="speed-ctl"><label>Speed <span data-sr>${Math.round(speechRate * 100)}%</span></label>
+  <input type="range" min=".45" max="1" step=".05" value="${speechRate}" oninput="setSpeechRate(this.value)"></div>
+  <div class="rd-text">${rdCur.text}</div>
+  <div class="rd-strip">${parts.map((p, i) => `<button class="rd-word" data-i="${i}" onclick="rdPart(${i})"><span class="rh">${p}</span><span class="rl">chunk ${i + 1}</span></button>`).join("")}</div>
+  <div class="btn-row" style="justify-content:center">
+  <button class="btn green" onclick="rdFull()">Hear Full</button>
+  <button class="btn gold" onclick="rdChunks()">Play Chunks</button>
+  <button class="btn gray" onclick="rdHidden=!rdHidden;renderDrill()">Hide/Reveal</button>
+  <button class="btn sm" onclick="rdListen()">Listening Check</button>
+  <button class="btn sm gray" onclick="rdCur=null;renderDrill()">New</button>
+  <button class="btn sm green" onclick="award(16,true,'drill','Read it');addBadge('drill');toast('Done!');rdCur=null;renderDrill()">I Read It</button></div>
+  <div id="rdCheckBox"></div><div id="rdFb" class="fb info">Press "Play Chunks." Echo each chunk, then read the full Hebrew.</div></div>
+  <div class="grid two" style="margin-top:14px"><div class="panel"><h3>Simple Routine</h3>
+  <div class="timeline"><div class="tl-item"><div class="tl-dot">1</div><div><strong>Hear</strong> at slow speed</div></div>
+  <div class="tl-item"><div class="tl-dot">2</div><div><strong>Echo</strong> the exact Hebrew</div></div>
+  <div class="tl-item"><div class="tl-dot">3</div><div><strong>Point</strong> to each chunk while reading</div></div>
+  <div class="tl-item"><div class="tl-dot">4</div><div><strong>Read</strong> without audio help</div></div></div></div>
+  <div class="panel"><h3>Reading Tips</h3><p class="muted">Always start right-to-left. Find the root letters. Break into chunks. Don't guess from English — read the Hebrew.</p>
+  <div class="teacher-note" style="margin-top:8px"><strong>Parent check:</strong> Can he read it without mumbling? Does he start from the correct side? Can he say the meaning after?</div></div></div>`;
+      }
+      function rdFull() {
+        if (!rdCur) return;
+        speakText(rdCur.text);
+        $("rdFb").className = "fb info";
+        $("rdFb").textContent = "Listen, then echo.";
+      }
+      function rdChunks() {
+        if (!rdCur) return;
+        const parts = rdCur.parts;
+        document
+          .querySelectorAll(".rd-word")
+          .forEach((w) => w.classList.remove("active", "done"));
+        let d = 0;
+        parts.forEach((p, i) => {
+          setTimeout(() => {
+            document
+              .querySelectorAll(".rd-word")
+              .forEach((w) => w.classList.remove("active"));
+            const el = document.querySelector(`.rd-word[data-i="${i}"]`);
+            if (el) el.classList.add("active");
+            speakText(p);
+          }, d);
+          setTimeout(() => {
+            const el = document.querySelector(`.rd-word[data-i="${i}"]`);
+            if (el) {
+              el.classList.remove("active");
+              el.classList.add("done");
+            }
+          }, d + 1100);
+          d += 1400;
+        });
+      }
+      function rdPart(i) {
+        if (!rdCur) return;
+        speakText(rdCur.parts[i]);
+        document
+          .querySelectorAll(".rd-word")
+          .forEach((w) => w.classList.remove("active"));
+        const el = document.querySelector(`.rd-word[data-i="${i}"]`);
+        if (el) el.classList.add("active");
+      }
+      function rdListen() {
+        const pool = rdPool();
+        rdCheckTarget = sample(pool, 1)[0];
+        speakText(rdCheckTarget.text);
+        const choices = shuffle([
+          rdCheckTarget,
+          ...sample(
+            pool.filter((x) => x.text !== rdCheckTarget.text),
+            Math.min(3, pool.length - 1),
+          ),
+        ]);
+        $("rdCheckBox").innerHTML =
+          `<div class="divider"></div><p class="muted" style="text-align:center">Choose the Hebrew you heard:</p>
+  <div class="rd-choice-grid">${choices.map((c) => `<button class="rd-choice" onclick="rdAnswer('${esc(c.text)}',this)">${c.text}</button>`).join("")}</div>`;
+        $("rdFb").className = "fb info";
+        $("rdFb").textContent = "Choose the Hebrew you heard.";
+      }
+      function rdAnswer(ans, btn) {
+        if (!rdCheckTarget) return;
+        const ok = norm(ans) === norm(rdCheckTarget.text);
+        document
+          .querySelectorAll(".rd-choice")
+          .forEach((b) => (b.disabled = true));
+        btn.classList.add(ok ? "correct" : "wrong");
+        $("rdFb").className = "fb " + (ok ? "good" : "bad");
+        $("rdFb").innerHTML = ok
+          ? "Correct!"
+          : `Target: <span class="sm-heb">${rdCheckTarget.text}</span>`;
+        award(ok ? 14 : 0, ok, "drill", "Listening check");
+      }
+
+      /* ===== READ ALOUD ===== */
+      function readPool() {
+        const k = $("readLevel").value;
+        if (k === "word")
+          return vocab.map((v) => ({
+            text: v.he,
+            meaning: v.en,
+            chunks: v.chunk,
+          }));
+        if (k === "phrase")
+          return vocab
+            .filter((v) => v.level >= 3)
+            .map((v) => ({ text: v.he, meaning: v.en, chunks: v.chunk }));
+        return phrases.map((p) => ({
+          text: p.full,
+          meaning: p.en + " (" + p.ref + ")",
+          chunks: p.parts.join(" | "),
+        }));
+      }
+      function newRead() {
+        curRead = sample(readPool(), 1)[0];
+        $("readPrompt").textContent = curRead.text;
+        $("readMeaning").innerHTML =
+          `<strong>Meaning:</strong> ${curRead.meaning}<br><strong>Chunks:</strong> <span class="sm-heb">${curRead.chunks}</span>`;
+        $("speechResult").className = "fb info";
+        $("speechResult").textContent = "Tap the mic and read.";
+        $("readProofBox").innerHTML = "";
+      }
+      function startListening() {
+        const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+        if (!SR) {
+          showReadProof();
+          $("speechResult").className = "fb bad";
+          $("speechResult").textContent =
+            "Speech recognition unavailable. Use proof below.";
+          return;
+        }
+        const r = new SR();
+        r.lang = "he-IL";
+        r.interimResults = false;
+        r.maxAlternatives = 3;
+        $("micOrb").classList.add("listening");
+        r.onresult = (e) => {
+          const t = Array.from(e.results[0])
+            .map((r) => r.transcript)
+            .join(" ");
+          checkSpeech(t);
+        };
+        r.onerror = () => {
+          $("micOrb").classList.remove("listening");
+          showReadProof();
+          $("speechResult").className = "fb bad";
+          $("speechResult").textContent = "Voice check failed. Use proof.";
+        };
+        r.onend = () => $("micOrb").classList.remove("listening");
+        r.start();
+      }
+      function checkSpeech(transcript) {
+        const tgt = norm(curRead.text),
+          heard = norm(transcript);
+        const tw = tgt.split(" ").filter(Boolean),
+          hw = heard.split(" ").filter(Boolean);
+        const hits = tw.filter((w) => hw.includes(w)).length;
+        const ok =
+          tw.length <= 1
+            ? heard.includes(tgt) || tgt.includes(heard)
+            : hits >= Math.max(1, Math.ceil(tw.length * 0.6));
+        $("speechResult").className = "fb " + (ok ? "good" : "bad");
+        $("speechResult").innerHTML = ok
+          ? `Passed! Heard: <span class="sm-heb">${transcript}</span>`
+          : `Not yet. Heard: <span class="sm-heb">${transcript || "nothing"}</span><br>Target: <span class="sm-heb">${curRead.text}</span>`;
+        award(ok ? 20 : 0, ok, "voice", "Read aloud");
+        if (ok) addBadge("voice");
+      }
+      function showReadProof() {
+        const chunks = curRead.chunks
+          .split("|")
+          .map((s) => s.trim())
+          .filter(Boolean);
+        const sh = shuffle(chunks);
+        $("readProofBox").innerHTML =
+          `<div class="panel" style="box-shadow:none"><h3>No-Mic Reading Proof</h3><p class="muted">Click chunks in correct order after reading aloud.</p>
+  <div class="drop-row" id="proofDrop">${chunks.map((_, i) => `<div class="drop-zone" data-i="${i}">${i + 1}</div>`).join("")}</div>
+  <div class="chunk-row" id="proofChunks">${sh.map((c) => `<button class="chunk" onclick="proofPick('${esc(c)}',this)">${c}</button>`).join("")}</div>
+  <div class="btn-row" style="justify-content:center"><button class="btn green" onclick="checkProof()">Check</button><button class="btn gray" onclick="showReadProof()">Reset</button></div>
+  <div id="proofFb" class="fb"></div></div>`;
+      }
+      function proofPick(c, btn) {
+        const next = Array.from(
+          document.querySelectorAll("#proofDrop .drop-zone"),
+        ).find((z) => !z.classList.contains("filled"));
+        if (!next) return;
+        next.textContent = c;
+        next.dataset.val = c;
+        next.classList.add("filled");
+        btn.classList.add("selected");
+        btn.disabled = true;
+      }
+      function checkProof() {
+        const ans = Array.from(
+          document.querySelectorAll("#proofDrop .drop-zone"),
+        ).map((z) => z.dataset.val || "");
+        const tgt = curRead.chunks
+          .split("|")
+          .map((s) => s.trim())
+          .filter(Boolean);
+        const ok = ans.join("|") === tgt.join("|");
+        $("proofFb").className = "fb " + (ok ? "good" : "bad");
+        $("proofFb").innerHTML = ok
+          ? "Correct order!"
+          : "Correct: <span class='sm-heb'>" + tgt.join(" | ") + "</span>";
+        award(ok ? 18 : 0, ok, "voice", "Proof");
+        if (ok) addBadge("voice");
+      }
+
+      /* ===== TROPE LEARNING ===== */
+      let tlLine = 0,
+        tlQ = null;
+      function renderTropeLearn() {
+        const root = $("tropeLearnRoot");
+        if (!root) return;
+        root.innerHTML = `<div class="panel"><h2>Trope Learning</h2>
+  <p class="muted" style="margin-bottom:10px">Learn what each trope mark tells your voice to do. See the mark, hear a real chanting sample, practice the action. Then go to Chant Coach for full practice.</p>
+  <div class="speed-ctl" style="margin-bottom:12px"><label>Sample Speed <span data-tr>${Math.round(tropeRate * 100)}%</span></label>
+  <input type="range" min=".45" max="1" step=".05" value="${tropeRate}" oninput="tropeRate=Number(this.value);localStorage.setItem('kt_tropeRate',String(tropeRate));document.querySelectorAll('[data-tr]').forEach(e=>e.textContent=Math.round(tropeRate*100)+'%')"></div>
+  <div class="audio-panel"><div id="tlSampleTitle"><strong>Sample player:</strong> Press "Hear Sample" on any card below.</div>
+  <audio id="tlSampleAudio" controls preload="none"></audio></div>
+  <div class="tl-grid" id="tlCards"></div></div>
+
+  <div class="panel" style="margin-top:14px"><div class="btn-row" style="justify-content:space-between;flex-wrap:wrap;margin-bottom:8px">
+  <h3 id="tlLineTitle">Practice Line</h3>
+  <div class="btn-row">${tropeLines.map((l, i) => `<button class="btn sm${i === tlLine ? "" : " gray"}" onclick="tlLine=${i};renderTropeLearn()">${l.title.split(" ")[0]}</button>`).join("")}
+  <button class="btn sm green" onclick="tlPlayLine()">Hear Line Samples</button></div></div>
+  <div class="tl-line" id="tlPracLine"></div>
+  <div class="tl-word-strip" id="tlWordStrip"></div>
+  <div id="tlFb" class="fb info">Tap a word to hear its trope sample and see the action.</div></div>
+
+  <div class="panel" style="margin-top:14px"><div class="btn-row" style="justify-content:space-between;flex-wrap:wrap;margin-bottom:8px">
+  <h3>Trope Quick Check</h3><button class="btn gold" onclick="tlStartCheck()">New Check</button></div>
+  <p class="muted">Look at the mark and choose the voice action.</p><div id="tlCheckBox"></div></div>`;
+        tlRenderCards();
+        tlRenderLine();
+      }
+
+      function tlRenderCards() {
+        const root = $("tlCards");
+        if (!root) return;
+        root.innerHTML = tropeMarks
+          .map(
+            (m) => `<div class="tl-card" id="tlC_${m.id}">
+  <div class="tl-mark">${m.id === "sofpasuk" ? "׃" : "◌" + m.mark}</div>
+  <h4>${m.name}</h4><div class="tl-hename">${m.he}</div>
+  <div class="tl-action">${m.emoji} ${m.action}</div>
+  <div class="tl-sample">${m.sample}</div>
+  <div class="tl-cue">${m.cue}</div>
+  <div class="btn-row" style="justify-content:center;margin-top:6px">
+  <button class="btn sm green" onclick="tlPlayReal('${m.id}')">Hear Sample</button>
+  <button class="btn sm gold" onclick="tlPlayReal('${m.id}',true)">Slow</button>
+  <button class="btn sm gray" onclick="playTrope(['${m.id}'])">Tone Guide</button></div>
+  <div style="font-size:.72rem;color:#94a3b8;margin-top:4px">Source: ${m.realLabel}</div></div>`,
+          )
+          .join("");
+      }
+
+      function tlPlayReal(id, slow = false) {
+        const m = tropeById(id);
+        const audio = $("tlSampleAudio");
+        const title = $("tlSampleTitle");
+        const rate = slow ? 0.65 : Math.max(0.55, Math.min(1, tropeRate));
+        const play = () => {
+          try {
+            audio.pause();
+            audio.currentTime = 0;
+            audio.playbackRate = rate;
+            audio.play();
+          } catch (e) {}
+        };
+        if (audio.getAttribute("data-src") !== m.realUrl) {
+          audio.src = m.realUrl;
+          audio.setAttribute("data-src", m.realUrl);
+          audio.load();
+          audio.addEventListener("loadedmetadata", play, { once: true });
+        } else if (audio.readyState >= 1) play();
+        else audio.addEventListener("loadedmetadata", play, { once: true });
+        if (title)
+          title.innerHTML = `<strong>${m.name}</strong>: ${m.realLabel} — Listen for the ${m.action.toLowerCase()} sound, then say <span class="sm-heb">${m.sample}</span>`;
+        document
+          .querySelectorAll(".tl-card")
+          .forEach((c) => c.classList.remove("active"));
+        const card = $("tlC_" + id);
+        if (card) card.classList.add("active");
+      }
+
+      function tlRenderLine() {
+        const line = tropeLines[tlLine];
+        $("tlLineTitle").textContent = line.title;
+        $("tlPracLine").textContent = line.text;
+        $("tlWordStrip").innerHTML = line.words
+          .map((w, i) => {
+            const m = tropeById(w.markId);
+            return `<button class="tl-word" data-i="${i}" onclick="tlFocusWord(${i})"><span class="whe">${w.he}</span><span class="wlbl">${m.emoji} ${m.name}: ${m.action}</span></button>`;
+          })
+          .join("");
+      }
+      function tlFocusWord(i) {
+        const line = tropeLines[tlLine];
+        const w = line.words[i];
+        const m = tropeById(w.markId);
+        document
+          .querySelectorAll(".tl-word")
+          .forEach((el) => el.classList.remove("active"));
+        const el = document.querySelector(`.tl-word[data-i="${i}"]`);
+        if (el) el.classList.add("active");
+        tlPlayReal(w.markId);
+        $("tlFb").className = "fb good";
+        $("tlFb").innerHTML =
+          `<strong>${w.he}</strong> uses <strong>${m.name}</strong>: ${m.emoji} ${m.action}. Say the word clearly.`;
+      }
+      function tlPlayLine() {
+        const line = tropeLines[tlLine];
+        let d = 0;
+        line.words.forEach((w, i) => {
+          setTimeout(() => {
+            document
+              .querySelectorAll(".tl-word")
+              .forEach((el) => el.classList.remove("active"));
+            const el = document.querySelector(`.tl-word[data-i="${i}"]`);
+            if (el) el.classList.add("active");
+            tlPlayReal(w.markId);
+          }, d);
+          d += 2400;
+        });
+      }
+      function tlStartCheck() {
+        const tgt = tropeMarks[Math.floor(Math.random() * tropeMarks.length)];
+        const opts = shuffle([
+          tgt,
+          ...tropeMarks
+            .filter((m) => m.id !== tgt.id)
+            .sort(() => Math.random() - 0.5)
+            .slice(0, 3),
+        ]);
+        tlQ = tgt;
+        $("tlCheckBox").innerHTML =
+          `<div class="tl-line" style="font-size:clamp(3rem,7vw,5rem)">${tgt.id === "sofpasuk" ? "׃" : "◌" + tgt.mark}</div>
+  <p class="muted" style="text-align:center">What should your voice do?</p>
+  <div class="tl-check-grid">${opts.map((o) => `<button class="tl-choice" onclick="tlAnswer('${o.id}',this)">${o.emoji}<br>${o.action}</button>`).join("")}</div>`;
+      }
+      function tlAnswer(id, btn) {
+        if (!tlQ) return;
+        const ok = id === tlQ.id;
+        document
+          .querySelectorAll(".tl-choice")
+          .forEach((b) => (b.disabled = true));
+        btn.classList.add(ok ? "correct" : "wrong");
+        $("tlFb").className = "fb " + (ok ? "good" : "bad");
+        $("tlFb").innerHTML = ok
+          ? `Correct! ${tlQ.name}: ${tlQ.emoji} ${tlQ.action}`
+          : `Not yet. ${tlQ.name}: ${tlQ.emoji} ${tlQ.action}`;
+        award(ok ? 14 : 0, ok, "trope", "Trope check");
+        if (ok) addBadge("trope");
+      }
+
+      /* ===== CHANT COACH ===== */
+      let ccActive = null,
+        ccActiveEl = null,
+        ccLoopS = 0,
+        ccLoopE = 0,
+        ccLoopT = null;
+      let ccWords = [],
+        ccSelIdx = 0,
+        ccReadIdx = 0,
+        ccTapActive = false,
+        ccTapIdx = 0,
+        ccTimings = [];
+      let ccRecorder = null,
+        ccChunks = [],
+        ccStudentURL = null;
+
+      function renderChantCoach() {
+        const root = $("chantRoot");
+        if (!root) return;
+        root.innerHTML = `<div class="cc-shell">
+  <div class="cc-panel"><h2>1. Listen</h2><span class="pill green">Audio controls</span>
+  <p class="muted" style="margin:6px 0">Play real Ki Teitzei chanting audio. Slow it down, loop one phrase, echo it.</p>
+  <div id="ccTracks"></div>
+
+  <div style="margin-top:12px"><h3>Loop Practice</h3><span class="pill gold">most useful</span>
+  <p class="muted" style="margin:4px 0">Play audio, pause at phrase start, Set Loop Start, play to end, Set Loop End, Play Loop. Echo until automatic.</p>
+  <div class="btn-row"><button class="btn green" onclick="ccPlay()">Play</button><button class="btn gray" onclick="ccPause()">Pause</button>
+  <button class="btn gold" onclick="ccSetLS()">Loop Start</button><button class="btn gold" onclick="ccSetLE()">Loop End</button>
+  <button class="btn green" onclick="ccPlayLoop()">Play Loop</button><button class="btn gray" onclick="ccClearLoop()">Clear Loop</button></div>
+  <div class="btn-row" style="margin-top:6px"><button class="btn sm" onclick="ccRate(.55)">55%</button><button class="btn sm" onclick="ccRate(.65)">65%</button>
+  <button class="btn sm" onclick="ccRate(.8)">80%</button><button class="btn sm" onclick="ccRate(1)">Normal</button></div>
+  <div class="speed-ctl" style="margin-top:6px"><label>Speed <span id="ccSpeedLbl">100%</span></label>
+  <input type="range" min=".5" max="1" step=".05" value="1" oninput="ccRate(Number(this.value))"></div>
+  <div class="loop-readout" id="ccLoopR"><span>Start: 0.0s</span><span>End: not set</span></div>
+  <div id="ccAudioFb" class="fb info">Choose a track, then follow along on the right.</div></div>
+
+  <div style="margin-top:12px"><h3>Upload Recording</h3><span class="pill">optional</span>
+  <p class="muted" style="margin:4px 0">Upload the exact recording from your tutor/teacher for the best match.</p>
+  <input type="file" accept="audio/*" onchange="ccUpload(event)"><audio id="ccUploadAudio" controls></audio></div>
+
+  <div style="margin-top:12px"><h3>Record + Compare</h3><span class="pill green">practice</span>
+  <p class="muted" style="margin:4px 0">After practicing, record yourself and compare to the model.</p>
+  <div class="btn-row"><button class="btn green" onclick="ccStartRec()">Record Me</button><button class="btn red" onclick="ccStopRec()">Stop</button>
+  <button class="btn gray" onclick="ccPlayRec()">Play Recording</button></div>
+  <audio id="ccStudentAudio" controls></audio><div id="ccRecFb" class="fb info">Record after practicing the loop.</div></div>
+
+  <div style="margin-top:12px"><h3>Practice Steps</h3>
+  <div class="timeline"><div class="tl-item"><div class="tl-dot">1</div><div><strong>Listen</strong> — track with finger only</div></div>
+  <div class="tl-item"><div class="tl-dot">2</div><div><strong>Hum</strong> — melody without words</div></div>
+  <div class="tl-item"><div class="tl-dot">3</div><div><strong>Echo</strong> — repeat after the recording</div></div>
+  <div class="tl-item"><div class="tl-dot">4</div><div><strong>Whisper + Point</strong> — whisper while pointing</div></div>
+  <div class="tl-item"><div class="tl-dot">5</div><div><strong>Full Voice</strong> — chant with the model</div></div>
+  <div class="tl-item"><div class="tl-dot">6</div><div><strong>Record</strong> — compare to model</div></div></div></div></div>
+
+  <div class="cc-panel" id="ccRight"><h2>2. Read + Follow</h2><span class="pill green">Hebrew text</span>
+  <p class="muted" style="margin:6px 0">Point to each word while listening. Click words to select. Use Point + Read to track your progress.</p>
+  <div class="btn-row"><select id="ccTextMode" onchange="ccRenderText()"><option value="builtin">Built-in: Deut. 24:10-13</option><option value="custom">Custom text</option></select>
+  <button class="btn green" onclick="ccStartPointRead()">Point + Read</button>
+  <button class="btn gray" onclick="ccPrevWord()">Prev</button><button class="btn gold" onclick="ccNextWord()">Next</button>
+  <button class="btn gray" onclick="ccReset()">Reset</button></div>
+  <div id="ccCustomBox" style="display:none;margin-top:8px"><strong>Paste Hebrew text:</strong>
+  <textarea id="ccCustomHeb" dir="rtl" rows="3" placeholder="Paste Hebrew with trope marks..."></textarea>
+  <button class="btn gold" onclick="ccLoadCustom()">Load</button></div>
+  <div class="nt-bigline" id="ccBigLine">Press Point + Read to start.</div>
+  <div id="ccHebArea" class="nt-words" style="margin-top:10px"></div>
+  <div class="nt-meter"><span id="ccMeter"></span></div>
+  <div id="ccReadFb" class="fb info">Click each word in order while reading aloud.</div>
+  <div class="rt-grid">
+  <div class="rt-card"><h4>Tap With Audio</h4><p>Play audio, tap Next each time you hear the next word.</p><button class="btn sm green" onclick="ccStartTap()">Start</button></div>
+  <div class="rt-card"><h4>Loop This Spot</h4><p>After tapping, click a word and loop that section.</p><button class="btn sm gold" onclick="ccLoopSpot()">Loop</button></div>
+  <div class="rt-card"><h4>Hide + Chant</h4><p>Hide text, chant from memory, reveal to check.</p><button class="btn sm gray" onclick="ccToggleHide()">Hide/Reveal</button></div>
+  <div class="rt-card"><h4>Pass Check</h4><p>3 clean readings with clear Hebrew.</p><button class="btn sm green" onclick="ccPass()">I Read It 3x</button></div></div></div></div>`;
+        ccRenderTracks();
+        ccRenderText();
+        if (chantTracks[0]) ccSetActive(chantTracks[0].id);
+      }
+
+      function ccRenderTracks() {
+        const root = $("ccTracks");
+        if (!root) return;
+        root.innerHTML = chantTracks
+          .map(
+            (
+              t,
+            ) => `<div class="track-card" id="ccTk_${t.id}"><h4>${t.title}</h4>
+  <audio id="ccA_${t.id}" controls preload="metadata" src="${t.url}" onplay="ccSetActive('${t.id}')"></audio>
+  <div class="btn-row"><button class="btn sm green" onclick="ccSetActive('${t.id}');ccPlay()">Play</button>
+  <button class="btn sm" onclick="ccSetActive('${t.id}');ccRate(.65)">65%</button>
+  <button class="btn sm" onclick="ccSetActive('${t.id}');ccRate(.8)">80%</button></div>
+  <div class="src" style="font-size:.72rem;color:#94a3b8">${t.src}</div></div>`,
+          )
+          .join("");
+      }
+
+      function ccSetActive(id) {
+        ccActive = id;
+        ccActiveEl = $("ccA_" + id);
+        document
+          .querySelectorAll(".track-card")
+          .forEach((c) => c.classList.remove("active"));
+        const c = $("ccTk_" + id);
+        if (c) c.classList.add("active");
+      }
+      function ccGetAudio() {
+        if (ccActiveEl) return ccActiveEl;
+        const u = $("ccUploadAudio");
+        if (u && u.src) return u;
+        return null;
+      }
+      function ccPlay() {
+        const a = ccGetAudio();
+        if (!a) return;
+        clearInterval(ccLoopT);
+        a.play();
+      }
+      function ccPause() {
+        const a = ccGetAudio();
+        if (a) a.pause();
+        clearInterval(ccLoopT);
+      }
+      function ccRate(r) {
+        const a = ccGetAudio();
+        if (a) a.playbackRate = r;
+        $("ccSpeedLbl").textContent = Math.round(r * 100) + "%";
+      }
+      function ccSetLS() {
+        const a = ccGetAudio();
+        if (!a) return;
+        ccLoopS = a.currentTime;
+        if (ccLoopE && ccLoopE <= ccLoopS) ccLoopE = 0;
+        ccUpdateLR();
+      }
+      function ccSetLE() {
+        const a = ccGetAudio();
+        if (!a) return;
+        ccLoopE = a.currentTime;
+        if (ccLoopE <= ccLoopS) ccLoopE = ccLoopS + 2;
+        ccUpdateLR();
+      }
+      function ccPlayLoop() {
+        const a = ccGetAudio();
+        if (!a || !ccLoopE || ccLoopE <= ccLoopS) return;
+        clearInterval(ccLoopT);
+        a.currentTime = ccLoopS;
+        a.play();
+        ccLoopT = setInterval(() => {
+          if (!a || a.paused) return;
+          if (a.currentTime >= ccLoopE) {
+            a.currentTime = ccLoopS;
+            a.play();
+          }
+        }, 70);
+      }
+      function ccClearLoop() {
+        clearInterval(ccLoopT);
+        ccLoopS = 0;
+        ccLoopE = 0;
+        ccUpdateLR();
+      }
+      function ccUpdateLR() {
+        const r = $("ccLoopR");
+        if (r)
+          r.innerHTML = `<span>Start: ${ccLoopS.toFixed(1)}s</span><span>End: ${ccLoopE ? ccLoopE.toFixed(1) + "s" : "not set"}</span>`;
+      }
+      function ccUpload(e) {
+        const f = e.target.files && e.target.files[0];
+        if (!f) return;
+        const u = URL.createObjectURL(f);
+        const a = $("ccUploadAudio");
+        a.src = u;
+        ccActiveEl = a;
+        ccActive = "upload";
+        document
+          .querySelectorAll(".track-card")
+          .forEach((c) => c.classList.remove("active"));
+      }
+
+      function ccRenderText() {
+        const mode = $("ccTextMode").value;
+        const box = $("ccCustomBox");
+        if (box) box.style.display = mode === "custom" ? "block" : "none";
+        if (mode === "builtin") {
+          ccWords = [];
+          chantVerses.forEach((v) =>
+            v.he
+              .split(/\s+/)
+              .filter(Boolean)
+              .forEach((w) => ccWords.push(w)),
+          );
+        }
+        ccSelIdx = 0;
+        ccReadIdx = 0;
+        ccTapActive = false;
+        ccTimings = [];
+        ccRenderHeb();
+        ccUpdateBig();
+        ccUpdateMeter();
+      }
+      function ccLoadCustom() {
+        const t = $("ccCustomHeb").value.trim();
+        if (!t) return;
+        ccWords = t.split(/\s+/).filter(Boolean);
+        ccSelIdx = 0;
+        ccReadIdx = 0;
+        ccTimings = [];
+        ccRenderHeb();
+        ccUpdateBig();
+        ccUpdateMeter();
+      }
+      function ccRenderHeb(act = null) {
+        const area = $("ccHebArea");
+        if (!area) return;
+        const mode = $("ccTextMode").value;
+        if (mode === "builtin") {
+          let g = 0;
+          area.innerHTML = chantVerses
+            .map((v) => {
+              const html = v.he
+                .split(/\s+/)
+                .filter(Boolean)
+                .map((w) => {
+                  const i = g++;
+                  const cls = ["nt-word"];
+                  if (i === ccSelIdx) cls.push("selected");
+                  if (i === act) cls.push("active");
+                  if (i < ccReadIdx) cls.push("read");
+                  return `<button class="${cls.join(" ")}" onclick="ccSelWord(${i})" data-i="${i}"><span class="wh">${w}</span><span class="wn">${i + 1}</span></button>`;
+                })
+                .join("");
+              return `<div class="nt-verse"><div class="nt-ref">${v.ref}</div><div class="nt-words">${html}</div></div>`;
+            })
+            .join("");
+        } else {
+          area.innerHTML = `<div class="nt-words">${ccWords
+            .map((w, i) => {
+              const cls = ["nt-word"];
+              if (i === ccSelIdx) cls.push("selected");
+              if (i === act) cls.push("active");
+              if (i < ccReadIdx) cls.push("read");
+              return `<button class="${cls.join(" ")}" onclick="ccSelWord(${i})" data-i="${i}"><span class="wh">${w}</span><span class="wn">${i + 1}</span></button>`;
+            })
+            .join("")}</div>`;
+        }
+      }
+      function ccSelWord(i) {
+        ccSelIdx = i;
+        ccRenderHeb();
+        ccUpdateBig();
+      }
+      function ccUpdateBig() {
+        const el = $("ccBigLine");
+        if (!el) return;
+        const s = Math.max(0, ccSelIdx - 3),
+          e = Math.min(ccWords.length, ccSelIdx + 4);
+        el.textContent = ccWords.slice(s, e).join(" ") || "Load text.";
+      }
+      function ccUpdateMeter() {
+        const bar = $("ccMeter");
+        if (!bar) return;
+        bar.style.width =
+          (ccWords.length
+            ? Math.round((ccReadIdx / ccWords.length) * 100)
+            : 0) + "%";
+      }
+      function ccStartPointRead() {
+        ccReadIdx = 0;
+        ccSelIdx = 0;
+        ccRenderHeb(0);
+        ccUpdateBig();
+        ccUpdateMeter();
+        $("ccReadFb").className = "fb info";
+        $("ccReadFb").textContent =
+          "Click/say each word in order. Press Next after each.";
+      }
+      function ccNextWord() {
+        if (!ccWords.length) return;
+        if (ccTapActive && ccActiveEl && ccTapIdx < ccWords.length) {
+          ccTimings[ccTapIdx] = ccGetAudio().currentTime;
+          ccReadIdx = Math.max(ccReadIdx, ccTapIdx + 1);
+          ccSelIdx = ccTapIdx;
+          ccRenderHeb(ccTapIdx);
+          ccUpdateBig();
+          ccUpdateMeter();
+          ccTapIdx++;
+          if (ccTapIdx >= ccWords.length) {
+            ccTapActive = false;
+            $("ccReadFb").className = "fb good";
+            $("ccReadFb").textContent =
+              "Tap complete. Click a word and use Loop This Spot.";
+          }
+          return;
+        }
+        if (ccSelIdx === ccReadIdx)
+          ccReadIdx = Math.min(ccWords.length, ccReadIdx + 1);
+        ccSelIdx = Math.min(ccWords.length - 1, ccSelIdx + 1);
+        ccRenderHeb(ccSelIdx);
+        ccUpdateBig();
+        ccUpdateMeter();
+        if (ccReadIdx >= ccWords.length) {
+          $("ccReadFb").className = "fb good";
+          $("ccReadFb").textContent = "Complete! Try again without audio.";
+        }
+      }
+      function ccPrevWord() {
+        ccSelIdx = Math.max(0, ccSelIdx - 1);
+        ccRenderHeb(ccSelIdx);
+        ccUpdateBig();
+      }
+      function ccReset() {
+        ccReadIdx = 0;
+        ccSelIdx = 0;
+        ccTapActive = false;
+        ccTimings = [];
+        ccRenderHeb();
+        ccUpdateBig();
+        ccUpdateMeter();
+      }
+      function ccStartTap() {
+        const a = ccGetAudio();
+        if (!a && chantTracks[0]) ccSetActive(chantTracks[0].id);
+        if (!ccGetAudio()) return;
+        ccTimings = [];
+        ccTapActive = true;
+        ccTapIdx = 0;
+        ccSelIdx = 0;
+        ccRenderHeb(0);
+        ccGetAudio().play();
+        $("ccReadFb").className = "fb info";
+        $("ccReadFb").textContent =
+          "Press Next each time you hear the next word.";
+      }
+      function ccLoopSpot() {
+        const a = ccGetAudio();
+        if (!a) return;
+        if (ccTimings[ccSelIdx] === undefined) {
+          $("ccReadFb").className = "fb warn";
+          $("ccReadFb").textContent = "Use Tap With Audio first.";
+          return;
+        }
+        ccLoopS = Math.max(0, ccTimings[ccSelIdx] - 0.2);
+        ccLoopE = ccTimings[ccSelIdx + 1]
+          ? Math.max(ccLoopS + 0.8, ccTimings[ccSelIdx + 1] - 0.05)
+          : ccLoopS + 2;
+        ccUpdateLR();
+        ccPlayLoop();
+      }
+      function ccToggleHide() {
+        $("ccRight").classList.toggle("nt-hidden");
+        const h = $("ccRight").classList.contains("nt-hidden");
+        $("ccReadFb").className = "fb " + (h ? "warn" : "good");
+        $("ccReadFb").textContent = h
+          ? "Hidden. Chant from memory, then reveal."
+          : "Revealed. Check and fix.";
+      }
+      function ccPass() {
+        award(20, true, "chant", "Chant practice");
+        addBadge("chant");
+        $("ccReadFb").className = "fb good";
+        $("ccReadFb").textContent = "Passed! Repeat tomorrow to strengthen.";
+        confetti(30);
+      }
+      async function ccStartRec() {
+        if (!navigator.mediaDevices?.getUserMedia) {
+          $("ccRecFb").className = "fb bad";
+          $("ccRecFb").textContent = "Mic unavailable.";
+          return;
+        }
+        try {
+          const s = await navigator.mediaDevices.getUserMedia({ audio: true });
+          ccChunks = [];
+          ccRecorder = new MediaRecorder(s);
+          ccRecorder.ondataavailable = (e) => {
+            if (e.data.size) ccChunks.push(e.data);
+          };
+          ccRecorder.onstop = () => {
+            const b = new Blob(ccChunks, { type: "audio/webm" });
+            if (ccStudentURL) URL.revokeObjectURL(ccStudentURL);
+            ccStudentURL = URL.createObjectURL(b);
+            $("ccStudentAudio").src = ccStudentURL;
+            s.getTracks().forEach((t) => t.stop());
+            $("ccRecFb").className = "fb good";
+            $("ccRecFb").textContent =
+              "Saved. Play model, then your recording, and compare.";
+          };
+          ccRecorder.start();
+          $("ccRecFb").className = "fb warn";
+          $("ccRecFb").innerHTML = '<span class="rec-dot"></span>Recording...';
+        } catch (e) {
+          $("ccRecFb").className = "fb bad";
+          $("ccRecFb").textContent = "Mic blocked.";
+        }
+      }
+      function ccStopRec() {
+        if (ccRecorder && ccRecorder.state !== "inactive") ccRecorder.stop();
+      }
+      function ccPlayRec() {
+        const a = $("ccStudentAudio");
+        if (!a || !a.src) {
+          $("ccRecFb").className = "fb bad";
+          $("ccRecFb").textContent = "No recording yet.";
+          return;
+        }
+        a.play();
+      }
+
+      /* ===== PASUK RUNNER ===== */
+      function newRunner() {
+        const lv = Number($("runnerLevel").value);
+        const pool = phrases.filter((p) => p.level <= lv);
+        curRunner = sample(pool, 1)[0];
+        $("runnerHint").innerHTML =
+          `<strong>Meaning:</strong> ${curRunner.en}<br><strong>Source:</strong> ${curRunner.ref}`;
+        $("runnerDrop").innerHTML = curRunner.parts
+          .map((_, i) => `<div class="drop-zone" data-i="${i}">${i + 1}</div>`)
+          .join("");
+        $("runnerChunks").innerHTML = shuffle(curRunner.parts)
+          .map(
+            (p) =>
+              `<button class="chunk" onclick="pickRunner('${esc(p)}',this)">${p}</button>`,
+          )
+          .join("");
+        $("runnerFb").className = "fb";
+        $("runnerFb").textContent = "";
+      }
+      function pickRunner(p, btn) {
+        const next = Array.from(
+          document.querySelectorAll("#runnerDrop .drop-zone"),
+        ).find((z) => !z.classList.contains("filled"));
+        if (!next) return;
+        next.textContent = p;
+        next.dataset.val = p;
+        next.classList.add("filled");
+        btn.classList.add("selected");
+        btn.disabled = true;
+      }
+      function clearRunner() {
+        if (!curRunner) return;
+        newRunner();
+      }
+      function checkRunner() {
+        const ans = Array.from(
+          document.querySelectorAll("#runnerDrop .drop-zone"),
+        ).map((z) => z.dataset.val || "");
+        const ok = ans.join("|") === curRunner.parts.join("|");
+        $("runnerFb").className = "fb " + (ok ? "good" : "bad");
+        $("runnerFb").innerHTML = ok
+          ? `Correct! <span class="sm-heb">${curRunner.full}</span>`
+          : `Correct: <span class="sm-heb">${curRunner.full}</span>`;
+        award(ok ? 20 : 0, ok, "runner", "Pasuk runner");
+        if (ok) {
+          addBadge("runner");
+          setTimeout(newRunner, 1200);
+        }
+      }
+
+      /* ===== PHRASE BANK ===== */
+      function renderPhraseBank() {
+        $("phraseBank").innerHTML = phrases
+          .map(
+            (p) =>
+              `<div class="phrase-card"><div class="ph">${p.full}</div><div class="pe">${p.en} — ${p.ref}</div></div>`,
+          )
+          .join("");
+      }
+
+      /* ===== MITZVAH QUEST ===== */
+      function renderMitzvah() {
+        $("mitzvahCards").innerHTML = mitzvot
+          .map(
+            (m) => `<div class="mission-card" onclick="openMission('${m.id}')">
+  <span class="icon">${m.icon}</span><h4>${m.title}</h4><p class="sm-heb" style="font-size:1.2rem">${m.he}</p><p>${m.meaning}</p></div>`,
+          )
+          .join("");
+      }
+      function openMission(id) {
+        const m = mitzvot.find((x) => x.id === id);
+        if (!m) return;
+        const others = shuffle(mitzvot.filter((x) => x.id !== id)).slice(0, 3);
+        const choices = shuffle([m, ...others]);
+        $("mitzvahStage").innerHTML = `<h3>${m.icon} ${m.title}</h3>
+  <p class="muted"><strong>Step 1:</strong> Which Hebrew matches "${m.meaning}"?</p>
+  <div class="ans-grid">${choices.map((c) => `<button class="ans he" onclick="checkMission('${esc(m.he)}','${esc(c.he)}',this)">${c.he}</button>`).join("")}</div>
+  <div id="missionFb" class="fb"></div>`;
+      }
+      function checkMission(target, choice, btn) {
+        const ok = norm(choice) === norm(target);
+        document
+          .querySelectorAll("#mitzvahStage .ans")
+          .forEach((b) => (b.disabled = true));
+        btn.classList.add(ok ? "correct" : "wrong");
+        const m = mitzvot.find((x) => norm(x.he) === norm(target));
+        $("missionFb").className = "fb " + (ok ? "good" : "bad");
+        $("missionFb").innerHTML = ok
+          ? `Correct! <strong>${m.big}</strong><br><br><strong>Think about it:</strong> ${m.prompt}`
+          : `Not yet. The answer: <span class="sm-heb">${target}</span>`;
+        award(ok ? 18 : 0, ok, "mitzvah", "Mission: " + (m?.title || ""));
+        if (ok) addBadge("mitzvah");
+      }
+
+      /* ===== BOSS BATTLE ===== */
+      function updateBoss() {
+        const done = Object.keys(state.completed).filter(
+          (k) => state.completed[k] > 0,
+        ).length;
+        const locked = done < 3;
+        $("bossStatus").textContent = locked
+          ? `locked (${done}/3 stations)`
+          : "UNLOCKED";
+        if (!locked && !bossQs.length)
+          $("bossStage").innerHTML =
+            `<h3>Ready to fight!</h3><button class="btn red" onclick="startBoss()">Start Boss Battle</button>`;
+      }
+      function startBoss() {
+        bossHP = 100;
+        bossIdx = 0;
+        bossQs = shuffle([
+          ...sample(vocab, 4).map((v) => ({
+            type: "meaning",
+            he: v.he,
+            en: v.en,
+            tip: v.tip,
+          })),
+          ...sample(phrases, 2).map((p) => ({
+            type: "order",
+            full: p.full,
+            parts: p.parts,
+            en: p.en,
+          })),
+          ...sample(tropeMarks, 2).map((t) => ({
+            type: "trope",
+            mark: t.mark,
+            name: t.name,
+            action: t.action,
+            emoji: t.emoji,
+          })),
+          { type: "read", text: sample(vocab, 1)[0].he },
+        ]);
+        renderBossQ();
+      }
+      function renderBossQ() {
+        if (bossIdx >= bossQs.length || bossHP <= 0) {
+          const won = bossHP <= 0;
+          $("bossStage").innerHTML = `<h2>${won ? "YOU WIN!" : "Try again"}</h2>
+  <p class="muted">${won ? "Boss defeated! You proved your Ki Teitzei knowledge." : "Keep practicing and try again."}</p>
+  <button class="btn gold" onclick="startBoss()">Play Again</button>`;
+          if (won) {
+            addBadge("boss");
+            award(50, true, "boss", "Beat the boss");
+            confetti(50);
+          }
+          return;
+        }
+        $("bossHP").style.width = bossHP + "%";
+        const q = bossQs[bossIdx];
+        if (q.type === "meaning") {
+          const choices = shuffle([
+            q.en,
+            ...sample(
+              vocab.filter((v) => v.en !== q.en),
+              3,
+            ).map((v) => v.en),
+          ]);
+          $("bossStage").innerHTML =
+            `<h3>What does this mean?</h3><div class="mid-heb">${q.he}</div>
+    <div class="ans-grid">${choices.map((c) => `<button class="ans" onclick="bossAnswer('${esc(q.en)}','${esc(c)}',this)">${c}</button>`).join("")}</div><div id="bossFb" class="fb"></div>`;
+        } else if (q.type === "trope") {
+          const choices = shuffle([
+            q,
+            ...sample(
+              tropeMarks.filter((t) => t.name !== q.name),
+              3,
+            ),
+          ]);
+          $("bossStage").innerHTML =
+            `<h3>What does this trope mark do?</h3><div class="mid-heb" style="font-size:4rem">${q.mark}</div>
+    <div class="ans-grid">${choices.map((c) => `<button class="ans" onclick="bossAnswer('${esc(q.action)}','${esc(c.action)}',this)">${c.emoji} ${c.action}</button>`).join("")}</div><div id="bossFb" class="fb"></div>`;
+        } else if (q.type === "order") {
+          $("bossStage").innerHTML =
+            `<h3>Build this phrase</h3><p class="muted">${q.en}</p>
+    <div class="drop-row" id="bossDrop">${q.parts.map((_, i) => `<div class="drop-zone" data-i="${i}">${i + 1}</div>`).join("")}</div>
+    <div class="chunk-row">${shuffle(q.parts)
+      .map(
+        (p) =>
+          `<button class="chunk" onclick="bossPick('${esc(p)}',this)">${p}</button>`,
+      )
+      .join("")}</div>
+    <button class="btn green" onclick="bossCheckOrder()">Check</button><div id="bossFb" class="fb"></div>`;
+        } else {
+          $("bossStage").innerHTML =
+            `<h3>Read this aloud</h3><div class="big-heb">${q.text}</div>
+    <div class="btn-row" style="justify-content:center"><button class="btn green" onclick="speakText('${esc(q.text)}')">Hear It</button>
+    <button class="btn gold" onclick="bossAnswer('ok','ok',null)">I Read It</button></div><div id="bossFb" class="fb"></div>`;
+        }
+      }
+      function bossAnswer(target, choice, btn) {
+        const ok = choice === target;
+        if (btn) {
+          document
+            .querySelectorAll("#bossStage .ans")
+            .forEach((b) => (b.disabled = true));
+          btn.classList.add(ok ? "correct" : "wrong");
+        }
+        if (!ok) bossHP -= 25;
+        award(ok ? 12 : 0, ok, "boss", "Boss round");
+        $("bossHP").style.width = Math.max(0, bossHP) + "%";
+        $("bossFb").className = "fb " + (ok ? "good" : "bad");
+        $("bossFb").textContent = ok
+          ? "Correct! Boss takes damage!"
+          : "Wrong! You lose health.";
+        bossIdx++;
+        setTimeout(renderBossQ, ok ? 900 : 1500);
+      }
+      function bossPick(p, btn) {
+        const next = Array.from(
+          document.querySelectorAll("#bossDrop .drop-zone"),
+        ).find((z) => !z.classList.contains("filled"));
+        if (!next) return;
+        next.textContent = p;
+        next.dataset.val = p;
+        next.classList.add("filled");
+        btn.classList.add("selected");
+        btn.disabled = true;
+      }
+      function bossCheckOrder() {
+        const q = bossQs[bossIdx];
+        const ans = Array.from(
+          document.querySelectorAll("#bossDrop .drop-zone"),
+        ).map((z) => z.dataset.val || "");
+        const ok = ans.join("|") === q.parts.join("|");
+        if (!ok) bossHP -= 25;
+        $("bossHP").style.width = Math.max(0, bossHP) + "%";
+        award(ok ? 15 : 0, ok, "boss", "Boss order");
+        $("bossFb").className = "fb " + (ok ? "good" : "bad");
+        $("bossFb").textContent = ok ? "Correct!" : "Wrong order!";
+        bossIdx++;
+        setTimeout(renderBossQ, ok ? 900 : 1500);
+      }
+
+      /* ===== DAILY DRILL ===== */
+      function dailyDrill() {
+        go("drill");
+        toast(
+          "5-minute drill started. Read 5 items, then check your accuracy.",
+        );
+        addBadge("daily");
+        award(10, true, "daily", "Daily drill");
+      }
+
+      /* ===== PROGRESS ===== */
+      function resetProgress() {
+        if (confirm("Reset all progress?")) {
+          state = defaultState();
+          saveState();
+          toast("Progress reset.");
+        }
+      }
+      function exportProgress() {
+        const txt = `Ki Teitzei Progress — ${new Date().toLocaleDateString()}\nPlayer: ${state.name || "unnamed"}\nXP: ${state.xp} | Level: ${Math.max(1, Math.floor(state.xp / 100) + 1)} | Accuracy: ${accuracy()}%\nBadges: ${Object.keys(state.badges).join(", ") || "none"}\nRecent: ${state.logs
+          .slice(0, 5)
+          .map((l) => `${l.skill}: ${l.correct ? "✓" : "✗"}`)
+          .join(", ")}`;
+        $("progressExport").value = txt;
+        navigator.clipboard?.writeText(txt).then(() => toast("Copied!"));
+      }
+
+      /* ===== STAR CANVAS ===== */
+      function setupStars() {
+        const c = $("stars"),
+          ctx = c.getContext("2d");
+        let stars = [];
+        function resize() {
+          c.width = innerWidth * devicePixelRatio;
+          c.height = innerHeight * devicePixelRatio;
+          c.style.width = innerWidth + "px";
+          c.style.height = innerHeight + "px";
+          ctx.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0);
+          stars = Array.from(
+            { length: Math.min(120, Math.floor(innerWidth / 10)) },
+            () => ({
+              x: Math.random() * innerWidth,
+              y: Math.random() * innerHeight,
+              r: Math.random() * 2 + 0.4,
+              vx: (Math.random() - 0.5) * 0.15,
+              vy: Math.random() * 0.2 + 0.04,
+              a: Math.random() * 0.7 + 0.2,
+            }),
+          );
+        }
+        function draw() {
+          ctx.clearRect(0, 0, innerWidth, innerHeight);
+          for (const s of stars) {
+            s.x += s.vx;
+            s.y += s.vy;
+            if (s.y > innerHeight + 10) {
+              s.y = -10;
+              s.x = Math.random() * innerWidth;
+            }
+            if (s.x < -10) s.x = innerWidth + 10;
+            if (s.x > innerWidth + 10) s.x = -10;
+            ctx.globalAlpha = s.a;
+            ctx.beginPath();
+            ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+            ctx.fillStyle = "#fff";
+            ctx.fill();
+          }
+          ctx.globalAlpha = 1;
+          requestAnimationFrame(draw);
+        }
+        addEventListener("resize", resize);
+        resize();
+        draw();
+      }
+
+      /* ===== INIT ===== */
+      addEventListener("DOMContentLoaded", () => {
+        document
+          .querySelectorAll(".tab")
+          .forEach((b) => b.addEventListener("click", () => go(b.dataset.tab)));
+        setupStars();
+        renderStats();
+        renderPhraseBank();
+        speechSynthesis?.getVoices();
+      });
+    </script>
+  
+
+</body></html>
