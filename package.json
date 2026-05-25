@@ -1,8 +1,8 @@
 {
-  "name": "neft-teacher-cloudflare-hub",
+  "name": "neft-hub",
   "version": "1.0.0",
   "private": true,
-  "description": "One Cloudflare Pages project that collects multiple static classroom apps under /apps/ routes.",
+  "description": "One Cloudflare Pages hub for Neft Teacher apps, GitHub navigation, classroom tools, and family learning resources.",
   "type": "module",
   "scripts": {
     "build": "node scripts/build-cloudflare-hub.mjs",
