@@ -1,12 +1,23 @@
 # Clean app folder URLs.
 /apps/:slug /apps/:slug/index.html 200
 
-# Legacy assignment routes.
+# Noam Hebrew: single organized hub route.
+/apps/hebrew-reading-practice /apps/noam-hebrew/ 302
+/apps/hebrew-reading-practice/ /apps/noam-hebrew/ 302
+/apps/hebrew-reading-practice/* /apps/noam-hebrew/ 302
 /assignments/noam-hebrew/ki-teitzei-chant-arcade /apps/noam-hebrew/ki-teitzei-chant-arcade/ 302
 /assignments/noam-hebrew/ki-teitzei-chant-arcade/ /apps/noam-hebrew/ki-teitzei-chant-arcade/ 302
 /assignments/noam-hebrew/ki-teitzei-chant-arcade.html /apps/noam-hebrew/ki-teitzei-chant-arcade.html 302
+/assignments/noam-hebrew/hebrew-prayer-reading-arcade-transliteration.html /apps/noam-hebrew/hebrew-prayer-reading-arcade-transliteration.html 302
+/assignments/noam-hebrew/units-53-54.html /apps/noam-hebrew/units-53-54.html 302
+/assignments/noam-hebrew/quiz-54.html /apps/noam-hebrew/quiz-54.html 302
+/assignments/noam-hebrew/study-guide-53.html /apps/noam-hebrew/study-guide-53.html 302
 /assignments/noam-hebrew /apps/noam-hebrew/ 302
 /assignments/noam-hebrew/ /apps/noam-hebrew/ 302
+/assignments/hebrew-word-sort /apps/noam-hebrew/ 302
+/assignments/hebrew-word-sort/ /apps/noam-hebrew/ 302
+
+# Legacy assignment routes.
 /assignments/math-units /apps/grade-6-math-units/ 302
 /assignments/math-units/ /apps/grade-6-math-units/ 302
 
