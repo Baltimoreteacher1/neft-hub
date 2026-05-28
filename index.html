@@ -1,113 +1,191 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Mr. Neft's Interactive Assignment Library</title>
-  <meta name="description" content="A GitHub Pages hub for interactive student assignments." />
-  <link rel="stylesheet" href="./assets/ewl-theme.css" />
-</head>
-<body data-page="home">
-  <a class="skip-link" href="#assignments">Skip to assignments</a>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Mr. Neft's Interactive Assignment Library</title>
+    <meta
+      name="description"
+      content="A GitHub Pages hub for interactive student assignments."
+    />
+    <meta name="theme-color" content="#12355b" />
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="stylesheet" href="./assets/ewl-theme.css" />
+  </head>
+  <body data-page="home">
+    <a class="skip-link" href="#assignments">Skip to assignments</a>
 
-  <header class="hero hero-home">
-    <div class="hero__content">
-      <p class="eyebrow">EduWonderLab · Interactive Assignment Library</p>
-      <h1>Mr. Neft's Interactive Assignments</h1>
-      <p class="hero__text">One clean GitHub Pages deployment for multiple HTML activities, practice labs, review games, and student-friendly math missions.</p>
-      <div class="hero__actions">
-        <a class="button button-primary" href="#assignments">Open Assignment Library</a>
-        <a class="button button-ghost" href="./assignments/_template/">View Assignment Template</a>
+    <header class="hero hero-home">
+      <div class="hero__content">
+        <p class="eyebrow">EduWonderLab · Interactive Assignment Library</p>
+        <h1>Mr. Neft's Interactive Assignments</h1>
+        <p class="hero__text">
+          One clean GitHub Pages deployment for multiple HTML activities,
+          practice labs, review games, and student-friendly math missions.
+        </p>
+        <div class="hero__actions">
+          <a class="button button-primary" href="#assignments"
+            >Open Assignment Library</a
+          >
+          <a class="button button-ghost" href="./assignments/_template/"
+            >View Assignment Template</a
+          >
+        </div>
       </div>
-    </div>
-    <aside class="hero-panel" aria-label="How this site works">
-      <h2>How to use this hub</h2>
-      <ol class="number-list">
-        <li>Each assignment lives in its own folder.</li>
-        <li>Every folder uses its own <code>index.html</code>.</li>
-        <li>Students get one simple link per activity.</li>
-      </ol>
-    </aside>
-  </header>
+      <aside class="hero-panel" aria-label="How this site works">
+        <h2>How to use this hub</h2>
+        <ol class="number-list">
+          <li>Each assignment lives in its own folder.</li>
+          <li>Every folder uses its own <code>index.html</code>.</li>
+          <li>Students get one simple link per activity.</li>
+        </ol>
+      </aside>
+    </header>
 
-  <main class="page-shell">
-    <section class="toolbar-card" aria-label="Assignment search and filters">
-      <div>
-        <h2>Assignment Dashboard</h2>
-        <p>Search, filter, and launch activities from one deployment.</p>
-      </div>
-      <div class="toolbar-controls">
-        <label class="field-label" for="assignmentSearch">Search assignments</label>
-        <input id="assignmentSearch" class="input" type="search" placeholder="Search by topic, standard, or skill..." autocomplete="off" />
-        <label class="field-label" for="assignmentFilter">Filter</label>
-        <select id="assignmentFilter" class="input">
-          <option value="all">All</option>
-          <option value="math">Math</option>
-          <option value="language">Language</option>
-          <option value="template">Template</option>
-        </select>
-      </div>
-    </section>
+    <main class="page-shell">
+      <section class="toolbar-card" aria-label="Assignment search and filters">
+        <div>
+          <h2>Assignment Dashboard</h2>
+          <p>Search, filter, and launch activities from one deployment.</p>
+        </div>
+        <div class="toolbar-controls">
+          <label class="field-label" for="assignmentSearch"
+            >Search assignments</label
+          >
+          <input
+            id="assignmentSearch"
+            class="input"
+            type="search"
+            placeholder="Search by topic, standard, or skill..."
+            autocomplete="off"
+          />
+          <label class="field-label" for="assignmentFilter">Filter</label>
+          <select id="assignmentFilter" class="input">
+            <option value="all">All</option>
+            <option value="math">Math</option>
+            <option value="language">Language</option>
+            <option value="template">Template</option>
+          </select>
+        </div>
+      </section>
 
-    <section id="assignments" class="assignment-grid" aria-label="Interactive assignments">
-      <article class="assignment-card" data-title="volume of rectangular prisms 3d practice grade 6" data-category="math">
-        <div class="card-tag">Math · Grade 6</div>
-        <h3>Volume of Rectangular Prisms</h3>
-        <p>Launch a folder-based HTML activity that can later be replaced with your full 3D prism assignment.</p>
-        <ul class="mini-list">
-          <li>Folder: <code>assignments/volume-rectangular-prisms/</code></li>
-          <li>Student link ends in <code>/volume-rectangular-prisms/</code></li>
-        </ul>
-        <a class="button button-card" href="./assignments/volume-rectangular-prisms/">Launch</a>
-      </article>
+      <section
+        id="assignments"
+        class="assignment-grid"
+        aria-label="Interactive assignments"
+      >
+        <article
+          class="assignment-card"
+          data-title="volume of rectangular prisms 3d practice grade 6"
+          data-category="math"
+        >
+          <div class="card-tag">Math · Grade 6</div>
+          <h3>Volume of Rectangular Prisms</h3>
+          <p>
+            Launch a folder-based HTML activity that can later be replaced with
+            your full 3D prism assignment.
+          </p>
+          <ul class="mini-list">
+            <li>Folder: <code>assignments/volume-rectangular-prisms/</code></li>
+            <li>
+              Student link ends in <code>/volume-rectangular-prisms/</code>
+            </li>
+          </ul>
+          <a
+            class="button button-card"
+            href="./assignments/volume-rectangular-prisms/"
+            >Launch</a
+          >
+        </article>
 
-      <article class="assignment-card" data-title="area review triangle parallelogram rhombus trapezoid" data-category="math">
-        <div class="card-tag">Math · Area</div>
-        <h3>Area Review Lab</h3>
-        <p>A sample multi-page activity slot for area review, formulas, and practice.</p>
-        <ul class="mini-list">
-          <li>Folder: <code>assignments/area-review/</code></li>
-          <li>Use for triangle, parallelogram, rhombus, and trapezoid review.</li>
-        </ul>
-        <a class="button button-card" href="./assignments/area-review/">Launch</a>
-      </article>
+        <article
+          class="assignment-card"
+          data-title="area review triangle parallelogram rhombus trapezoid"
+          data-category="math"
+        >
+          <div class="card-tag">Math · Area</div>
+          <h3>Area Review Lab</h3>
+          <p>
+            A sample multi-page activity slot for area review, formulas, and
+            practice.
+          </p>
+          <ul class="mini-list">
+            <li>Folder: <code>assignments/area-review/</code></li>
+            <li>
+              Use for triangle, parallelogram, rhombus, and trapezoid review.
+            </li>
+          </ul>
+          <a class="button button-card" href="./assignments/area-review/"
+            >Launch</a
+          >
+        </article>
 
-      <article class="assignment-card" data-title="hebrew word sort drag drop practice" data-category="language">
-        <div class="card-tag">Language · Drag & Drop</div>
-        <h3>Hebrew Word Sort</h3>
-        <p>A sample language-learning assignment folder for vocabulary practice and sorting.</p>
-        <ul class="mini-list">
-          <li>Folder: <code>assignments/hebrew-word-sort/</code></li>
-          <li>Good for drag-and-drop activities.</li>
-        </ul>
-        <a class="button button-card" href="./assignments/hebrew-word-sort/">Launch</a>
-      </article>
+        <article
+          class="assignment-card"
+          data-title="hebrew word sort drag drop practice"
+          data-category="language"
+        >
+          <div class="card-tag">Language · Drag & Drop</div>
+          <h3>Hebrew Word Sort</h3>
+          <p>
+            A sample language-learning assignment folder for vocabulary practice
+            and sorting.
+          </p>
+          <ul class="mini-list">
+            <li>Folder: <code>assignments/hebrew-word-sort/</code></li>
+            <li>Good for drag-and-drop activities.</li>
+          </ul>
+          <a class="button button-card" href="./assignments/hebrew-word-sort/"
+            >Launch</a
+          >
+        </article>
 
-      <article class="assignment-card" data-title="assignment template reusable shell starter" data-category="template">
-        <div class="card-tag">Reusable Template</div>
-        <h3>Blank Assignment Template</h3>
-        <p>Copy this folder whenever you want to add a new HTML assignment to the same deployment.</p>
-        <ul class="mini-list">
-          <li>Folder: <code>assignments/_template/</code></li>
-          <li>Includes the correct relative links.</li>
-        </ul>
-        <a class="button button-card" href="./assignments/_template/">Open Template</a>
-      </article>
-    </section>
+        <article
+          class="assignment-card"
+          data-title="assignment template reusable shell starter"
+          data-category="template"
+        >
+          <div class="card-tag">Reusable Template</div>
+          <h3>Blank Assignment Template</h3>
+          <p>
+            Copy this folder whenever you want to add a new HTML assignment to
+            the same deployment.
+          </p>
+          <ul class="mini-list">
+            <li>Folder: <code>assignments/_template/</code></li>
+            <li>Includes the correct relative links.</li>
+          </ul>
+          <a class="button button-card" href="./assignments/_template/"
+            >Open Template</a
+          >
+        </article>
+      </section>
 
-    <section class="info-card">
-      <h2>Student Link Pattern</h2>
-      <p>After GitHub Pages is enabled, the hub should follow this pattern:</p>
-      <pre><code>https://baltimoreteacher1.github.io/student-notebooks-site/</code></pre>
-      <p>Each assignment gets its own clean folder URL:</p>
-      <pre><code>https://baltimoreteacher1.github.io/student-notebooks-site/assignments/volume-rectangular-prisms/</code></pre>
-    </section>
-  </main>
+      <section class="info-card">
+        <h2>Student Link Pattern</h2>
+        <p>
+          After GitHub Pages is enabled, the hub should follow this pattern:
+        </p>
+        <pre><code>https://baltimoreteacher1.github.io/student-notebooks-site/</code></pre>
+        <p>Each assignment gets its own clean folder URL:</p>
+        <pre><code>https://baltimoreteacher1.github.io/student-notebooks-site/assignments/volume-rectangular-prisms/</code></pre>
+      </section>
+    </main>
 
-  <footer class="site-footer">
-    <p>Built for interactive, student-friendly assignments · GitHub Pages static deployment</p>
-  </footer>
+    <footer class="site-footer">
+      <p>
+        Built for interactive, student-friendly assignments · GitHub Pages
+        static deployment
+      </p>
+    </footer>
 
-  <script src="./assets/assignment-shell.js"></script>
-</body>
+    <script src="./assets/assignment-shell.js"></script>
+    <script>
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", function () {
+          navigator.serviceWorker.register("/sw.js").catch(function () {});
+        });
+      }
+    </script>
+  </body>
 </html>

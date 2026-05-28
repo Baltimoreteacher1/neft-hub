@@ -1174,6 +1174,1336 @@
         "reasoning",
         "review"
       ]
+    },
+    {
+      "title": "Blood On The River",
+      "slug": "blood-on-the-river",
+      "repo": "Baltimoreteacher1/neft-classroom-html-activities/blood-on-the-river",
+      "standard": "",
+      "category": "activity",
+      "group": "Other Activities",
+      "groupOrder": 999,
+      "audience": "Students",
+      "description": "interactive activity: Blood On The River (Other Activities).",
+      "tags": [
+        "Other Activities"
+      ]
+    },
+    {
+      "title": "Correlation Playground",
+      "slug": "correlation-playground",
+      "repo": "Baltimoreteacher1/neft-classroom-html-activities/correlation-playground",
+      "standard": "",
+      "category": "activity",
+      "group": "Other Activities",
+      "groupOrder": 999,
+      "audience": "Students",
+      "description": "interactive activity: Correlation Playground (Other Activities).",
+      "tags": [
+        "Other Activities"
+      ]
+    },
+    {
+      "title": "Dashboard",
+      "slug": "dashboard",
+      "repo": "Baltimoreteacher1/neft-classroom-html-activities/dashboard",
+      "standard": "",
+      "category": "activity",
+      "group": "Other Activities",
+      "groupOrder": 999,
+      "audience": "Students",
+      "description": "interactive activity: Dashboard (Other Activities).",
+      "tags": [
+        "Other Activities"
+      ]
+    },
+    {
+      "title": "Esol",
+      "slug": "esol",
+      "repo": "Baltimoreteacher1/neft-classroom-html-activities/esol",
+      "standard": "",
+      "category": "activity",
+      "group": "Other Activities",
+      "groupOrder": 999,
+      "audience": "Students",
+      "description": "interactive activity: Esol (Other Activities).",
+      "tags": [
+        "Other Activities"
+      ]
+    },
+    {
+      "title": "Esol Reading Writing",
+      "slug": "esol-reading-writing",
+      "repo": "Baltimoreteacher1/neft-classroom-html-activities/esol-reading-writing",
+      "standard": "",
+      "category": "activity",
+      "group": "Other Activities",
+      "groupOrder": 999,
+      "audience": "Students",
+      "description": "interactive activity: Esol Reading Writing (Other Activities).",
+      "tags": [
+        "Other Activities"
+      ]
+    },
+    {
+      "title": "Expressions Equations",
+      "slug": "expressions-equations",
+      "repo": "Baltimoreteacher1/neft-classroom-html-activities/expressions-equations",
+      "standard": "",
+      "category": "activity",
+      "group": "Unit 6 · Expressions",
+      "groupOrder": 160,
+      "audience": "Students",
+      "description": "interactive activity: Expressions Equations (Unit 6 · Expressions).",
+      "tags": [
+        "Unit 6 · Expressions"
+      ]
+    },
+    {
+      "title": "Fix It Design Challenge",
+      "slug": "fix-it-design-challenge",
+      "repo": "Baltimoreteacher1/neft-classroom-html-activities/fix-it-design-challenge",
+      "standard": "",
+      "category": "activity",
+      "group": "Other Activities",
+      "groupOrder": 999,
+      "audience": "Students",
+      "description": "interactive activity: Fix It Design Challenge (Other Activities).",
+      "tags": [
+        "Other Activities"
+      ]
+    },
+    {
+      "title": "Forecast Engine",
+      "slug": "forecast-engine",
+      "repo": "Baltimoreteacher1/neft-classroom-html-activities/forecast-engine",
+      "standard": "",
+      "category": "activity",
+      "group": "Other Activities",
+      "groupOrder": 999,
+      "audience": "Students",
+      "description": "interactive activity: Forecast Engine (Other Activities).",
+      "tags": [
+        "Other Activities"
+      ]
+    },
+    {
+      "title": "Fractions Soccer",
+      "slug": "fractions-soccer",
+      "repo": "Baltimoreteacher1/neft-classroom-html-activities/fractions-soccer",
+      "standard": "",
+      "category": "activity",
+      "group": "Unit 2 · Fractions and Division",
+      "groupOrder": 120,
+      "audience": "Students",
+      "description": "interactive activity: Fractions Soccer (Unit 2 · Fractions and Division).",
+      "tags": [
+        "Unit 2 · Fractions and Division"
+      ]
+    },
+    {
+      "title": "Geometry Prep",
+      "slug": "geometry-prep",
+      "repo": "Baltimoreteacher1/neft-classroom-html-activities/geometry-prep",
+      "standard": "",
+      "category": "activity",
+      "group": "Other Activities",
+      "groupOrder": 999,
+      "audience": "Students",
+      "description": "interactive activity: Geometry Prep (Other Activities).",
+      "tags": [
+        "Other Activities"
+      ]
+    },
+    {
+      "title": "1 1",
+      "slug": "lessons-1-1",
+      "repo": "Baltimoreteacher1/neft-classroom-html-activities/lessons/1-1",
+      "standard": "",
+      "category": "lesson",
+      "group": "Unit 1 · Ratios and Unit Rates",
+      "groupOrder": 110,
+      "audience": "Students",
+      "description": "interactive activity: 1 1 (Unit 1 · Ratios and Unit Rates).",
+      "tags": [
+        "Unit 1 · Ratios and Unit Rates"
+      ]
+    },
+    {
+      "title": "1 2",
+      "slug": "lessons-1-2",
+      "repo": "Baltimoreteacher1/neft-classroom-html-activities/lessons/1-2",
+      "standard": "",
+      "category": "lesson",
+      "group": "Unit 1 · Ratios and Unit Rates",
+      "groupOrder": 110,
+      "audience": "Students",
+      "description": "interactive activity: 1 2 (Unit 1 · Ratios and Unit Rates).",
+      "tags": [
+        "Unit 1 · Ratios and Unit Rates"
+      ]
+    },
+    {
+      "title": "1 3",
+      "slug": "lessons-1-3",
+      "repo": "Baltimoreteacher1/neft-classroom-html-activities/lessons/1-3",
+      "standard": "",
+      "category": "lesson",
+      "group": "Unit 1 · Ratios and Unit Rates",
+      "groupOrder": 110,
+      "audience": "Students",
+      "description": "interactive activity: 1 3 (Unit 1 · Ratios and Unit Rates).",
+      "tags": [
+        "Unit 1 · Ratios and Unit Rates"
+      ]
+    },
+    {
+      "title": "1 4",
+      "slug": "lessons-1-4",
+      "repo": "Baltimoreteacher1/neft-classroom-html-activities/lessons/1-4",
+      "standard": "",
+      "category": "lesson",
+      "group": "Unit 1 · Ratios and Unit Rates",
+      "groupOrder": 110,
+      "audience": "Students",
+      "description": "interactive activity: 1 4 (Unit 1 · Ratios and Unit Rates).",
+      "tags": [
+        "Unit 1 · Ratios and Unit Rates"
+      ]
+    },
+    {
+      "title": "1 5",
+      "slug": "lessons-1-5",
+      "repo": "Baltimoreteacher1/neft-classroom-html-activities/lessons/1-5",
+      "standard": "",
+      "category": "lesson",
+      "group": "Unit 1 · Ratios and Unit Rates",
+      "groupOrder": 110,
+      "audience": "Students",
+      "description": "interactive activity: 1 5 (Unit 1 · Ratios and Unit Rates).",
+      "tags": [
+        "Unit 1 · Ratios and Unit Rates"
+      ]
+    },
+    {
+      "title": "1 6",
+      "slug": "lessons-1-6",
+      "repo": "Baltimoreteacher1/neft-classroom-html-activities/lessons/1-6",
+      "standard": "",
+      "category": "lesson",
+      "group": "Unit 1 · Ratios and Unit Rates",
+      "groupOrder": 110,
+      "audience": "Students",
+      "description": "interactive activity: 1 6 (Unit 1 · Ratios and Unit Rates).",
+      "tags": [
+        "Unit 1 · Ratios and Unit Rates"
+      ]
+    },
+    {
+      "title": "1 7",
+      "slug": "lessons-1-7",
+      "repo": "Baltimoreteacher1/neft-classroom-html-activities/lessons/1-7",
+      "standard": "",
+      "category": "lesson",
+      "group": "Unit 1 · Ratios and Unit Rates",
+      "groupOrder": 110,
+      "audience": "Students",
+      "description": "interactive activity: 1 7 (Unit 1 · Ratios and Unit Rates).",
+      "tags": [
+        "Unit 1 · Ratios and Unit Rates"
+      ]
+    },
+    {
+      "title": "10 1",
+      "slug": "lessons-10-1",
+      "repo": "Baltimoreteacher1/neft-classroom-html-activities/lessons/10-1",
+      "standard": "",
+      "category": "lesson",
+      "group": "Unit 10 · End-of-Year Review",
+      "groupOrder": 200,
+      "audience": "Students",
+      "description": "interactive activity: 10 1 (Unit 10 · End-of-Year Review).",
+      "tags": [
+        "Unit 10 · End-of-Year Review"
+      ]
+    },
+    {
+      "title": "10 2",
+      "slug": "lessons-10-2",
+      "repo": "Baltimoreteacher1/neft-classroom-html-activities/lessons/10-2",
+      "standard": "",
+      "category": "lesson",
+      "group": "Unit 10 · End-of-Year Review",
+      "groupOrder": 200,
+      "audience": "Students",
+      "description": "interactive activity: 10 2 (Unit 10 · End-of-Year Review).",
+      "tags": [
+        "Unit 10 · End-of-Year Review"
+      ]
+    },
+    {
+      "title": "10 3",
+      "slug": "lessons-10-3",
+      "repo": "Baltimoreteacher1/neft-classroom-html-activities/lessons/10-3",
+      "standard": "",
+      "category": "lesson",
+      "group": "Unit 10 · End-of-Year Review",
+      "groupOrder": 200,
+      "audience": "Students",
+      "description": "interactive activity: 10 3 (Unit 10 · End-of-Year Review).",
+      "tags": [
+        "Unit 10 · End-of-Year Review"
+      ]
+    },
+    {
+      "title": "10 4",
+      "slug": "lessons-10-4",
+      "repo": "Baltimoreteacher1/neft-classroom-html-activities/lessons/10-4",
+      "standard": "",
+      "category": "lesson",
+      "group": "Unit 10 · End-of-Year Review",
+      "groupOrder": 200,
+      "audience": "Students",
+      "description": "interactive activity: 10 4 (Unit 10 · End-of-Year Review).",
+      "tags": [
+        "Unit 10 · End-of-Year Review"
+      ]
+    },
+    {
+      "title": "10 5",
+      "slug": "lessons-10-5",
+      "repo": "Baltimoreteacher1/neft-classroom-html-activities/lessons/10-5",
+      "standard": "",
+      "category": "lesson",
+      "group": "Unit 10 · End-of-Year Review",
+      "groupOrder": 200,
+      "audience": "Students",
+      "description": "interactive activity: 10 5 (Unit 10 · End-of-Year Review).",
+      "tags": [
+        "Unit 10 · End-of-Year Review"
+      ]
+    },
+    {
+      "title": "2 1",
+      "slug": "lessons-2-1",
+      "repo": "Baltimoreteacher1/neft-classroom-html-activities/lessons/2-1",
+      "standard": "",
+      "category": "lesson",
+      "group": "Unit 2 · Fractions and Division",
+      "groupOrder": 120,
+      "audience": "Students",
+      "description": "interactive activity: 2 1 (Unit 2 · Fractions and Division).",
+      "tags": [
+        "Unit 2 · Fractions and Division"
+      ]
+    },
+    {
+      "title": "2 2",
+      "slug": "lessons-2-2",
+      "repo": "Baltimoreteacher1/neft-classroom-html-activities/lessons/2-2",
+      "standard": "",
+      "category": "lesson",
+      "group": "Unit 2 · Fractions and Division",
+      "groupOrder": 120,
+      "audience": "Students",
+      "description": "interactive activity: 2 2 (Unit 2 · Fractions and Division).",
+      "tags": [
+        "Unit 2 · Fractions and Division"
+      ]
+    },
+    {
+      "title": "2 3",
+      "slug": "lessons-2-3",
+      "repo": "Baltimoreteacher1/neft-classroom-html-activities/lessons/2-3",
+      "standard": "",
+      "category": "lesson",
+      "group": "Unit 2 · Fractions and Division",
+      "groupOrder": 120,
+      "audience": "Students",
+      "description": "interactive activity: 2 3 (Unit 2 · Fractions and Division).",
+      "tags": [
+        "Unit 2 · Fractions and Division"
+      ]
+    },
+    {
+      "title": "2 4",
+      "slug": "lessons-2-4",
+      "repo": "Baltimoreteacher1/neft-classroom-html-activities/lessons/2-4",
+      "standard": "",
+      "category": "lesson",
+      "group": "Unit 2 · Fractions and Division",
+      "groupOrder": 120,
+      "audience": "Students",
+      "description": "interactive activity: 2 4 (Unit 2 · Fractions and Division).",
+      "tags": [
+        "Unit 2 · Fractions and Division"
+      ]
+    },
+    {
+      "title": "2 5",
+      "slug": "lessons-2-5",
+      "repo": "Baltimoreteacher1/neft-classroom-html-activities/lessons/2-5",
+      "standard": "",
+      "category": "lesson",
+      "group": "Unit 2 · Fractions and Division",
+      "groupOrder": 120,
+      "audience": "Students",
+      "description": "interactive activity: 2 5 (Unit 2 · Fractions and Division).",
+      "tags": [
+        "Unit 2 · Fractions and Division"
+      ]
+    },
+    {
+      "title": "3 1",
+      "slug": "lessons-3-1",
+      "repo": "Baltimoreteacher1/neft-classroom-html-activities/lessons/3-1",
+      "standard": "",
+      "category": "lesson",
+      "group": "Unit 3 · Rational Numbers",
+      "groupOrder": 130,
+      "audience": "Students",
+      "description": "interactive activity: 3 1 (Unit 3 · Rational Numbers).",
+      "tags": [
+        "Unit 3 · Rational Numbers"
+      ]
+    },
+    {
+      "title": "3 2",
+      "slug": "lessons-3-2",
+      "repo": "Baltimoreteacher1/neft-classroom-html-activities/lessons/3-2",
+      "standard": "",
+      "category": "lesson",
+      "group": "Unit 3 · Rational Numbers",
+      "groupOrder": 130,
+      "audience": "Students",
+      "description": "interactive activity: 3 2 (Unit 3 · Rational Numbers).",
+      "tags": [
+        "Unit 3 · Rational Numbers"
+      ]
+    },
+    {
+      "title": "3 3",
+      "slug": "lessons-3-3",
+      "repo": "Baltimoreteacher1/neft-classroom-html-activities/lessons/3-3",
+      "standard": "",
+      "category": "lesson",
+      "group": "Unit 3 · Rational Numbers",
+      "groupOrder": 130,
+      "audience": "Students",
+      "description": "interactive activity: 3 3 (Unit 3 · Rational Numbers).",
+      "tags": [
+        "Unit 3 · Rational Numbers"
+      ]
+    },
+    {
+      "title": "3 4",
+      "slug": "lessons-3-4",
+      "repo": "Baltimoreteacher1/neft-classroom-html-activities/lessons/3-4",
+      "standard": "",
+      "category": "lesson",
+      "group": "Unit 3 · Rational Numbers",
+      "groupOrder": 130,
+      "audience": "Students",
+      "description": "interactive activity: 3 4 (Unit 3 · Rational Numbers).",
+      "tags": [
+        "Unit 3 · Rational Numbers"
+      ]
+    },
+    {
+      "title": "3 5",
+      "slug": "lessons-3-5",
+      "repo": "Baltimoreteacher1/neft-classroom-html-activities/lessons/3-5",
+      "standard": "",
+      "category": "lesson",
+      "group": "Unit 3 · Rational Numbers",
+      "groupOrder": 130,
+      "audience": "Students",
+      "description": "interactive activity: 3 5 (Unit 3 · Rational Numbers).",
+      "tags": [
+        "Unit 3 · Rational Numbers"
+      ]
+    },
+    {
+      "title": "3 6",
+      "slug": "lessons-3-6",
+      "repo": "Baltimoreteacher1/neft-classroom-html-activities/lessons/3-6",
+      "standard": "",
+      "category": "lesson",
+      "group": "Unit 3 · Rational Numbers",
+      "groupOrder": 130,
+      "audience": "Students",
+      "description": "interactive activity: 3 6 (Unit 3 · Rational Numbers).",
+      "tags": [
+        "Unit 3 · Rational Numbers"
+      ]
+    },
+    {
+      "title": "3 7",
+      "slug": "lessons-3-7",
+      "repo": "Baltimoreteacher1/neft-classroom-html-activities/lessons/3-7",
+      "standard": "",
+      "category": "lesson",
+      "group": "Unit 3 · Rational Numbers",
+      "groupOrder": 130,
+      "audience": "Students",
+      "description": "interactive activity: 3 7 (Unit 3 · Rational Numbers).",
+      "tags": [
+        "Unit 3 · Rational Numbers"
+      ]
+    },
+    {
+      "title": "4 1",
+      "slug": "lessons-4-1",
+      "repo": "Baltimoreteacher1/neft-classroom-html-activities/lessons/4-1",
+      "standard": "",
+      "category": "lesson",
+      "group": "Unit 4 · Number System Operations",
+      "groupOrder": 140,
+      "audience": "Students",
+      "description": "interactive activity: 4 1 (Unit 4 · Number System Operations).",
+      "tags": [
+        "Unit 4 · Number System Operations"
+      ]
+    },
+    {
+      "title": "4 2",
+      "slug": "lessons-4-2",
+      "repo": "Baltimoreteacher1/neft-classroom-html-activities/lessons/4-2",
+      "standard": "",
+      "category": "lesson",
+      "group": "Unit 4 · Number System Operations",
+      "groupOrder": 140,
+      "audience": "Students",
+      "description": "interactive activity: 4 2 (Unit 4 · Number System Operations).",
+      "tags": [
+        "Unit 4 · Number System Operations"
+      ]
+    },
+    {
+      "title": "4 3",
+      "slug": "lessons-4-3",
+      "repo": "Baltimoreteacher1/neft-classroom-html-activities/lessons/4-3",
+      "standard": "",
+      "category": "lesson",
+      "group": "Unit 4 · Number System Operations",
+      "groupOrder": 140,
+      "audience": "Students",
+      "description": "interactive activity: 4 3 (Unit 4 · Number System Operations).",
+      "tags": [
+        "Unit 4 · Number System Operations"
+      ]
+    },
+    {
+      "title": "4 4",
+      "slug": "lessons-4-4",
+      "repo": "Baltimoreteacher1/neft-classroom-html-activities/lessons/4-4",
+      "standard": "",
+      "category": "lesson",
+      "group": "Unit 4 · Number System Operations",
+      "groupOrder": 140,
+      "audience": "Students",
+      "description": "interactive activity: 4 4 (Unit 4 · Number System Operations).",
+      "tags": [
+        "Unit 4 · Number System Operations"
+      ]
+    },
+    {
+      "title": "4 5",
+      "slug": "lessons-4-5",
+      "repo": "Baltimoreteacher1/neft-classroom-html-activities/lessons/4-5",
+      "standard": "",
+      "category": "lesson",
+      "group": "Unit 4 · Number System Operations",
+      "groupOrder": 140,
+      "audience": "Students",
+      "description": "interactive activity: 4 5 (Unit 4 · Number System Operations).",
+      "tags": [
+        "Unit 4 · Number System Operations"
+      ]
+    },
+    {
+      "title": "4 6",
+      "slug": "lessons-4-6",
+      "repo": "Baltimoreteacher1/neft-classroom-html-activities/lessons/4-6",
+      "standard": "",
+      "category": "lesson",
+      "group": "Unit 4 · Number System Operations",
+      "groupOrder": 140,
+      "audience": "Students",
+      "description": "interactive activity: 4 6 (Unit 4 · Number System Operations).",
+      "tags": [
+        "Unit 4 · Number System Operations"
+      ]
+    },
+    {
+      "title": "4 7",
+      "slug": "lessons-4-7",
+      "repo": "Baltimoreteacher1/neft-classroom-html-activities/lessons/4-7",
+      "standard": "",
+      "category": "lesson",
+      "group": "Unit 4 · Number System Operations",
+      "groupOrder": 140,
+      "audience": "Students",
+      "description": "interactive activity: 4 7 (Unit 4 · Number System Operations).",
+      "tags": [
+        "Unit 4 · Number System Operations"
+      ]
+    },
+    {
+      "title": "5 1",
+      "slug": "lessons-5-1",
+      "repo": "Baltimoreteacher1/neft-classroom-html-activities/lessons/5-1",
+      "standard": "",
+      "category": "lesson",
+      "group": "Unit 5 · Geometry and Measurement",
+      "groupOrder": 150,
+      "audience": "Students",
+      "description": "interactive activity: 5 1 (Unit 5 · Geometry and Measurement).",
+      "tags": [
+        "Unit 5 · Geometry and Measurement"
+      ]
+    },
+    {
+      "title": "5 2",
+      "slug": "lessons-5-2",
+      "repo": "Baltimoreteacher1/neft-classroom-html-activities/lessons/5-2",
+      "standard": "",
+      "category": "lesson",
+      "group": "Unit 5 · Geometry and Measurement",
+      "groupOrder": 150,
+      "audience": "Students",
+      "description": "interactive activity: 5 2 (Unit 5 · Geometry and Measurement).",
+      "tags": [
+        "Unit 5 · Geometry and Measurement"
+      ]
+    },
+    {
+      "title": "5 3",
+      "slug": "lessons-5-3",
+      "repo": "Baltimoreteacher1/neft-classroom-html-activities/lessons/5-3",
+      "standard": "",
+      "category": "lesson",
+      "group": "Unit 5 · Geometry and Measurement",
+      "groupOrder": 150,
+      "audience": "Students",
+      "description": "interactive activity: 5 3 (Unit 5 · Geometry and Measurement).",
+      "tags": [
+        "Unit 5 · Geometry and Measurement"
+      ]
+    },
+    {
+      "title": "5 4",
+      "slug": "lessons-5-4",
+      "repo": "Baltimoreteacher1/neft-classroom-html-activities/lessons/5-4",
+      "standard": "",
+      "category": "lesson",
+      "group": "Unit 5 · Geometry and Measurement",
+      "groupOrder": 150,
+      "audience": "Students",
+      "description": "interactive activity: 5 4 (Unit 5 · Geometry and Measurement).",
+      "tags": [
+        "Unit 5 · Geometry and Measurement"
+      ]
+    },
+    {
+      "title": "5 5",
+      "slug": "lessons-5-5",
+      "repo": "Baltimoreteacher1/neft-classroom-html-activities/lessons/5-5",
+      "standard": "",
+      "category": "lesson",
+      "group": "Unit 5 · Geometry and Measurement",
+      "groupOrder": 150,
+      "audience": "Students",
+      "description": "interactive activity: 5 5 (Unit 5 · Geometry and Measurement).",
+      "tags": [
+        "Unit 5 · Geometry and Measurement"
+      ]
+    },
+    {
+      "title": "6 1",
+      "slug": "lessons-6-1",
+      "repo": "Baltimoreteacher1/neft-classroom-html-activities/lessons/6-1",
+      "standard": "",
+      "category": "lesson",
+      "group": "Unit 6 · Expressions",
+      "groupOrder": 160,
+      "audience": "Students",
+      "description": "interactive activity: 6 1 (Unit 6 · Expressions).",
+      "tags": [
+        "Unit 6 · Expressions"
+      ]
+    },
+    {
+      "title": "6 2",
+      "slug": "lessons-6-2",
+      "repo": "Baltimoreteacher1/neft-classroom-html-activities/lessons/6-2",
+      "standard": "",
+      "category": "lesson",
+      "group": "Unit 6 · Expressions",
+      "groupOrder": 160,
+      "audience": "Students",
+      "description": "interactive activity: 6 2 (Unit 6 · Expressions).",
+      "tags": [
+        "Unit 6 · Expressions"
+      ]
+    },
+    {
+      "title": "6 3",
+      "slug": "lessons-6-3",
+      "repo": "Baltimoreteacher1/neft-classroom-html-activities/lessons/6-3",
+      "standard": "",
+      "category": "lesson",
+      "group": "Unit 6 · Expressions",
+      "groupOrder": 160,
+      "audience": "Students",
+      "description": "interactive activity: 6 3 (Unit 6 · Expressions).",
+      "tags": [
+        "Unit 6 · Expressions"
+      ]
+    },
+    {
+      "title": "6 4",
+      "slug": "lessons-6-4",
+      "repo": "Baltimoreteacher1/neft-classroom-html-activities/lessons/6-4",
+      "standard": "",
+      "category": "lesson",
+      "group": "Unit 6 · Expressions",
+      "groupOrder": 160,
+      "audience": "Students",
+      "description": "interactive activity: 6 4 (Unit 6 · Expressions).",
+      "tags": [
+        "Unit 6 · Expressions"
+      ]
+    },
+    {
+      "title": "6 5",
+      "slug": "lessons-6-5",
+      "repo": "Baltimoreteacher1/neft-classroom-html-activities/lessons/6-5",
+      "standard": "",
+      "category": "lesson",
+      "group": "Unit 6 · Expressions",
+      "groupOrder": 160,
+      "audience": "Students",
+      "description": "interactive activity: 6 5 (Unit 6 · Expressions).",
+      "tags": [
+        "Unit 6 · Expressions"
+      ]
+    },
+    {
+      "title": "6 6",
+      "slug": "lessons-6-6",
+      "repo": "Baltimoreteacher1/neft-classroom-html-activities/lessons/6-6",
+      "standard": "",
+      "category": "lesson",
+      "group": "Unit 6 · Expressions",
+      "groupOrder": 160,
+      "audience": "Students",
+      "description": "interactive activity: 6 6 (Unit 6 · Expressions).",
+      "tags": [
+        "Unit 6 · Expressions"
+      ]
+    },
+    {
+      "title": "6 7",
+      "slug": "lessons-6-7",
+      "repo": "Baltimoreteacher1/neft-classroom-html-activities/lessons/6-7",
+      "standard": "",
+      "category": "lesson",
+      "group": "Unit 6 · Expressions",
+      "groupOrder": 160,
+      "audience": "Students",
+      "description": "interactive activity: 6 7 (Unit 6 · Expressions).",
+      "tags": [
+        "Unit 6 · Expressions"
+      ]
+    },
+    {
+      "title": "7 1",
+      "slug": "lessons-7-1",
+      "repo": "Baltimoreteacher1/neft-classroom-html-activities/lessons/7-1",
+      "standard": "",
+      "category": "lesson",
+      "group": "Unit 7 · Integers",
+      "groupOrder": 170,
+      "audience": "Students",
+      "description": "interactive activity: 7 1 (Unit 7 · Integers).",
+      "tags": [
+        "Unit 7 · Integers"
+      ]
+    },
+    {
+      "title": "7 2",
+      "slug": "lessons-7-2",
+      "repo": "Baltimoreteacher1/neft-classroom-html-activities/lessons/7-2",
+      "standard": "",
+      "category": "lesson",
+      "group": "Unit 7 · Integers",
+      "groupOrder": 170,
+      "audience": "Students",
+      "description": "interactive activity: 7 2 (Unit 7 · Integers).",
+      "tags": [
+        "Unit 7 · Integers"
+      ]
+    },
+    {
+      "title": "7 3",
+      "slug": "lessons-7-3",
+      "repo": "Baltimoreteacher1/neft-classroom-html-activities/lessons/7-3",
+      "standard": "",
+      "category": "lesson",
+      "group": "Unit 7 · Integers",
+      "groupOrder": 170,
+      "audience": "Students",
+      "description": "interactive activity: 7 3 (Unit 7 · Integers).",
+      "tags": [
+        "Unit 7 · Integers"
+      ]
+    },
+    {
+      "title": "7 4",
+      "slug": "lessons-7-4",
+      "repo": "Baltimoreteacher1/neft-classroom-html-activities/lessons/7-4",
+      "standard": "",
+      "category": "lesson",
+      "group": "Unit 7 · Integers",
+      "groupOrder": 170,
+      "audience": "Students",
+      "description": "interactive activity: 7 4 (Unit 7 · Integers).",
+      "tags": [
+        "Unit 7 · Integers"
+      ]
+    },
+    {
+      "title": "7 5",
+      "slug": "lessons-7-5",
+      "repo": "Baltimoreteacher1/neft-classroom-html-activities/lessons/7-5",
+      "standard": "",
+      "category": "lesson",
+      "group": "Unit 7 · Integers",
+      "groupOrder": 170,
+      "audience": "Students",
+      "description": "interactive activity: 7 5 (Unit 7 · Integers).",
+      "tags": [
+        "Unit 7 · Integers"
+      ]
+    },
+    {
+      "title": "7 6",
+      "slug": "lessons-7-6",
+      "repo": "Baltimoreteacher1/neft-classroom-html-activities/lessons/7-6",
+      "standard": "",
+      "category": "lesson",
+      "group": "Unit 7 · Integers",
+      "groupOrder": 170,
+      "audience": "Students",
+      "description": "interactive activity: 7 6 (Unit 7 · Integers).",
+      "tags": [
+        "Unit 7 · Integers"
+      ]
+    },
+    {
+      "title": "7 7",
+      "slug": "lessons-7-7",
+      "repo": "Baltimoreteacher1/neft-classroom-html-activities/lessons/7-7",
+      "standard": "",
+      "category": "lesson",
+      "group": "Unit 7 · Integers",
+      "groupOrder": 170,
+      "audience": "Students",
+      "description": "interactive activity: 7 7 (Unit 7 · Integers).",
+      "tags": [
+        "Unit 7 · Integers"
+      ]
+    },
+    {
+      "title": "8 1",
+      "slug": "lessons-8-1",
+      "repo": "Baltimoreteacher1/neft-classroom-html-activities/lessons/8-1",
+      "standard": "",
+      "category": "lesson",
+      "group": "Unit 8 · Statistics",
+      "groupOrder": 180,
+      "audience": "Students",
+      "description": "interactive activity: 8 1 (Unit 8 · Statistics).",
+      "tags": [
+        "Unit 8 · Statistics"
+      ]
+    },
+    {
+      "title": "8 2",
+      "slug": "lessons-8-2",
+      "repo": "Baltimoreteacher1/neft-classroom-html-activities/lessons/8-2",
+      "standard": "",
+      "category": "lesson",
+      "group": "Unit 8 · Statistics",
+      "groupOrder": 180,
+      "audience": "Students",
+      "description": "interactive activity: 8 2 (Unit 8 · Statistics).",
+      "tags": [
+        "Unit 8 · Statistics"
+      ]
+    },
+    {
+      "title": "8 3",
+      "slug": "lessons-8-3",
+      "repo": "Baltimoreteacher1/neft-classroom-html-activities/lessons/8-3",
+      "standard": "",
+      "category": "lesson",
+      "group": "Unit 8 · Statistics",
+      "groupOrder": 180,
+      "audience": "Students",
+      "description": "interactive activity: 8 3 (Unit 8 · Statistics).",
+      "tags": [
+        "Unit 8 · Statistics"
+      ]
+    },
+    {
+      "title": "8 4",
+      "slug": "lessons-8-4",
+      "repo": "Baltimoreteacher1/neft-classroom-html-activities/lessons/8-4",
+      "standard": "",
+      "category": "lesson",
+      "group": "Unit 8 · Statistics",
+      "groupOrder": 180,
+      "audience": "Students",
+      "description": "interactive activity: 8 4 (Unit 8 · Statistics).",
+      "tags": [
+        "Unit 8 · Statistics"
+      ]
+    },
+    {
+      "title": "8 5",
+      "slug": "lessons-8-5",
+      "repo": "Baltimoreteacher1/neft-classroom-html-activities/lessons/8-5",
+      "standard": "",
+      "category": "lesson",
+      "group": "Unit 8 · Statistics",
+      "groupOrder": 180,
+      "audience": "Students",
+      "description": "interactive activity: 8 5 (Unit 8 · Statistics).",
+      "tags": [
+        "Unit 8 · Statistics"
+      ]
+    },
+    {
+      "title": "8 6",
+      "slug": "lessons-8-6",
+      "repo": "Baltimoreteacher1/neft-classroom-html-activities/lessons/8-6",
+      "standard": "",
+      "category": "lesson",
+      "group": "Unit 8 · Statistics",
+      "groupOrder": 180,
+      "audience": "Students",
+      "description": "interactive activity: 8 6 (Unit 8 · Statistics).",
+      "tags": [
+        "Unit 8 · Statistics"
+      ]
+    },
+    {
+      "title": "8 7",
+      "slug": "lessons-8-7",
+      "repo": "Baltimoreteacher1/neft-classroom-html-activities/lessons/8-7",
+      "standard": "",
+      "category": "lesson",
+      "group": "Unit 8 · Statistics",
+      "groupOrder": 180,
+      "audience": "Students",
+      "description": "interactive activity: 8 7 (Unit 8 · Statistics).",
+      "tags": [
+        "Unit 8 · Statistics"
+      ]
+    },
+    {
+      "title": "9 1",
+      "slug": "lessons-9-1",
+      "repo": "Baltimoreteacher1/neft-classroom-html-activities/lessons/9-1",
+      "standard": "",
+      "category": "lesson",
+      "group": "Unit 9 · Variables and Relationships",
+      "groupOrder": 190,
+      "audience": "Students",
+      "description": "interactive activity: 9 1 (Unit 9 · Variables and Relationships).",
+      "tags": [
+        "Unit 9 · Variables and Relationships"
+      ]
+    },
+    {
+      "title": "9 2",
+      "slug": "lessons-9-2",
+      "repo": "Baltimoreteacher1/neft-classroom-html-activities/lessons/9-2",
+      "standard": "",
+      "category": "lesson",
+      "group": "Unit 9 · Variables and Relationships",
+      "groupOrder": 190,
+      "audience": "Students",
+      "description": "interactive activity: 9 2 (Unit 9 · Variables and Relationships).",
+      "tags": [
+        "Unit 9 · Variables and Relationships"
+      ]
+    },
+    {
+      "title": "9 3",
+      "slug": "lessons-9-3",
+      "repo": "Baltimoreteacher1/neft-classroom-html-activities/lessons/9-3",
+      "standard": "",
+      "category": "lesson",
+      "group": "Unit 9 · Variables and Relationships",
+      "groupOrder": 190,
+      "audience": "Students",
+      "description": "interactive activity: 9 3 (Unit 9 · Variables and Relationships).",
+      "tags": [
+        "Unit 9 · Variables and Relationships"
+      ]
+    },
+    {
+      "title": "9 4",
+      "slug": "lessons-9-4",
+      "repo": "Baltimoreteacher1/neft-classroom-html-activities/lessons/9-4",
+      "standard": "",
+      "category": "lesson",
+      "group": "Unit 9 · Variables and Relationships",
+      "groupOrder": 190,
+      "audience": "Students",
+      "description": "interactive activity: 9 4 (Unit 9 · Variables and Relationships).",
+      "tags": [
+        "Unit 9 · Variables and Relationships"
+      ]
+    },
+    {
+      "title": "9 5",
+      "slug": "lessons-9-5",
+      "repo": "Baltimoreteacher1/neft-classroom-html-activities/lessons/9-5",
+      "standard": "",
+      "category": "lesson",
+      "group": "Unit 9 · Variables and Relationships",
+      "groupOrder": 190,
+      "audience": "Students",
+      "description": "interactive activity: 9 5 (Unit 9 · Variables and Relationships).",
+      "tags": [
+        "Unit 9 · Variables and Relationships"
+      ]
+    },
+    {
+      "title": "9 6",
+      "slug": "lessons-9-6",
+      "repo": "Baltimoreteacher1/neft-classroom-html-activities/lessons/9-6",
+      "standard": "",
+      "category": "lesson",
+      "group": "Unit 9 · Variables and Relationships",
+      "groupOrder": 190,
+      "audience": "Students",
+      "description": "interactive activity: 9 6 (Unit 9 · Variables and Relationships).",
+      "tags": [
+        "Unit 9 · Variables and Relationships"
+      ]
+    },
+    {
+      "title": "9 7",
+      "slug": "lessons-9-7",
+      "repo": "Baltimoreteacher1/neft-classroom-html-activities/lessons/9-7",
+      "standard": "",
+      "category": "lesson",
+      "group": "Unit 9 · Variables and Relationships",
+      "groupOrder": 190,
+      "audience": "Students",
+      "description": "interactive activity: 9 7 (Unit 9 · Variables and Relationships).",
+      "tags": [
+        "Unit 9 · Variables and Relationships"
+      ]
+    },
+    {
+      "title": "Template",
+      "slug": "lessons-template",
+      "repo": "Baltimoreteacher1/neft-classroom-html-activities/lessons/_template",
+      "standard": "",
+      "category": "lesson",
+      "group": "Other Activities",
+      "groupOrder": 999,
+      "audience": "Students",
+      "description": "interactive activity: Template (Other Activities).",
+      "tags": [
+        "Other Activities"
+      ]
+    },
+    {
+      "title": "Math",
+      "slug": "math",
+      "repo": "Baltimoreteacher1/neft-classroom-html-activities/math",
+      "standard": "",
+      "category": "activity",
+      "group": "Other Activities",
+      "groupOrder": 999,
+      "audience": "Students",
+      "description": "interactive activity: Math (Other Activities).",
+      "tags": [
+        "Other Activities"
+      ]
+    },
+    {
+      "title": "Math Lab Missions",
+      "slug": "math-lab-missions",
+      "repo": "Baltimoreteacher1/neft-classroom-html-activities/math-lab-missions",
+      "standard": "",
+      "category": "activity",
+      "group": "Cross-Unit · Math Lab Missions",
+      "groupOrder": 210,
+      "audience": "Students",
+      "description": "interactive activity: Math Lab Missions (Cross-Unit · Math Lab Missions).",
+      "tags": [
+        "Cross-Unit · Math Lab Missions"
+      ]
+    },
+    {
+      "title": "Mcap Review",
+      "slug": "mcap-review",
+      "repo": "Baltimoreteacher1/neft-classroom-html-activities/mcap-review",
+      "standard": "",
+      "category": "activity",
+      "group": "Other Activities",
+      "groupOrder": 999,
+      "audience": "Students",
+      "description": "interactive activity: Mcap Review (Other Activities).",
+      "tags": [
+        "Other Activities"
+      ]
+    },
+    {
+      "title": "Misconception Museum",
+      "slug": "misconception-museum",
+      "repo": "Baltimoreteacher1/neft-classroom-html-activities/misconception-museum",
+      "standard": "",
+      "category": "activity",
+      "group": "Other Activities",
+      "groupOrder": 999,
+      "audience": "Students",
+      "description": "interactive activity: Misconception Museum (Other Activities).",
+      "tags": [
+        "Other Activities"
+      ]
+    },
+    {
+      "title": "Neft Data Studio",
+      "slug": "neft-data-studio",
+      "repo": "Baltimoreteacher1/neft-classroom-html-activities/neft-data-studio",
+      "standard": "",
+      "category": "activity",
+      "group": "Other Activities",
+      "groupOrder": 999,
+      "audience": "Students",
+      "description": "interactive activity: Neft Data Studio (Other Activities).",
+      "tags": [
+        "Other Activities"
+      ]
+    },
+    {
+      "title": "Number System",
+      "slug": "number-system",
+      "repo": "Baltimoreteacher1/neft-classroom-html-activities/number-system",
+      "standard": "",
+      "category": "activity",
+      "group": "Unit 4 · Number System Operations",
+      "groupOrder": 140,
+      "audience": "Students",
+      "description": "interactive activity: Number System (Unit 4 · Number System Operations).",
+      "tags": [
+        "Unit 4 · Number System Operations"
+      ]
+    },
+    {
+      "title": "Practice Engine",
+      "slug": "practice-engine",
+      "repo": "Baltimoreteacher1/neft-classroom-html-activities/practice-engine",
+      "standard": "",
+      "category": "activity",
+      "group": "Other Activities",
+      "groupOrder": 999,
+      "audience": "Students",
+      "description": "interactive activity: Practice Engine (Other Activities).",
+      "tags": [
+        "Other Activities"
+      ]
+    },
+    {
+      "title": "Ratios Proportions",
+      "slug": "ratios-proportions",
+      "repo": "Baltimoreteacher1/neft-classroom-html-activities/ratios-proportions",
+      "standard": "",
+      "category": "activity",
+      "group": "Unit 3 · Rational Numbers",
+      "groupOrder": 130,
+      "audience": "Students",
+      "description": "interactive activity: Ratios Proportions (Unit 3 · Rational Numbers).",
+      "tags": [
+        "Unit 3 · Rational Numbers"
+      ]
+    },
+    {
+      "title": "Refugee",
+      "slug": "refugee",
+      "repo": "Baltimoreteacher1/neft-classroom-html-activities/refugee",
+      "standard": "",
+      "category": "activity",
+      "group": "Other Activities",
+      "groupOrder": 999,
+      "audience": "Students",
+      "description": "interactive activity: Refugee (Other Activities).",
+      "tags": [
+        "Other Activities"
+      ]
+    },
+    {
+      "title": "Reveal Evidence Studio",
+      "slug": "reveal-evidence-studio",
+      "repo": "Baltimoreteacher1/neft-classroom-html-activities/reveal-evidence-studio",
+      "standard": "",
+      "category": "activity",
+      "group": "Other Activities",
+      "groupOrder": 999,
+      "audience": "Students",
+      "description": "interactive activity: Reveal Evidence Studio (Other Activities).",
+      "tags": [
+        "Other Activities"
+      ]
+    },
+    {
+      "title": "Statistics Data",
+      "slug": "statistics-data",
+      "repo": "Baltimoreteacher1/neft-classroom-html-activities/statistics-data",
+      "standard": "",
+      "category": "activity",
+      "group": "Unit 8 · Statistics",
+      "groupOrder": 180,
+      "audience": "Students",
+      "description": "interactive activity: Statistics Data (Unit 8 · Statistics).",
+      "tags": [
+        "Unit 8 · Statistics"
+      ]
+    },
+    {
+      "title": "Surface Area Review",
+      "slug": "surface-area-review",
+      "repo": "Baltimoreteacher1/neft-classroom-html-activities/surface-area-review",
+      "standard": "",
+      "category": "activity",
+      "group": "Other Activities",
+      "groupOrder": 999,
+      "audience": "Students",
+      "description": "interactive activity: Surface Area Review (Other Activities).",
+      "tags": [
+        "Other Activities"
+      ]
+    },
+    {
+      "title": "Teacher Data Dashboard",
+      "slug": "teacher-data-dashboard",
+      "repo": "Baltimoreteacher1/neft-classroom-html-activities/teacher-data-dashboard",
+      "standard": "",
+      "category": "activity",
+      "group": "Other Activities",
+      "groupOrder": 999,
+      "audience": "Students",
+      "description": "interactive activity: Teacher Data Dashboard (Other Activities).",
+      "tags": [
+        "Other Activities"
+      ]
+    },
+    {
+      "title": "Teacher Tools",
+      "slug": "teacher-tools",
+      "repo": "Baltimoreteacher1/neft-classroom-html-activities/teacher-tools",
+      "standard": "",
+      "category": "activity",
+      "group": "Other Activities",
+      "groupOrder": 999,
+      "audience": "Students",
+      "description": "interactive activity: Teacher Tools (Other Activities).",
+      "tags": [
+        "Other Activities"
+      ]
+    },
+    {
+      "title": "Unit 1",
+      "slug": "unit-1",
+      "repo": "Baltimoreteacher1/neft-classroom-html-activities/unit-1",
+      "standard": "",
+      "category": "activity",
+      "group": "Other Activities",
+      "groupOrder": 999,
+      "audience": "Students",
+      "description": "interactive activity: Unit 1 (Other Activities).",
+      "tags": [
+        "Other Activities"
+      ]
+    },
+    {
+      "title": "Unit 4",
+      "slug": "unit-4",
+      "repo": "Baltimoreteacher1/neft-classroom-html-activities/unit-4",
+      "standard": "",
+      "category": "activity",
+      "group": "Other Activities",
+      "groupOrder": 999,
+      "audience": "Students",
+      "description": "interactive activity: Unit 4 (Other Activities).",
+      "tags": [
+        "Other Activities"
+      ]
+    },
+    {
+      "title": "Unit 5",
+      "slug": "unit-5",
+      "repo": "Baltimoreteacher1/neft-classroom-html-activities/unit-5",
+      "standard": "",
+      "category": "activity",
+      "group": "Other Activities",
+      "groupOrder": 999,
+      "audience": "Students",
+      "description": "interactive activity: Unit 5 (Other Activities).",
+      "tags": [
+        "Other Activities"
+      ]
+    },
+    {
+      "title": "Unit 5 Practice",
+      "slug": "unit-5-practice",
+      "repo": "Baltimoreteacher1/neft-classroom-html-activities/unit-5-practice",
+      "standard": "",
+      "category": "activity",
+      "group": "Other Activities",
+      "groupOrder": 999,
+      "audience": "Students",
+      "description": "interactive activity: Unit 5 Practice (Other Activities).",
+      "tags": [
+        "Other Activities"
+      ]
+    },
+    {
+      "title": "Wida Access",
+      "slug": "wida-access",
+      "repo": "Baltimoreteacher1/neft-classroom-html-activities/wida-access",
+      "standard": "",
+      "category": "activity",
+      "group": "Other Activities",
+      "groupOrder": 999,
+      "audience": "Students",
+      "description": "interactive activity: Wida Access (Other Activities).",
+      "tags": [
+        "Other Activities"
+      ]
+    },
+    {
+      "title": "World Architect Math Project",
+      "slug": "world-architect-math-project",
+      "repo": "Baltimoreteacher1/neft-classroom-html-activities/world-architect-math-project",
+      "standard": "",
+      "category": "activity",
+      "group": "Other Activities",
+      "groupOrder": 999,
+      "audience": "Students",
+      "description": "interactive activity: World Architect Math Project (Other Activities).",
+      "tags": [
+        "Other Activities"
+      ]
     }
   ]
 }

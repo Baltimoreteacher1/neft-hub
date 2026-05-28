@@ -7,6 +7,7 @@
   "scripts": {
     "build": "node scripts/build-cloudflare-hub.mjs && node scripts/post-build-crusades.mjs",
     "check": "node scripts/build-cloudflare-hub.mjs --check",
+    "sync-registry": "node scripts/sync-registry.mjs",
     "preview": "npx wrangler pages dev dist"
   },
   "engines": {
